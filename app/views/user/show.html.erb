@@ -1,0 +1,30 @@
+<h1><%= @current_user.name %></h1>
+<div class="known_languages">
+	<%= @known_languages.any? ?
+		'<div class="languages_list_title">Knows</div>'.html_safe :
+		'<div class="empty_languages_list_title">Knows</div>'.html_safe %>
+	<% if @known_languages.any? %>
+			<ul>
+				<% @known_languages.each do |known_language| %>
+					<li><%= known_language.name %></li>
+				<% end %>
+			</ul>
+	<% else %>
+		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
+	<% end %>
+</div>
+	<br>
+<div class="learning_languages">
+	<%= @learning_languages.any? ?
+		'<div class="languages_list_title">Learns</div>'.html_safe :
+		'<div class="empty_languages_list_title">Learns</div>'.html_safe %>
+	<% if @learning_languages.any? %>
+			<ul>
+				<% @known_languages.each do |known_language| %>
+					<li><%= known_language.name %></li>
+				<% end %>
+			</ul>
+	<% else %>
+		<%= link_to "What language(s) are you learning?", 			edit_user_registration_path %>
+	<% end %>
+</div>
