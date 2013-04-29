@@ -3,4 +3,6 @@ class Learning < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :language
+
+  validates :user, :language, :presence => true
 end

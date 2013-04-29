@@ -1,0 +1,4 @@
+<h1><%= @note.title %></h1>
+author: <%= link_to @note.author.name, user_url(@note.author) %>
+
+<%= @note.body %>
