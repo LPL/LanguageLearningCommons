@@ -5,7 +5,6 @@ class BuddyshipsController < ApplicationController
   end
 
   def destroy
-    debugger
     current_user.unbuddy(User.find(params[:id]))
     redirect_to "/users/#{params[:id]}"
   end

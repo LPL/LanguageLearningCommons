@@ -6,5 +6,6 @@ class Revision < ActiveRecord::Base
   belongs_to :note_author, :through => :note, :source => :author
 
   validates :note, :revisor, :presence => true
-  validates_uniqueness_of :note, :scope => :revisor
+  # validates_uniqueness_of :note, :scope => :revisor
+  # I don't trust v_u_o...
 end
