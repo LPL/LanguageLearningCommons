@@ -2,3 +2,7 @@ By <%= link_to @note.author.name, user_url(@note.author) %>
 in <%= link_to @note.language.name, language_url(@note.language) %>
 <h1><%= @note.title %></h1>
 <%= @note.body %>
+<br>
+<% if current_user.known_languages.include?(@note.language) %>
+  <%= link_to "Revise", new_revision_url(@note) %>
+<% end %>

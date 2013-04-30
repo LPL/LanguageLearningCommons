@@ -57,7 +57,7 @@
   					<%= link_to note.title, note_url(note) %>
             <br>
   				<% end %>
-          <%= link_to "New note", new_note_url(@user) %>
+          <%= link_to "New note", new_note_url(@user) if @own_profile%>
   			</ul>
   	<% else %>
   		To write a note, first <%= link_to "tell us what language(s) you're

@@ -13,4 +13,5 @@ TongueTrader::Application.routes.draw do
 
   resources :languages, :only => [:show, :index]
   resources :buddyships, :only => [:create, :destroy]
+  resources :revisions, :only => [:new, :create]
 end

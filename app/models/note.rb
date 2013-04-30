@@ -3,6 +3,8 @@ class Note < ActiveRecord::Base
 
   belongs_to :author, :class_name => 'User'
   belongs_to :language
+  has_many :revisions
 
   validates :author, :title, :body, :presence => true
+  validates_uniqueness_of :title, :scope => :author
 end
