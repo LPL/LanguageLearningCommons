@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20130430041244) do
   end
 
   create_table "revisions", :force => true do |t|
+    t.text     "commentary"
     t.integer  "note_id"
     t.integer  "revisor_id"
     t.datetime "created_at", :null => false

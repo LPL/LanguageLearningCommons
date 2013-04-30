@@ -1,0 +1,3 @@
+<h1><%= @revision.note.title %> by <%= link_to @revision.note_author.name, user_url(@revision.note_author) %></h1>
+<h2>Revised by <%= link_to @revision.revisor.name, user_url(@revision.revisor) %></h2>
+<%= @revision.commentary %>

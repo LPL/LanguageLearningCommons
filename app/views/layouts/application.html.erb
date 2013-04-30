@@ -11,13 +11,15 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
   </div>
-  <div class="topbar">
-    <%= link_to current_user.name, user_url(current_user) if user_signed_in?%>
-    <%= link_to "Sign out", destroy_user_session_url,
-      :method => :delete if user_signed_in?%>
+
+  <div class="container">
+    <div class="topbar">
+      <%= link_to current_user.name, user_url(current_user) if user_signed_in?%>
+      <%= link_to "Sign out", destroy_user_session_url,
+        :method => :delete if user_signed_in?%>
+    </div>
+
+    <%= yield %>
   </div>
-
-<%= yield %>
-
 </body>
 </html>

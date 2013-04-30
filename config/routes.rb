@@ -5,13 +5,16 @@ TongueTrader::Application.routes.draw do
   devise_for :users
   resources :users do
     member do
-      resources :notes, :only => [:new, :create, :show, :index]
       resources :knowings, :only => [:show]
       resources :learnings, :only => [:show]
+      resources :notes, :only => [:new, :create, :show, :index] do
+        member do
+          resources :revisions, :only => [:new, :create, :show]
+        end
+      end
     end
   end
 
   resources :languages, :only => [:show, :index]
   resources :buddyships, :only => [:create, :destroy]
-  resources :revisions, :only => [:new, :create]
 end

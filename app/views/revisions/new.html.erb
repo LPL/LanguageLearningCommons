@@ -1,0 +1,8 @@
+<h1>Revising <%= link_to @note.title, note_url(@note) %>
+  by <%= link_to @note.author.name, user_url(@note.author) %></h1>
+<%= form_for @revision do |f| %>
+  <%= hidden_field_tag "revision[revisor_id]", current_user.id %>
+  <%= hidden_field_tag "revision[note_id]", @note.id %>
+  <%= f.text_area :commentary %>
+<%= f.submit "Publish" %>
+<% end %>
