@@ -7,5 +7,7 @@ class Language < ActiveRecord::Base
 	has_many :knowers, :through => :knowings, :source => :user
 	has_many :learners, :through => :learnings, :source => :user
 
+  has_many :notes
+
   validates :name, :presence => true
 end

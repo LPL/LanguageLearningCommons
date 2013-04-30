@@ -1,0 +1,42 @@
+<h1><%= @current_user.name %></h1>
+<div class="known_languages_list">
+	Knows
+	<% if @knowings.any? %>
+	  <% @knowings.map do |knowing| %>
+			<%= link_to knowing.language.name, knowing_url(knowing) %>
+		<% end.join(", ").html_safe %>
+	<% else %>
+		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
+	<% end %>
+</div>
+<br>
+<div class="learning_languages_list">
+	Learns
+	<% if @learnings.any? %>
+				<%= @learnings.map do |learning| %>
+					<% link_to learning.language.name, learning_url(learning) %>
+				<% end.join(", ").html_safe %>
+	<% else %>
+		<%= link_to "What language(s) are you learning?", 			edit_user_registration_path %>
+	<% end %>
+</div>
+<br>
+<div class="recent_notes_list">
+  <!-- currently ALL notes -->
+  	<%= @notes.any? ?
+  		'<div class="list_title">Recent Notes</div>'.html_safe :
+  		'<div class="empty_list_title">Recent Notes</div>'.html_safe %>
+    <%= link_to "See all", notes_url(@current_user) %>
+  	<% if @learnings.any? %>
+  			<ul>
+  				<% @notes.each do |note| %>
+  					<%= link_to note.title, note_url(note) %>
+            <br>
+  				<% end %>
+          <%= link_to "New note", new_note_url(@current_user) %>
+  			</ul>
+  	<% else %>
+  		To write a note, first <%= link_to "tell us what language(s) you're
+        learning", edit_user_registration_path %>
+  	<% end %>
+</div>

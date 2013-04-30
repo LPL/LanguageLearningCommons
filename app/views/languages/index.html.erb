@@ -1,0 +1,5 @@
+<h1>Languages</h1>
+<% @languages.each do |language| %>
+  <%= link_to language.name, language_url(language) %>
+  <br>
+<% end %>

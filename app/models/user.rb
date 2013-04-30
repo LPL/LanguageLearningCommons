@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
 
   has_many :buddy_roles, :class_name => 'Buddyship', :foreign_key => 'buddy_id'
 
-  has_many :notes
+  has_many :notes, :foreign_key => :author_id
 
-  validates :name, :email, :password, :password_confirmation, :presence => true
+  validates :name, :email, :password, :presence => true
 
   # adds both unidirectional buddy relationships with another user
   def bebuddy(other_user)
@@ -36,6 +36,15 @@ class User < ActiveRecord::Base
       Buddyship.where(user_id: self.id, buddy_id: other_user.id).destroy
       Buddyship.where(user_id: other_user.id, buddy_id: self.id).destroy
     end
+  end
+
+  def notes_by_language # worthwhile?
+    notes_by_language = {}
+    self.learning_languages.each do |learning_language|
+      notes_by_language[learning_language] =
+        notes.where(language_id: learning_language.id)
+    end
+    notes_by_language
   end
 
   # incomplete non-redundant buddy join table solution:
