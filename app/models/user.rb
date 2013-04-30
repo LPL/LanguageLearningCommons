@@ -33,8 +33,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  # removes them
   def unbuddy(other_user)
     Buddyship.transaction do
+      debugger
       Buddyship.where(user_id: self.id, buddy_id: other_user.id).destroy
       Buddyship.where(user_id: other_user.id, buddy_id: self.id).destroy
     end

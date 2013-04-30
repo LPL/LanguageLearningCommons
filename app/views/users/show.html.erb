@@ -5,8 +5,7 @@
 <% unless @own_profile %>
   <% if @is_buddy %>
     <%= "You and #{@user.name} are study buddies" %>
-    <%= form_tag "/buddyships", :method => "delete" do %>
-      <%= hidden_field_tag :id, @user.id %>
+    <%= form_tag "/buddyships/#{@user.id}", :method => "delete" do %>
       <%= submit_tag "Unbuddy" %>
     <% end %>
   <% else %>

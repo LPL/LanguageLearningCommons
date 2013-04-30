@@ -6,5 +6,6 @@ class Note < ActiveRecord::Base
   has_many :revisions
 
   validates :author, :title, :body, :presence => true
-  #validates_uniqueness_of :title, :scope => :author
+  # validates_uniqueness_of :title, :scope => :author
+  # this lead to trying to find column notes.author during note.create!
 end
