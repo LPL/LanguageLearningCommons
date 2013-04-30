@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   has_many :notes, :foreign_key => :author_id
   has_many :revisions, :foreign_key => :revisor_id
-  has_many :note_revisions, :through :notes, :source => :revisions
+  has_many :note_revisions, :through => :notes, :source => :revisions
 
   validates :name, :email, :password, :presence => true
 

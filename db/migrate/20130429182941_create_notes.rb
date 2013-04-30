@@ -5,7 +5,7 @@ class CreateNotes < ActiveRecord::Migration
       t.text :body
 
       t.references :language
-      t.integer :author_id
+      t.references :author
 
       t.timestamps
     end

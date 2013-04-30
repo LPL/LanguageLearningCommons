@@ -1,5 +1,5 @@
 class Learning < ActiveRecord::Base
-  attr_accessible :language_id, :user_id
+  attr_accessible :language, :language_id, :user, :user_id
 
 	belongs_to :user
 	belongs_to :language
