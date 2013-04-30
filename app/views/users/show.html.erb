@@ -1,4 +1,24 @@
-<h1><%= @current_user.name %></h1>
+<font size="24"><%= @user.name %></font>
+
+<br>
+
+<% unless @own_profile %>
+  <% if @is_buddy %>
+    <%= "You and #{@user.name} are study buddies" %>
+    <%= form_tag "/buddyships", :method => "delete" do %>
+      <%= hidden_field_tag :id, @user.id %>
+      <%= submit_tag "Unbuddy" %>
+    <% end %>
+  <% else %>
+    <%= form_tag "/buddyships", :method => "post" do %>
+      <%= hidden_field_tag :id, @user.id %>
+      <%= submit_tag "Bebuddy" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<br>
+
 <div class="known_languages_list">
 	Knows
 	<% if @knowings.any? %>
@@ -9,7 +29,9 @@
 		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
 	<% end %>
 </div>
+
 <br>
+
 <div class="learning_languages_list">
 	Learns
 	<% if @learnings.any? %>
@@ -20,20 +42,22 @@
 		<%= link_to "What language(s) are you learning?", 			edit_user_registration_path %>
 	<% end %>
 </div>
+
 <br>
+
 <div class="recent_notes_list">
   <!-- currently ALL notes -->
   	<%= @notes.any? ?
   		'<div class="list_title">Recent Notes</div>'.html_safe :
   		'<div class="empty_list_title">Recent Notes</div>'.html_safe %>
-    <%= link_to "See all", notes_url(@current_user) %>
+    <%= link_to "See all", notes_url(@user) %>
   	<% if @learnings.any? %>
   			<ul>
   				<% @notes.each do |note| %>
   					<%= link_to note.title, note_url(note) %>
             <br>
   				<% end %>
-          <%= link_to "New note", new_note_url(@current_user) %>
+          <%= link_to "New note", new_note_url(@user) %>
   			</ul>
   	<% else %>
   		To write a note, first <%= link_to "tell us what language(s) you're

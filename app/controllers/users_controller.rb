@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
 	def show
-		@current_user = current_user
-		@knowings = @current_user.knowings
-		@learnings = @current_user.learnings
-    @notes = @current_user.notes
+    # default to current_user (root routes here)
+    @user = params[:id].nil? ? current_user : User.find(params[:id])
+    @own_profile = @user == current_user
+    @is_buddy = current_user.buddies.include?(@user)
+		@knowings = @user.knowings
+		@learnings = @user.learnings
+    @notes = @user.notes
 	end
 end

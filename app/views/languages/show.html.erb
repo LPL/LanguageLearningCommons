@@ -1,4 +1,10 @@
 <h1><%= @language.name %></h1>
-<%= @language.knowers.count %> people know <%= @language.name %>
+<%= @language.knowers.count %> people know <%= @language.name %><br>
+<% @language.knowers.each do |knower| %>
+  <%= link_to knower.name, user_url(knower) %>
+<% end %>
 <br>
-<%= @language.learners.count %> people are learning <%= @language.name %>
+<%= @language.learners.count %> people are learning <%= @language.name %><br>
+<% @language.learners.each do |learner| %>
+  <%= link_to learner.name, user_url(learner) %>
+<% end %>
