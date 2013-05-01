@@ -7,5 +7,7 @@ class UsersController < ApplicationController
 		@knowings = @user.knowings
 		@learnings = @user.learnings
     @notes = @user.notes
+    #debugger
+    #lalala = 9
 	end
 end

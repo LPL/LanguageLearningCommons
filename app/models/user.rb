@@ -14,18 +14,29 @@ class User < ActiveRecord::Base
 	has_many :learnings
 	has_many :learning_languages, :through => :learnings, :source => :language
 
-  has_many :buddied_roles, :class_name => 'Buddyship'#, :foreign_key => :user_id
-  has_many :buddies, :through => :buddied_roles#, :source => :buddy
+  has_many :buddied_roles, :class_name => 'Buddyship'
+  has_many :buddies, :through => :buddied_roles
 
   has_many :buddy_roles, :class_name => 'Buddyship', :foreign_key => 'buddy_id'
+
+  has_many :sent_buddyship_proposals, :class_name => 'BuddyshipProposal',
+                                      :foreign_key => 'proposing_user_id'
+  has_many :received_buddyship_proposals, :class_name => 'BuddyshipProposal',
+                                      :foreign_key => 'target_user_id'
 
   has_many :notes, :foreign_key => :author_id
   has_many :revisions, :foreign_key => :revisor_id
   has_many :note_revisions, :through => :notes, :source => :revisions
 
+  before_save :capitalize_name
+
   validates :name, :email, :password, :presence => true
 
   # adds both unidirectional buddy relationships with another user
+  def capitalize_name
+    self.name = self.name.capitalize
+  end
+
   def bebuddy(other_user)
     Buddyship.transaction do
       Buddyship.create(user_id: self.id, buddy_id: other_user.id)

@@ -6,3 +6,14 @@ in <%= link_to @note.language.name, language_url(@note.language) %>
 <% if ! @own_note && current_user.known_languages.include?(@note.language) %>
   <%= link_to "Revise", new_revision_url(@note) %>
 <% end %>
+<% if @note.revisions.any? %>
+  <h2>Revisions</h2>
+  <ul>
+    <% @note.revisions.each do |revision| %>
+      by <%= link_to revision.revisor.name, revision_url(revision) %><br>
+    <% end %>
+  </ul>
+<% else %>
+  <br><br>
+  <font color="gray">No one has revised this note yet</font>
+<% end %>

@@ -1,8 +1,14 @@
-<h1><%= @author.name %>'s Notes</h1>
+<h1><%= link_to @author.name, user_url(@author) %>'s Notes</h1>
 <% @notes_by_language.each_pair do |language, language_notes| %>
-  <h3><%= language.name %></h3>
-  <% language_notes.each do |language_note| %>
-    <%= link_to language_note.title, note_url(language_note) %>
-    <br>
-  <% end %>
+  <div class="row">
+    <% if language_notes.any? %>
+      <h3><%= language.name %></h3>
+      <% language_notes.each do |language_note| %>
+        <%= link_to language_note.title, note_url(language_note) %>
+      <% end %>
+    <% else %>
+      <font color="gray"><%= @author.name %> hasn't written any notes in
+        <%= link_to language.name, language_url(language) %> yet.</font>
+    <% end %>
+  </div>
 <% end %>

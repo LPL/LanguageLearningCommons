@@ -1,10 +1,52 @@
-<h1><%= @language.name %></h1>
-<%= @language.knowers.count %> people know <%= @language.name %><br>
-<% @language.knowers.each do |knower| %>
-  <%= link_to knower.name, user_url(knower) %>
-<% end %>
-<br>
-<%= @language.learners.count %> people are learning <%= @language.name %><br>
-<% @language.learners.each do |learner| %>
-  <%= link_to learner.name, user_url(learner) %>
-<% end %>
+<div class="row">
+  <h1><%= @language.name %></h1>
+</div>
+<div class="row">
+  <div class="span6">
+    <div class="row">
+      <div class="span3" style="text-align: right; vertical-align: bottom;">
+        <h2><%= @language.knowers.count %></h2>
+      </div>
+      <div class="span3" style="text-align: left; vertical-align: bottom;">
+        people
+      </div>
+    </div>
+    <div class="row" style="text-align: center; vertical-align: top;">
+      <div class="span3" style="text-align: right; vertical-align: bottom;">
+        <h2>know</h2>
+      </div>
+      <div class="span3" style="text-align: left; vertical-align: bottom;">
+        <%= @language.name %>
+      </div>
+    </div>
+    <div class="row" style="text-align: center; vertical-align: middle;">
+      <% @language.knowers.each do |knower| %>
+        <%= link_to knower.name, user_url(knower) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="row">
+      <div class="span3" style="text-align: right; vertical-align: bottom;">
+        <h2><%= @language.learners.count %></h2>
+      </div>
+      <div class="span3" style="text-align: left; vertical-align: bottom;">
+        people are
+      </div>
+    </div>
+    <div class="row" style="text-align: center; vertical-align: top;">
+      <div class="span3" style="text-align: right; vertical-align: bottom;">
+        <h2>learning</h2>
+      </div>
+      <div class="span3" style="text-align: left; vertical-align: bottom;">
+        <%= @language.name %>
+      </div>
+    </div>
+    <div class="row" style="text-align: center; vertical-align: middle;">
+      <% @language.learners.each do |learner| %>
+        <%= link_to learner.name, user_url(learner) %> <br>
+      <% end %>
+    </div>
+  </div>
+</div>
+

@@ -7,16 +7,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="flash">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  </div>
-
+  <% if user_signed_in? %>
+    <div class="header">
+        <div class="row">
+          <div class="span3">
+            <p class="text-center">
+              <%= link_to current_user.name, user_url(current_user) if user_signed_in?%>
+            <p>
+          </div>
+          <div class="span3">
+            <p class="text-center">
+              <%= link_to "Settings", edit_user_registration_url %>
+            <p>
+          </div>
+          <div class="span3">
+            <p class="text-center">
+              <%= link_to "Sign out", destroy_user_session_url,
+              :method => :delete if user_signed_in? %>
+            <p>
+          </div>
+        </div>
+    </div>
+  <% end %>
   <div class="container">
-    <div class="topbar">
-      <%= link_to current_user.name, user_url(current_user) if user_signed_in?%>
-      <%= link_to "Sign out", destroy_user_session_url,
-        :method => :delete if user_signed_in?%>
+    <div class="row">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
     </div>
 
     <%= yield %>

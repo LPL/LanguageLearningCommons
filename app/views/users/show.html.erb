@@ -1,65 +1,74 @@
-<font size="24"><%= @user.name %></font>
-
-<br>
-
-<% unless @own_profile %>
-  <% if @is_buddy %>
-    <%= "You and #{@user.name} are study buddies" %>
-    <%= form_tag "/buddyships/#{@user.id}", :method => "delete" do %>
-      <%= submit_tag "Unbuddy" %>
-    <% end %>
-  <% else %>
-    <%= form_tag "/buddyships", :method => "post" do %>
-      <%= hidden_field_tag :id, @user.id %>
-      <%= submit_tag "Bebuddy" %>
+<div class="row">
+  <h1><%= @user.name %></h1>
+</div>
+<div class="row">
+  <% unless @own_profile %>
+    <% if @is_buddy %>
+      <%= "You are study buddies with #{@user.name}" %>
+      <%= form_tag "/buddyships/#{@user.id}", :method => "delete" do %>
+        <%= submit_tag "Unbuddy" %>
+      <% end %>
+    <% else %>
+      <%= form_tag "/buddyship_proposals", :method => "post" do %>
+        <%= hidden_field_tag :id, @user.id %>
+        <%= submit_tag "Bebuddy" %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-
-<br>
-
-<div class="known_languages_list">
-	Knows
-	<% if @knowings.any? %>
-	  <% @knowings.map do |knowing| %>
-			<%= link_to knowing.language.name, knowing_url(knowing) %>
-		<% end.join(", ").html_safe %>
+</div>
+<div class="row">
+  <h4>
+	 <% if @knowings.any? %>
+      Knows
+  	  <% @knowings.map do |knowing| %>
+  			<%= link_to knowing.language.name, knowing_url(knowing) %>
+  	  <% end.join(", ").html_safe %>
 	<% else %>
 		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
 	<% end %>
+  </h4>
 </div>
-
-<br>
-
-<div class="learning_languages_list">
-	Learns
-	<% if @learnings.any? %>
-				<%= @learnings.map do |learning| %>
-					<% link_to learning.language.name, learning_url(learning) %>
-				<% end.join(", ").html_safe %>
-	<% else %>
-		<%= link_to "What language(s) are you learning?", 			edit_user_registration_path %>
-	<% end %>
+<div class="row">
+  <h4>
+  	<% if @learnings.any? %>
+  	  Learns
+      <%= @learnings.map do |learning| %>
+  		  <% link_to learning.language.name, learning_url(learning) %>
+  		<% end.join(", ").html_safe %>
+  	<% else %>
+  		<%= link_to "What language(s) are you learning?",
+       edit_user_registration_path %>
+  	<% end %>
+  </h4>
 </div>
-
 <br>
-
-<div class="recent_notes_list">
+<div class="row">
   <!-- currently ALL notes -->
-  	<%= @notes.any? ?
-  		'<div class="list_title">Recent Notes</div>'.html_safe :
-  		'<div class="empty_list_title">Recent Notes</div>'.html_safe %>
-    <%= link_to "See all", notes_url(@user) %>
+  <div class="span6">
+    <b>Publications</b>
+    <%= link_to "New note", new_note_url(@user) if @own_profile%>
   	<% if @learnings.any? %>
   			<ul>
   				<% @notes.each do |note| %>
   					<%= link_to note.title, note_url(note) %>
             <br>
   				<% end %>
-          <%= link_to "New note", new_note_url(@user) if @own_profile%>
+          <%= link_to "More...", notes_url(@user) %>
   			</ul>
-  	<% else %>
-  		To write a note, first <%= link_to "tell us what language(s) you're
-        learning", edit_user_registration_path %>
   	<% end %>
+  </div>
+  <div class="span6">
+    <b>Buddies</b>
+    <font color="gray"> (<%= @user.buddies.count %>) </font> <br>
+    <% if @own_profile && @user.received_buddyship_proposals.any? %>
+      <% @user.received_buddyship_proposals.each do |buddyship_proposal| %>
+        <%= link_to buddyship_proposal.proposing_user.name,
+              user_url(buddyship_proposal.proposing_user) %>
+              wants to be your buddy! <br>
+      <% end %>
+    <% end %> <br>
+    <% @user.buddies.each do |buddy| %>
+      <%= link_to buddy.name, user_url(buddy) %>
+    <% end %>
+  </div>
 </div>
