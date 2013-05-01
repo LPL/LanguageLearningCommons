@@ -15,6 +15,13 @@ kim = User.create!(name: "Kim", email: "k@i.m", password: "12121212")
 lal = User.create!(name: "Lal", email: "l@a.l", password: "12121212")
 cid = User.create!(name: "Cid", email: "c@i.d", password: "12121212")
 
+
+# debugger
+# kim.bebuddy(wen)
+# wen.bebuddy(lal)
+# lal.bebuddy(cid)
+# cid.bebuddy(kim)
+
 Knowing.create!(language: english, user: kim)
 Learning.create!(language: mandarin, user: kim)
 Learning.create!(language: spanish, user: kim)

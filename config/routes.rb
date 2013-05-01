@@ -1,5 +1,7 @@
 TongueTrader::Application.routes.draw do
 
+  get "users/test" => "users#test"
+
 	root to: 'users#show'
 
   devise_for :users
@@ -15,7 +17,8 @@ TongueTrader::Application.routes.draw do
     end
   end
 
+
   resources :languages, :only => [:show, :index]
   resources :buddyships, :only => [:create, :destroy]
-  resources :buddyship_proposals, :only => [:create]
+  resources :buddyship_proposals, :only => [:create, :destroy]
 end

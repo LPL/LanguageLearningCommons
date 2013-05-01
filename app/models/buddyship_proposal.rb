@@ -4,4 +4,6 @@ class BuddyshipProposal < ActiveRecord::Base
 
   belongs_to :proposing_user, :class_name => 'User'
   belongs_to :target_user, :class_name => 'User'
+
+  validates :target_user_id, :uniqueness => { :scope => :proposing_user_id }
 end
