@@ -10,17 +10,16 @@ japanese = Language.create!(name: "Japanese")
 punjabi = Language.create!(name: "Punjabi")
 german = Language.create!(name: "German")
 
-wen = User.create!(name: "Wen", email: "w@e.n", password: "12121212")
-kim = User.create!(name: "Kim", email: "k@i.m", password: "12121212")
-lal = User.create!(name: "Lal", email: "l@a.l", password: "12121212")
-cid = User.create!(name: "Cid", email: "c@i.d", password: "12121212")
+wen = User.create!(name: "Wen", email: "w@e.n", password: "123123123")
+kim = User.create!(name: "Kim", email: "k@i.m", password: "123123123")
+lal = User.create!(name: "Lal", email: "l@a.l", password: "123123123")
+cid = User.create!(name: "Cid", email: "c@i.d", password: "123123123")
 
-
-# debugger
-# kim.bebuddy(wen)
-# wen.bebuddy(lal)
-# lal.bebuddy(cid)
-# cid.bebuddy(kim)
+kim.bebuddy(wen)
+wen.bebuddy(lal)
+lal.bebuddy(cid)
+cid.bebuddy(kim)
+BuddyshipProposal.create!(proposing_user: kim, target_user: lal)
 
 Knowing.create!(language: english, user: kim)
 Learning.create!(language: mandarin, user: kim)

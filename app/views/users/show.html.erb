@@ -9,9 +9,14 @@
         <%= submit_tag "Unbuddy" %>
       <% end %>
     <% else %>
-      <%= form_tag "/buddyship_proposals", :method => "post" do %>
-        <%= hidden_field_tag :id, @user.id %>
-        <%= submit_tag "Bebuddy" %>
+      <% if @buddyship_proposal %>
+        <%= render :partial => 'buddyship_proposal',
+                   :locals => {:buddyship_proposal => @buddyship_proposal} %>
+      <% else %>
+        <%= form_tag "/buddyship_proposals", :method => "post" do %>
+          <%= hidden_field_tag :id, @user.id %>
+          <%= submit_tag "Bebuddy" %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
@@ -69,17 +74,8 @@
     <font color="gray"> (<%= @user.buddies.count %>) </font> <br><br>
     <% if @own_profile && @user.received_buddyship_proposals.any? %>
       <% @user.received_buddyship_proposals.each do |buddyship_proposal| %>
-        <%= link_to buddyship_proposal.proposing_user.name,
-              user_url(buddyship_proposal.proposing_user) %>
-              wants to be your buddy! <br>
-        <%= form_tag "/buddyships", :method => "post" do %>
-          <%= hidden_field_tag :id, buddyship_proposal.proposing_user.id %>
-          <%= submit_tag "Accept" %>
-        <% end %>
-        <%= form_tag ('/buddyship_proposals/' +
-          "#{buddyship_proposal.proposing_user.id}"), :method => "delete" do %>
-          <%= submit_tag "Reject" %>
-        <% end %>
+        <%= render :partial => 'buddyship_proposal',
+          :locals => {:buddyship_proposal => buddyship_proposal} %>
       <% end %>
     <% end %>
     <% @user.buddies.each do |buddy| %>
