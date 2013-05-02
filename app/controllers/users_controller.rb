@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     # default to current_user (root routes here)
     @user = params[:id].nil? ? current_user : User.find(params[:id])
 
-    @own_profile = @user == current_user
+    @self_page = @user == current_user
     @is_buddy = current_user.buddies.include?(@user)
 		@knowings = @user.knowings
 		@learnings = @user.learnings

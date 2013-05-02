@@ -11,6 +11,7 @@ TongueTrader::Application.routes.draw do
     member do
       resources :knowings, :only => [:show]
       resources :learnings, :only => [:show]
+      resources :buddyships, :only => [:index]
       resources :notes, :only => [:new, :create, :show, :index] do
         member do
           resources :revisions, :only => [:new, :create, :show]

@@ -10,17 +10,17 @@
   <% if user_signed_in? %>
     <div class="header">
         <div class="row">
-          <div class="span3">
+          <div class="span4">
             <p class="text-center">
               <%= link_to current_user.name, user_url(current_user) if user_signed_in?%>
             <p>
           </div>
-          <div class="span3">
+          <div class="span4">
             <p class="text-center">
               <%= link_to "Settings", edit_user_registration_url %>
             <p>
           </div>
-          <div class="span3">
+          <div class="span4">
             <p class="text-center">
               <%= link_to "Sign out", destroy_user_session_url,
               :method => :delete if user_signed_in? %>

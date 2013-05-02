@@ -1,0 +1,16 @@
+<% if @is_buddy %>
+  <%= "You are study buddies with #{@user.name}" %>
+  <%= form_tag "/buddyships/#{@user.id}", :method => "delete" do %>
+    <%= submit_tag "Unbuddy" %>
+  <% end %>
+<% else %>
+  <% if @buddyship_proposal %>
+    <%= render :partial => 'layouts/buddyship_proposal',
+               :locals => {:buddyship_proposal => @buddyship_proposal} %>
+  <% else %>
+    <%= form_tag "/buddyship_proposals", :method => "post" do %>
+      <%= hidden_field_tag :id, @user.id %>
+      <%= submit_tag "Bebuddy" %>
+    <% end %>
+  <% end %>
+<% end %>

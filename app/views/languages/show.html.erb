@@ -22,6 +22,7 @@
     <div class="row" style="text-align: center; vertical-align: middle;">
       <% @language.knowers.each do |knower| %>
         <%= link_to knower.name, user_url(knower) %>
+        <br>
       <% end %>
     </div>
   </div>
@@ -44,7 +45,8 @@
     </div>
     <div class="row" style="text-align: center; vertical-align: middle;">
       <% @language.learners.each do |learner| %>
-        <%= link_to learner.name, user_url(learner) %> <br>
+        <%= link_to learner.name, user_url(learner) %>
+        <br>
       <% end %>
     </div>
   </div>

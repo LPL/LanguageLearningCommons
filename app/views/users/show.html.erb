@@ -2,23 +2,11 @@
   <h1><%= @user.name %></h1>
 </div>
 <div class="row">
-  <% unless @own_profile %>
-    <% if @is_buddy %>
-      <%= "You are study buddies with #{@user.name}" %>
-      <%= form_tag "/buddyships/#{@user.id}", :method => "delete" do %>
-        <%= submit_tag "Unbuddy" %>
-      <% end %>
-    <% else %>
-      <% if @buddyship_proposal %>
-        <%= render :partial => 'buddyship_proposal',
-                   :locals => {:buddyship_proposal => @buddyship_proposal} %>
-      <% else %>
-        <%= form_tag "/buddyship_proposals", :method => "post" do %>
-          <%= hidden_field_tag :id, @user.id %>
-          <%= submit_tag "Bebuddy" %>
-        <% end %>
-      <% end %>
-    <% end %>
+  <% unless @self_page %>
+    <%= render 'layouts/bebuddy_button', :locals =>
+      { :user => @user,
+        :buddyship_proposal => @buddyship_proposal,
+        :is_buddy => @is_buddy } %>
   <% end %>
 </div>
 <div class="row">
@@ -70,11 +58,11 @@
   	<% end %>
   </div>
   <div class="span6">
-    <b>Buddies</b>
+    <b><%= link_to "Buddies", buddyships_url(@user) %></b>
     <font color="gray"> (<%= @user.buddies.count %>) </font> <br><br>
-    <% if @own_profile && @user.received_buddyship_proposals.any? %>
+    <% if @self_page && @user.received_buddyship_proposals.any? %>
       <% @user.received_buddyship_proposals.each do |buddyship_proposal| %>
-        <%= render :partial => 'buddyship_proposal',
+        <%= render :partial => 'layouts/buddyship_proposal',
           :locals => {:buddyship_proposal => buddyship_proposal} %>
       <% end %>
     <% end %>
