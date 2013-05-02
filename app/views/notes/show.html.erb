@@ -3,7 +3,8 @@ in <%= link_to @note.language.name, language_url(@note.language) %>
 <h1><%= @note.title %></h1>
 <%= @note.body %>
 <br>
-<% if ! @own_note && current_user.known_languages.include?(@note.language) %>
+<% if ! @self_page && current_user.known_languages.include?(@note.language) %>
+  <br>
   <%= link_to "Revise", new_revision_url(@note) %>
 <% end %>
 <% if @note.revisions.any? %>

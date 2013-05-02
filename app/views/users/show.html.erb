@@ -40,10 +40,11 @@
   <div class="span6">
     <div class="row">
       <div class="span4">
-        <b>Notes</b>
+        <b><%= link_to "Notes", notes_url(@user) %></b>
+        <font color="gray"> (<%= @notes.count %>) </font>
       </div>
       <div class="span2">
-        <%= link_to "New note", new_note_url(@user) if @own_profile%>
+        <%= link_to "New note", new_note_url(@user) if @self_page%>
       </div>
     </div>
     <br>
@@ -53,6 +54,7 @@
   					<%= link_to note.title, note_url(note) %>
             <br>
   				<% end %>
+          <br>
           <%= link_to "Show all...", notes_url(@user) %>
   			</ul>
   	<% end %>

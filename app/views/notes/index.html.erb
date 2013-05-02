@@ -2,7 +2,7 @@
 <% @notes_by_language.each_pair do |language, language_notes| %>
   <div class="row">
     <% if language_notes.any? %>
-      <h3><%= language.name %></h3>
+      <h3>In <%= language.name %></h3>
       <% language_notes.each do |language_note| %>
         <%= link_to language_note.title, note_url(language_note) %>
       <% end %>
@@ -10,5 +10,6 @@
       <font color="gray"><%= @author.name %> hasn't written any notes in
         <%= link_to language.name, language_url(language) %> yet.</font>
     <% end %>
+    <br><br>
   </div>
 <% end %>
