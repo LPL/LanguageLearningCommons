@@ -9,6 +9,7 @@ russian = Language.create!(name: "Russian")
 japanese = Language.create!(name: "Japanese")
 punjabi = Language.create!(name: "Punjabi")
 german = Language.create!(name: "German")
+# language id's 9-11 are not being recognized!
 
 wen = User.create!(name: "Wen", email: "w@e.n", password: "123123123")
 kim = User.create!(name: "Kim", email: "k@i.m", password: "123123123")

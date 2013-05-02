@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable#, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :email, :password,
+                  :password_confirmation, :remember_me,
+                  :known_language_ids, :learning_language_ids
 
 	has_many :knowings
 	has_many :known_languages, :through => :knowings, :source => :language
@@ -30,7 +32,8 @@ class User < ActiveRecord::Base
 
   before_save :capitalize_name
 
-  validates :name, :email, :password, :presence => true
+  validates :name, :email, :presence => true
+  validates :password,     :presence => true, :on => :create
   validates :name, :email, :uniqueness => true
 
   # adds both unidirectional buddy relationships with another user
