@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501025149) do
+ActiveRecord::Schema.define(:version => 20130502201955) do
 
   create_table "buddyship_proposals", :force => true do |t|
     t.integer  "proposing_user_id"
@@ -23,6 +23,11 @@ ActiveRecord::Schema.define(:version => 20130501025149) do
   create_table "buddyships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "buddy_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "comments", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -57,7 +62,8 @@ ActiveRecord::Schema.define(:version => 20130501025149) do
   end
 
   create_table "revisions", :force => true do |t|
-    t.text     "commentary"
+    t.string   "selection"
+    t.text     "body"
     t.integer  "note_id"
     t.integer  "revisor_id"
     t.datetime "created_at", :null => false
