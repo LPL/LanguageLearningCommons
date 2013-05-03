@@ -1,7 +1,7 @@
-.languages_list_title {
-	text-color: #222222;
+.llcfill {
+  background-color: #666;
 }
 
-.empty_languages_list_title {
-	text-color: #999999;
+.llctext {
+  background-color: #dba;
 }

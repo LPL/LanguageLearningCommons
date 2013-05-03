@@ -1,15 +1,19 @@
-<h1><%= link_to @author.name, user_url(@author) %>'s Notes</h1>
-<% @notes_by_language.each_pair do |language, language_notes| %>
-  <div class="row">
-    <% if language_notes.any? %>
-      <h3>In <%= language.name %></h3>
-      <% language_notes.each do |language_note| %>
-        <%= link_to language_note.title, note_url(language_note) %>
-      <% end %>
-    <% else %>
-      <font color="gray"><%= @author.name %> hasn't written any notes in
-        <%= link_to language.name, language_url(language) %> yet.</font>
+<div class="row">
+  <div class="span12">
+    <h1><%= link_to @author.name, user_url(@author) %>'s Notes</h1>
+    <% @notes_by_language.each_pair do |language, language_notes| %>
+      <div class="row">
+        <% if language_notes.any? %>
+          <h3>In <%= language.name %></h3>
+          <% language_notes.each do |language_note| %>
+            <%= link_to language_note.title, note_url(language_note) %>
+          <% end %>
+        <% else %>
+          <font color="gray"><%= @author.name %> hasn't written any notes in
+            <%= link_to language.name, language_url(language) %> yet.</font>
+        <% end %>
+        <br><br>
+      </div>
     <% end %>
-    <br><br>
   </div>
-<% end %>
+</div>

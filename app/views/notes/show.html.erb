@@ -1,12 +1,16 @@
-By <%= link_to @note.author.name, user_url(@note.author) %>
-in <%= link_to @note.language.name, language_url(@note.language) %>
-<h1><%= @note.title %></h1>
-<div class="noteShowView"></div>
+<div class="row">
+  <div class="span12">
+    By <%= link_to @note.author.name, user_url(@note.author) %>
+    in <%= link_to @note.language.name, language_url(@note.language) %>
+    <h1><%= @note.title %></h1>
+    <div class="noteShowView"></div>
 
-<script type="text/javascript">
-  <% if ! @self_page && current_user.known_languages.include?(@note.language) %>
-    $(LLC.showRevisableNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
-  <% else %>
-    $(LLC.showNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
-  <% end %>
-</script>
+    <script type="text/javascript">
+      <% if ! @self_page && current_user.known_languages.include?(@note.language) %>
+        $(LLC.showRevisableNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
+      <% else %>
+        $(LLC.showNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
+      <% end %>
+    </script>
+  </div>
+</div>
