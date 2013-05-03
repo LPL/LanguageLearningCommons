@@ -12,8 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require underscore
-//= require backbone
-//= require backbone-relational
+//
+//= require ./backbone/underscore
+//= require ./backbone/backbone
+//= require ./backbone/backbone-relational
+//= require ./rangy/rangy-core
+//= require ./rangy/rangy-selectionsaverestore
+//= require ./rangy/rangy-serializer
+//= require ./rangy/rangy-cssclassapplier
+//
+//= require TongueTrader
+//= require_tree ./models
+//= require_tree ./views
+//= require_tree ../templates
 //
 // require_tree .

@@ -1,10 +1,11 @@
 TT = {
-	insert_current_user_known_languages_view = function($container) {
-		cuklv = new CurrentUserKnownLanguagesView({
+  showNote: function(note, $rootEl) {
+    showNoteView = new ShowNoteView({ model: note });
+    $rootEl.html(showNoteView.render().$el);
+  },
 
-		});
-		$container.html(cuklv.render().$el);
-	}
-
-	insert_current_user_learning_languages_view = function() {}
+  showRevisableNote: function(note, $rootEl) {
+    showRevisableNoteView = new ShowRevisableNoteView({ model: note });
+    $rootEl.html(showRevisableNoteView.render().$el);
+  }
 }

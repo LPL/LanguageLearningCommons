@@ -14,7 +14,7 @@ TongueTrader::Application.routes.draw do
       resources :buddyships, :only => [:index]
       resources :notes, :only => [:new, :create, :show, :index] do
         member do
-          resources :revisions, :only => [:new, :create, :show]
+          resources :revisions, :only => [:create]
         end
       end
     end

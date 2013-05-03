@@ -1,9 +1,9 @@
 class RevisionsController < ApplicationController
-  def new
-    @note = Note.find(params[:id])
-    @revision = Revision.new
-    @revision.commentary = @note.body
-  end
+  # def new
+  #   @note = Note.find(params[:id])
+  #   @revision = Revision.new
+  #   @revision.commentary = @note.body
+  # end
 
   def create
     @revision = Revision.create(params[:revision])
@@ -16,9 +16,9 @@ class RevisionsController < ApplicationController
     end
   end
 
-  def show
-    @revision = Revision.find(params[:id])
-  end
+  # def show
+  #   @revision = Revision.find(params[:id])
+  # end
 
   def index
   end
