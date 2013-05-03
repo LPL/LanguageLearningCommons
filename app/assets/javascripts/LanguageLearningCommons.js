@@ -1,4 +1,4 @@
-TT = {
+LLC = {
   showNote: function(note, $rootEl) {
     showNoteView = new ShowNoteView({ model: note });
     $rootEl.html(showNoteView.render().$el);

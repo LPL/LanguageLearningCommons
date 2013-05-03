@@ -5,8 +5,8 @@ in <%= link_to @note.language.name, language_url(@note.language) %>
 
 <script type="text/javascript">
   <% if ! @self_page && current_user.known_languages.include?(@note.language) %>
-    $(TT.showRevisableNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
+    $(LLC.showRevisableNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
   <% else %>
-    $(TT.showNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
+    $(LLC.showNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
   <% end %>
 </script>

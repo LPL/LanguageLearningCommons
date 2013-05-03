@@ -1,4 +1,4 @@
-TongueTrader::Application.routes.draw do
+LanguageLearningCommons::Application.routes.draw do
 
   get "users/test" => "users#test"
 

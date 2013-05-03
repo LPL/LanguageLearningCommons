@@ -21,7 +21,7 @@
 //= require ./rangy/rangy-serializer
 //= require ./rangy/rangy-cssclassapplier
 //
-//= require TongueTrader
+//= require LanguageLearningCommons
 //= require_tree ./models
 //= require_tree ./views
 //= require_tree ../templates

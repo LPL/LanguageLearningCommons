@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-TongueTrader::Application.load_tasks
+LanguageLearningCommons::Application.load_tasks
