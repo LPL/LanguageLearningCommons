@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
                                       :foreign_key => 'target_user_id'
 
   has_many :notes, :foreign_key => :author_id
+
+  has_many :comments, :foreign_key => :commenter_id
+  has_many :note_comments, :through => :notes, :source => :comments
+
   has_many :revisions, :foreign_key => :revisor_id
   has_many :note_revisions, :through => :notes, :source => :revisions
 
