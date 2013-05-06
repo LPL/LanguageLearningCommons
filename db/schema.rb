@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20130502201955) do
   end
 
   create_table "comments", :force => true do |t|
+    t.string   "range"
     t.text     "body"
     t.integer  "note_id"
     t.integer  "user_id"
@@ -65,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20130502201955) do
   end
 
   create_table "revisions", :force => true do |t|
-    t.string   "selection"
+    t.string   "range"
     t.text     "body"
     t.integer  "note_id"
     t.integer  "revisor_id"

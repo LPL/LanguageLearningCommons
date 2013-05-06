@@ -1,4 +1,7 @@
 LLC.Collections.Comments = Backbone.Collection.extend({
-  model: LLC.Models.Comment,
-  // url: '/users/' + userId + '/notes/' + noteId + '/comments'
+  initialize: function(userId, noteId) {
+    this.url = ('users/' + userId + '/notes/' + this.noteId +
+    '/comments/');
+  },
+  model: LLC.Models.Comment
 });

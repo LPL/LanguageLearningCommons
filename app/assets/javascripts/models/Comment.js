@@ -1,3 +1,7 @@
-LLC.Models.Comment = Backbone.Model.extend({
-  // urlRoot: note + '/comments/' + id
+LLC.Models.Comment = Backbone.RelationalModel.extend({
+  initialize: function(userId, noteId) {
+    this.urlRoot = ('users/' + this.userId + '/notes/' + this.noteId +
+    '/comments/');
+  }
 });
+
