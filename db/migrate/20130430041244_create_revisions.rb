@@ -1,7 +1,7 @@
 class CreateRevisions < ActiveRecord::Migration
   def change
     create_table :revisions do |t|
-      t.string :selection
+      t.string :range
       t.text :body
 
       t.references :note

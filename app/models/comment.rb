@@ -3,4 +3,6 @@ class Comment < ActiveRecord::Base
 
   belongs_to :note
   belongs_to :commenter, :class_name => 'User'
+
+  validates :note, :commenter, :presence => true
 end

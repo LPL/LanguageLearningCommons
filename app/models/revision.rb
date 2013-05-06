@@ -6,6 +6,4 @@ class Revision < ActiveRecord::Base
   has_one :note_author, :through => :note, :source => :author
 
   validates :note, :revisor, :presence => true
-  validates :note_id, :uniqueness => {:scope => :revisor_id}
-  # cannot .build revisions due to preceeding line
 end

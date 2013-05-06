@@ -1,5 +1,3 @@
-Comment = Backbone.Model.extend({
-  urlRoot: function() {
-    return LLC.note.urlRoot() // +
-  }
+LLC.Models.Comment = Backbone.Model.extend({
+  // urlRoot: note + '/comments/' + id
 });
