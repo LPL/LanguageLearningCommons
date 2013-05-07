@@ -19,7 +19,7 @@
   	 <% if @knowings.any? %>
         Knows
     	  <%= @knowings.map do |knowing| %>
-    			<% link_to knowing.language.name, knowing_url(knowing) %>
+    			<% link_to knowing.language.name, user_knowing_url(@user, knowing) %>
     	  <% end.join(", ").html_safe %>
   	<% else %>
   		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
@@ -33,7 +33,7 @@
     	<% if @learnings.any? %>
     	  Learns
         <%= @learnings.map do |learning| %>
-    		  <% link_to learning.language.name, learning_url(learning) %>
+    		  <% link_to learning.language.name, user_learning_url(@user, learning) %>
     		<% end.join(", ").html_safe %>
     	<% else %>
     		<%= link_to "What language(s) are you learning?",
@@ -48,27 +48,27 @@
   <div class="span6">
     <div class="row">
       <div class="span4">
-        <b><%= link_to "Notes", notes_url(@user) %></b>
+        <b><%= link_to "Notes", user_notes_url(@user) %></b>
         <font color="gray"> (<%= @notes.count %>) </font>
       </div>
       <div class="span2">
-        <%= link_to "New note", new_note_url(@user) if @self_page%>
+        <%= link_to "New note", new_user_note_url(@user) if @self_page%>
       </div>
     </div>
     <br>
   	<% if @learnings.any? %>
   			<ul>
   				<% @notes.each do |note| %>
-  					<%= link_to note.title, note_url(note) %>
+  					<%= link_to note.title, user_note_url(@user.id, note) %>
             <br>
   				<% end %>
           <br>
-          <%= link_to "Show all...", notes_url(@user) %>
+          <%= link_to "Show all...", user_notes_url(@user) %>
   			</ul>
   	<% end %>
   </div>
   <div class="span6">
-    <b><%= link_to "Buddies", buddyships_url(@user) %></b>
+    <b><%= link_to "Buddies", user_buddyships_url(@user) %></b>
     <font color="gray"> (<%= @user.buddies.count %>) </font> <br><br>
     <% if @self_page && @user.received_buddyship_proposals.any? %>
       <% @user.received_buddyship_proposals.each do |buddyship_proposal| %>

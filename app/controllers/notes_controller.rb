@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
   def new
     @author = current_user
+    @author_id = @author.id
     @note = Note.new
     render :no_learning_languages if @author.learning_languages.none?
   end
@@ -9,7 +10,7 @@ class NotesController < ApplicationController
     @note = Note.create(params[:note])
     if @note.save
       flash[:notice] = "Note published!"
-      redirect_to note_url(@note)
+      redirect_to user_note_url(@note.author_id, @note)
     else
       flash[:error] = "Note publication failed."
       render :new
@@ -22,7 +23,7 @@ class NotesController < ApplicationController
   end
 
   def index
-    @author = User.find(params[:id])
+    @author = User.find(params[:user_id])
     @notes_by_language = @author.notes_by_language
   end
 end

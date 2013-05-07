@@ -23,10 +23,15 @@
             :buddyship_proposal => @buddyship_proposal } %>
       <% end %>
     <% else %>
+      <% if @buddyship_proposal %>
+        <%= render :partial => 'layouts/buddyship_proposal',
+          :locals => {:buddyship_proposal => @buddyship_proposal} %>
+      <% end %>
       <% @buddies.each do |buddy| %>
         <%= link_to buddy.name, user_url(buddy) %>
         <br>
       <% end %>
+
     <% end %>
   </div>
 </div>

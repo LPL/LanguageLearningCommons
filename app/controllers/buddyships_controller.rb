@@ -1,6 +1,6 @@
 class BuddyshipsController < ApplicationController
   def index
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     @self_page = @user == current_user
     @buddies = @user.buddies
     unless @self_page

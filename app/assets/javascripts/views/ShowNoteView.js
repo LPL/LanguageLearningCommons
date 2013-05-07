@@ -9,7 +9,7 @@ ShowNoteView = Backbone.View.extend({
 
     rangy.init();
     this.lobnoxClasser = rangy.createCssClassApplier("lobnox", {normalize: true});
-    this.model.get('comments').each(function(comment) {
+    LLC.comments.each(function(comment) {
       this.lobnoxClasser.applyToRange(comment.range);
     })
 

@@ -50,7 +50,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       // noteId: this.model.id.toString()
     });
     $('#commentForm').empty();
-    this.model.get('comments').add(this.comment);
+    LLC.comments.add(this.comment);
     this.comment.save();
   }
 })

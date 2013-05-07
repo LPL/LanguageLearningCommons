@@ -1,4 +1,4 @@
-LLC.Models.Revision = Backbone.RelationalModel.extend({
+LLC.Models.Revision = Backbone.Model.extend({
   // urlRoot: ('users/' + this.userId + '/notes/' + this.noteId +
   //   '/revisions/' + this.revisionId)
 });

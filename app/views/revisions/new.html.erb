@@ -1,4 +1,4 @@
-<h1>Revising <%= link_to @note.title, note_url(@note) %>
+<h1>Revising <%= link_to @note.title, user_note_url(@note) %>
   by <%= link_to @note.author.name, user_url(@note.author) %></h1>
 <%= form_for @revision do |f| %>
   <%= hidden_field_tag "revision[revisor_id]", current_user.id %>
