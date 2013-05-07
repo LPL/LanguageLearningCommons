@@ -25,7 +25,6 @@ ShowRevisableNoteView = Backbone.View.extend({
   launchComment: function() {
     var that = this;
 
-    // console.log("launchComment");
     that.selection = rangy.getSelection();
     if(that.selection.rangeCount == 0) {
       console.log("No selection detected.");
@@ -35,14 +34,6 @@ ShowRevisableNoteView = Backbone.View.extend({
       $('#commentForm').empty();
       $('#revisionForm').empty();
       that.range = that.selection.getRangeAt(0);
-      // that.comment = {startToEnd: [that.range.startOffset, that.range.endOffset]};
-      // that.derange = rangy.createRangyRange();
-      // that.derange.setStart(range.startContainer, range.startOffset);
-      // that.derange.setEnd(range.endContainer, range.endOffset);
-      // this.floxor();
-
-      // console.log(range);
-      // console.log(that.range.toString());
       that.$commentTextBox = $('<input type="textArea" name="body" id="revisionTextBox">');
       that.$commentSaveButton = $('<input type="submit" value="Save">');
       $('#commentForm').append(that.$commentTextBox);
@@ -54,26 +45,12 @@ ShowRevisableNoteView = Backbone.View.extend({
   storeComment: function() {
     this.comment = new LLC.Models.Comment({
       body: this.$commentTextBox.val(),
-      range: this.range,
-      userId: this.model.author_id,
-      noteId: this.model.id
+      // range: this.range,
+      // userId: this.model.attributes.author_id.toString(),
+      // noteId: this.model.id.toString()
     });
     $('#commentForm').empty();
-    // console.log(this.comment.body);
     this.model.get('comments').add(this.comment);
     this.comment.save();
-    // this.showNoteView.render();
-    console.log(this.model);
-  },
-
-  floxor: function() {
-    // rangy.init();
-    this.cssApplier = rangy.createCssClassApplier("lobnox", {normalize: true});
-    // if(this.range != null) {
-      this.cssApplier.applyToRange(this.range);
-    // }
-
   }
 })
-
-// action="/users/<%= note_author_id %>/notes/<%= note_id %>" method="POST"
