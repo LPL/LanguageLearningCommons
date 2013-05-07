@@ -3,6 +3,7 @@ class Note < ActiveRecord::Base
 
   belongs_to :author, :class_name => 'User'
   belongs_to :language
+  has_many :comments
   has_many :revisions
 
   validates :author, :title, :body, :presence => true

@@ -7,6 +7,13 @@ LLC.Models.Comment = Backbone.Model.extend({
 
     this.urlRoot = (LLC.note.id + '/comments/');
 
+  },
+
+  toJSON: function() {
+    return { comment: {
+      range: this.attributes.range,
+      body: this.attributes.body
+    }};
   }
 });
 

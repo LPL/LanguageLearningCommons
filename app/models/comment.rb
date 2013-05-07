@@ -1,8 +1,9 @@
 class Comment < ActiveRecord::Base
-  attr_accessible :user_id, :note_id
+  attr_accessible :user_id, :note_id, :body, :range
 
+  belongs_to :commenter, :class_name => 'User', :foreign_key => 'user_id'
   belongs_to :note
-  belongs_to :commenter, :class_name => 'User'
+  has_one :note_author, :through => :note, :source => :author
 
   validates :note, :commenter, :presence => true
 end

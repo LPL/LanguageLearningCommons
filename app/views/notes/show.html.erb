@@ -7,9 +7,15 @@
 
     <script type="text/javascript">
       <% if ! @self_page && current_user.known_languages.include?(@note.language) %>
-        $(LLC.showRevisableNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
+        $(LLC.showRevisableNote(<%= Note.where(:id => @note.id)
+          .includes(:comments, :revisions)
+          .to_json(:include => [:comments, :revisions])
+          .html_safe %>, $('.noteShowView')));
       <% else %>
-        $(LLC.showNote(<%= @note.to_json.html_safe %>, $('.noteShowView')));
+        $(LLC.showNote(<%= Note.where(:id => @note.id)
+          .includes(:comments, :revisions)
+          .to_json(:include => [:comments, :revisions])
+          .html_safe %>, $('.noteShowView')));
       <% end %>
     </script>
   </div>

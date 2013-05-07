@@ -31,6 +31,7 @@ ShowRevisableNoteView = Backbone.View.extend({
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
       console.log("The selection must be within the text area");
     } else {
+      console.log("comment lanuch?");
       $('#commentForm').empty();
       $('#revisionForm').empty();
       that.range = that.selection.getRangeAt(0);
@@ -45,12 +46,12 @@ ShowRevisableNoteView = Backbone.View.extend({
   storeComment: function() {
     this.comment = new LLC.Models.Comment({
       body: this.$commentTextBox.val(),
-      // range: this.range,
-      // userId: this.model.attributes.author_id.toString(),
-      // noteId: this.model.id.toString()
+      range: rangy.serializeRange(this.range, true)
     });
     $('#commentForm').empty();
     LLC.comments.add(this.comment);
     this.comment.save();
+    this.model.fetch();
+    this.showNoteView.showComments();
   }
 })

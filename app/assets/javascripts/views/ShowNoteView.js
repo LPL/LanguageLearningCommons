@@ -7,12 +7,30 @@ ShowNoteView = Backbone.View.extend({
       note: that.model.attributes
     }));
 
-    rangy.init();
-    this.lobnoxClasser = rangy.createCssClassApplier("lobnox", {normalize: true});
-    LLC.comments.each(function(comment) {
-      this.lobnoxClasser.applyToRange(comment.range);
-    })
+    // rangy.init();
+    // this.lobnoxClasser = rangy.createCssClassApplier("lobnox", {normalize: true});
+    // _(that.model.attributes.comments).each(function(comment) {
+    //   var range = rangy.deserializeRange(comment.range)
+    //   this.lobnoxClasser.applyToRange(range);
+    // })
 
     return that;
+  },
+
+  showComments: function(note) {
+    var that = this;
+
+    // var note;
+    // if(note == null) {
+    //   note =
+    // }
+
+    rangy.init();
+    this.commentStyler = rangy.createCssClassApplier("comment", {normalize: true});
+    _(that.model.attributes.comments).each(function(comment) {
+      var range = rangy.deserializeRange(comment.range);
+      that.commentStyler.applyToRange(range);
+    })
   }
+
 })
