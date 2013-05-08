@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   def create
+    # @comment = current_user.comments.build(params[:comment])
     @comment = Comment.new(params[:comment])
     @comment.note_id = params[:note_id]
     @comment.user_id = current_user.id # ! user_id in params is note_author

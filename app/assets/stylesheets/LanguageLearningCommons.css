@@ -51,3 +51,23 @@
 .revision:hover {
   color: #aa0;
 }
+
+.reviewText {
+  position: absolute;
+  bottom: 16px;
+  background-color: #161;
+  color: #7d9;
+}
+
+.reviewPocket {
+  position: relative;
+}
+
+.review {
+  color: #808;
+  font-weight: bold;
+}
+
+.review:hover {
+  color: #a0a;
+}
