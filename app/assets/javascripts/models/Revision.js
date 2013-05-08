@@ -1,8 +1,18 @@
 LLC.Models.Revision = Backbone.Model.extend({
-  // urlRoot: ('users/' + this.userId + '/notes/' + this.noteId +
-  //   '/revisions/' + this.revisionId)
-});
+  initialize: function(ids) {
+    // this.urlRoot = ('users/' + ids.userId + '/notes/' +
+    // ids.noteId + '/comments/');
 
-// initialize: function(userId) {
-//   this.urlRoot = 'users/' + userId
-// }
+    // this.url = 'urltest';
+
+    this.urlRoot = (LLC.note.id + '/revisions/');
+
+  },
+
+  toJSON: function() {
+    return { revision: {
+      range: this.attributes.range,
+      body: this.attributes.body
+    }};
+  }
+});

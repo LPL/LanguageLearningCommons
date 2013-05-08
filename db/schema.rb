@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(:version => 20130502201955) do
     t.string   "range"
     t.text     "body"
     t.integer  "note_id"
-    t.integer  "revisor_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

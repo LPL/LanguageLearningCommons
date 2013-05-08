@@ -3,5 +3,5 @@ LLC.Collections.Revisions = Backbone.Collection.extend({
   //   this.url = ('users/' + userId + '/notes/' + this.noteId +
   //   '/revisions/');
   // },
-  // model: LLC.Models.Revision
+  model: LLC.Models.Revision
 });

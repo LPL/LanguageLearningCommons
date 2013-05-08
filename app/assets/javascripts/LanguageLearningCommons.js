@@ -5,7 +5,7 @@ LLC = {
 
   initialize: function() {
     LLC.comments = new LLC.Collections.Comments();
-    // LLC.revisions = new LLC.Collections.Revisions();
+    LLC.revisions = new LLC.Collections.Revisions();
   },
 
   showNote: function(unmodeledNote, $rootEl) {
@@ -15,6 +15,7 @@ LLC = {
     showNoteView = new ShowNoteView({ model: this.note });
     $rootEl.html(showNoteView.render().$el);
     showNoteView.showComments();
+    showNoteView.showRevisions();
   },
 
   showRevisableNote: function(unmodeledNote, $rootEl) {
@@ -24,6 +25,7 @@ LLC = {
     showRevisableNoteView = new ShowRevisableNoteView({ model: this.note });
     $rootEl.html(showRevisableNoteView.render().$el);
     showRevisableNoteView.showNoteView.showComments();
+    showRevisableNoteView.showNoteView.showRevisions();
     // this.showComments(LLC.note);
   }
 }

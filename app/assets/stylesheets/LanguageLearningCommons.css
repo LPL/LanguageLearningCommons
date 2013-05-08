@@ -17,7 +17,6 @@
   bottom: 16px;
   background-color: #111;
   color: #ddd;
-  font-weight: bold;
 }
 
 .commentPocket {
@@ -31,4 +30,24 @@
 
 .comment:hover {
   color: #0aa;
+}
+
+.revisionText {
+  position: absolute;
+  bottom: 16px;
+  background-color: #111;
+  color: #ddd;
+}
+
+.revisionPocket {
+  position: relative;
+}
+
+.revision {
+  color: #880;
+  font-weight: bold;
+}
+
+.revision:hover {
+  color: #aa0;
 }

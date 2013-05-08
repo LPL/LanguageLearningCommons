@@ -5,7 +5,7 @@ class CreateRevisions < ActiveRecord::Migration
       t.text :body
 
       t.references :note
-      t.references :revisor
+      t.integer :user_id
 
       t.timestamps
     end

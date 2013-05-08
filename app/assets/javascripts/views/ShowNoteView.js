@@ -59,44 +59,44 @@ ShowNoteView = Backbone.View.extend({
     $commentedRange.on('mouseout', function() {
       $commentPocket.empty();
     })
-  }//,
+  },
 
-  // showRevisions: function(note) {
-  //   var that = this;
-  //
-  //   rangy.init();
-  //   var i = 0;
-  //   _.each(LLC.revisions.models, function(revision) {
-  //     that.revisionStyler = rangy.createCssClassApplier("revision revision" + i);
-  //     var range = rangy.deserializeRange(revision.attributes.range);
-  //     that.revisionStyler.applyToRange(range);
-  //
-  //     i++;
-  //   })
-  //
-  //   var j = 0;
-  //   _.each(LLC.revisions.models, function(revision) {
-  //     var $revisionedRange =  $('.revision' + j);
-  //     var $revisionPocket = $('<span class="revisionPocket"></span>');
-  //     $revisionedRange.prepend($revisionPocket);
-  //     that.setRevisionListener(that, $revisionedRange, $revisionPocket, j);
-  //
-  //     j++;
-  //   })
-  // },
-  //
-  // setRevisionListener: function(that, $revisionedRange, $revisionPocket, j) {
-  //   var that = this;
-  //
-  //   $revisionedRange.on('mouseover',
-  //     that.showRevisionText.bind(that, $revisionedRange, $revisionPocket, j));
-  // },
-  //
-  // showRevisionText: function($revisionedRange, $revisionPocket, j) {
-  //   var revisionText = LLC.revisions.models[j].attributes.body;
-  //   $revisionPocket.append('<span class=revisionText>' + revisionText + '</span>');
-  //   $revisionedRange.on('mouseout', function() {
-  //     $revisionPocket.empty();
-  //   })
-  // }
+  showRevisions: function(note) {
+    var that = this;
+
+    rangy.init();
+    var i = 0;
+    _.each(LLC.revisions.models, function(revision) {
+      that.revisionStyler = rangy.createCssClassApplier("revision revision" + i);
+      var range = rangy.deserializeRange(revision.attributes.range);
+      that.revisionStyler.applyToRange(range);
+
+      i++;
+    })
+
+    var j = 0;
+    _.each(LLC.revisions.models, function(revision) {
+      var $revisionedRange =  $('.revision' + j);
+      var $revisionPocket = $('<span class="revisionPocket"></span>');
+      $revisionedRange.prepend($revisionPocket);
+      that.setRevisionListener(that, $revisionedRange, $revisionPocket, j);
+
+      j++;
+    })
+  },
+
+  setRevisionListener: function(that, $revisionedRange, $revisionPocket, j) {
+    var that = this;
+
+    $revisionedRange.on('mouseover',
+      that.showRevisionText.bind(that, $revisionedRange, $revisionPocket, j));
+  },
+
+  showRevisionText: function($revisionedRange, $revisionPocket, j) {
+    var revisionText = LLC.revisions.models[j].attributes.body;
+    $revisionPocket.append('<span class=revisionText>' + revisionText + '</span>');
+    $revisionedRange.on('mouseout', function() {
+      $revisionPocket.empty();
+    })
+  }
 })
