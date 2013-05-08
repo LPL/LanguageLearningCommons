@@ -1,25 +1,12 @@
 class RevisionsController < ApplicationController
-  # def new
-  #   @note = Note.find(params[:id])
-  #   @revision = Revision.new
-  #   @revision.commentary = @note.body
-  # end
-
   def create
-    @revision = Revision.create(params[:revision])
-    if @revision.save!
-      redirect_to revision_url(@revision)
-    else
-      flash[:error] = "Revision failed to save."
-      @note = Note.find(params[:note_id])
-      render :new
-    end
-  end
-
-  # def show
-  #   @revision = Revision.find(params[:id])
-  # end
-
-  def index
+    # @revision = Revision.new(params[:revision])
+    # @revision.note_id = params[:note_id]
+    # @revision.user_id = current_user.id # ! user_id in params is note_author
+    # if @revision.save
+    #   render :json => @revision
+    # else
+    #   render :json => "Note author identity crisis!".to_json
+    # end
   end
 end

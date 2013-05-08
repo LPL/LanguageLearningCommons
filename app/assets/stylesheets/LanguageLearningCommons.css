@@ -12,7 +12,23 @@
   font-weight: bold;
 }
 
-.comment {
-  color: blue;
+.commentText {
+  position: absolute;
+  bottom: 16px;
+  background-color: #111;
+  color: #ddd;
   font-weight: bold;
+}
+
+.commentPocket {
+  position: relative;
+}
+
+.comment {
+  color: #088;
+  font-weight: bold;
+}
+
+.comment:hover {
+  color: #0aa;
 }
