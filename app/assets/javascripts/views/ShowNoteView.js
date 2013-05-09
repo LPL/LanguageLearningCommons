@@ -58,24 +58,25 @@ ShowNoteView = Backbone.View.extend({
 
     LLC.revisions.each(function(revision) {
       var $revisionedRange =  $('.revision' + revision.id);
+      var originalText = $revisionedRange.html();
+      $revisionedRange.html(revision.get('body'));
       var $revisionPocket = $('<span class="revisionPocket"></span>');
       $revisionedRange.prepend($revisionPocket);
-      that.setReviewListener(that, $revisionedRange, $revisionPocket, revision.id, false);
+      that.setReviewListener(that, $revisionedRange, $revisionPocket, revision.id, false, originalText);
     })
-
   },
 
-  setReviewListener: function(that, $reviewedRange, $reviewPocket, markId, isComment) {
+  setReviewListener: function(that, $reviewedRange, $reviewPocket, markId, isComment, originalText) {
     var that = this;
 
     $reviewedRange.on('mouseover',
-      that.showReviewText.bind(that, $reviewedRange, $reviewPocket, markId, isComment));
+      that.showReviewText.bind(that, $reviewedRange, $reviewPocket, markId, isComment, originalText));
   },
 
-  showReviewText: function($reviewedRange, $reviewPocket, markId, isComment) {
+  showReviewText: function($reviewedRange, $reviewPocket, markId, isComment, originalText) {
     // var reviewText = isComment ? LLC.comments.get(k).get('body') : LLC.revisions.get(k).get('body')
-    var reviewText = isComment ? LLC.comments.get(markId).get('body') : LLC.revisions.get(markId).get('body')
-    $reviewPocket.append('<span class=reviewText>' + reviewText + '</span>');
+    var reviewText = isComment ? LLC.comments.get(markId).get('body') : originalText
+    $reviewPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') + '>' + reviewText + '</span>');
     $reviewedRange.on('mouseout', function() {
       $reviewPocket.empty();
     })

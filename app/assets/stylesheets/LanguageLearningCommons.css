@@ -17,9 +17,7 @@
 }
 
 .noteBody {
-  color: #444;
   background-color: #fed;
-
 }
 
 .rebuffed {
@@ -127,13 +125,13 @@
   font-weight: bold;
 }
 
-.comment:hover {
-  color: #0aa;
-}
-
 .revision {
   color: #991;
   font-weight: bold;
+}
+
+.comment:hover {
+  color: #0aa;
 }
 
 .revision:hover {
@@ -148,11 +146,18 @@
   position: relative;
 }
 
-.reviewText {
+.commentText {
   position: absolute;
   bottom: 16px;
-  background-color: #9ab;
-  color: #444;
+  background-color: #9ee;
+  color: #333;
+}
+
+.revisionText {
+  position: absolute;
+  bottom: 16px;
+  background-color: #ee9;
+  color: #d33;
   text-decoration:line-through;
 }
 

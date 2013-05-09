@@ -84,6 +84,7 @@ ShowRevisableNoteView = Backbone.View.extend({
     var that = this;
     this.revision = new LLC.Models.Revision({
       body: this.$revisionTextBox.val(),
+      originalText: range.toString(),
       range: rangy.serializeRange(range, true),
       reviewType: 'revision'
     });
