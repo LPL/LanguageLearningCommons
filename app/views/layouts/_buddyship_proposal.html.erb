@@ -1,11 +1,14 @@
 <%= link_to buddyship_proposal.proposing_user.name,
       user_url(buddyship_proposal.proposing_user) %>
       wants to be your buddy! <br>
-<%= form_tag "/buddyships", :method => "post" do %>
+<%= form_tag "/buddyships", :method => "post", :class => 'form-inline' do %>
   <%= hidden_field_tag :id, buddyship_proposal.proposing_user.id %>
   <%= submit_tag "Accept" %>
 <% end %>
+
 <%= form_tag ('/buddyship_proposals/' +
-  "#{buddyship_proposal.proposing_user.id}"), :method => "delete" do %>
+  "#{buddyship_proposal.proposing_user.id}"), :method => "delete", :class => 'form-inline' do %>
   <%= submit_tag "Reject" %>
 <% end %>
+<div class="clearDiv"></div>
+

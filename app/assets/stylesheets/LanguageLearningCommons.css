@@ -1,30 +1,77 @@
 .llcfill {
-  background-color: #666;
+  background-color: #444;
 }
 
 .llctext {
-  background-color: #dba;
+  background-color: #cba;
 }
 
-.lobnox {
-  background-color: #11ff11;
-  color: #ff11ff;
+.noteBody {
+  color: #444;
+  background-color: #fed;
+
+}
+
+.buffer {
+  margin-left:    16px;
+  margin-right:   16px;
+  margin-top:     16px;
+  margin-bottom:  16px;
+}
+
+.clearDiv {
+  clear: both;
+}
+
+.form-inline {
+  float: left;
+}
+
+.header a {
   font-weight: bold;
+  font-size: medium;
+  color: #aaa;
 }
 
-.commentText {
-  position: absolute;
-  bottom: 16px;
-  background-color: #111;
-  color: #ddd;
+.header a:hover {
+  color: #fff;
+  text-decoration: none;
 }
 
-.commentPocket {
-  position: relative;
+.languageName a {
+  color: #642;
+}
+
+.languageName a:hover {
+  color: #990;
+  text-decoration: none;
+}
+
+.listTitle a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.noteList a {
+  color: #240;
+  text-decoration: none;
+}
+
+.buddyList a {
+  color: #240;
+  text-decoration: none;
+}
+
+.noteList a:hover {
+  color: #480;
+}
+
+.buddyList a:hover {
+  color: #480;
 }
 
 .comment {
-  color: #088;
+  color: #199;
   font-weight: bold;
 }
 
@@ -32,19 +79,8 @@
   color: #0aa;
 }
 
-.revisionText {
-  position: absolute;
-  bottom: 16px;
-  background-color: #111;
-  color: #ddd;
-}
-
-.revisionPocket {
-  position: relative;
-}
-
 .revision {
-  color: #880;
+  color: #991;
   font-weight: bold;
 }
 
@@ -52,22 +88,18 @@
   color: #aa0;
 }
 
-.reviewText {
-  position: absolute;
-  bottom: 16px;
-  background-color: #161;
-  color: #7d9;
-}
-
-.reviewPocket {
+.commentPocket {
   position: relative;
 }
 
-.review {
-  color: #808;
-  font-weight: bold;
+.revisionPocket {
+  position: relative;
 }
 
-.review:hover {
-  color: #a0a;
+.reviewText {
+  position: absolute;
+  bottom: 16px;
+  background-color: #9ab;
+  color: #444;
+  text-decoration:line-through;
 }

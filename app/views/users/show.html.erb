@@ -18,9 +18,11 @@
     <h4>
   	 <% if @knowings.any? %>
         Knows
+        <span class="languageName">
     	  <%= @knowings.map do |knowing| %>
-    			<% link_to knowing.language.name, user_knowing_url(@user, knowing) %>
+    			  <% link_to knowing.language.name, user_knowing_url(@user, knowing) %>
     	  <% end.join(", ").html_safe %>
+        </span>
   	<% else %>
   		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
   	<% end %>
@@ -32,10 +34,12 @@
     <h4>
     	<% if @learnings.any? %>
     	  Learns
+        <span class="languageName">
         <%= @learnings.map do |learning| %>
-    		  <% link_to learning.language.name, user_learning_url(@user, learning) %>
+      		  <% link_to learning.language.name, user_learning_url(@user, learning) %>
     		<% end.join(", ").html_safe %>
-    	<% else %>
+        </span>
+      <% else %>
     		<%= link_to "What language(s) are you learning?",
          edit_user_registration_path %>
     	<% end %>
@@ -48,36 +52,53 @@
   <div class="span6">
     <div class="row">
       <div class="span4">
-        <b><%= link_to "Notes", user_notes_url(@user) %></b>
-        <font color="gray"> (<%= @notes.count %>) </font>
+        <span class="noteList listTitle">
+          <%= link_to "Notes", user_notes_url(@user) %>
+        </span>
+        <font color="gray"> (<%= @notes.count %>)</font>
       </div>
       <div class="span2">
-        <%= link_to "New note", new_user_note_url(@user) if @self_page%>
+        <span class="noteList">
+          <%= link_to "New note", new_user_note_url(@user) if @self_page%>
+        </span>
       </div>
     </div>
     <br>
   	<% if @learnings.any? %>
   			<ul>
   				<% @notes.each do |note| %>
-  					<%= link_to note.title, user_note_url(@user.id, note) %>
+  					<span class="noteList">
+              <%= link_to note.title, user_note_url(@user.id, note) %>
+            </span>
+            <font color="gray">
+              - <%= time_ago_in_words (note.created_at) %> ago
+            </font>
             <br>
   				<% end %>
           <br>
-          <%= link_to "Show all...", user_notes_url(@user) %>
+          <span class="noteList">
+            <%= link_to "Show all...", user_notes_url(@user) %>
+          </span>
   			</ul>
   	<% end %>
   </div>
-  <div class="span6">
-    <b><%= link_to "Buddies", user_buddyships_url(@user) %></b>
+  <div class="span5">
+    <span class="buddyList listTitle">
+      <%= link_to "Buddies", user_buddyships_url(@user) %>
+    </span>
     <font color="gray"> (<%= @user.buddies.count %>) </font> <br><br>
+    <% @user.buddies.each do |buddy| %>
+      <span class="buddyList">
+        <%= link_to buddy.name, user_url(buddy) %>
+      </span>
+      <br>
+    <% end %>
     <% if @self_page && @user.received_buddyship_proposals.any? %>
+      <br>
       <% @user.received_buddyship_proposals.each do |buddyship_proposal| %>
         <%= render :partial => 'layouts/buddyship_proposal',
           :locals => {:buddyship_proposal => buddyship_proposal} %>
       <% end %>
-    <% end %>
-    <% @user.buddies.each do |buddy| %>
-      <%= link_to buddy.name, user_url(buddy) %> <br>
     <% end %>
   </div>
 </div>

@@ -9,8 +9,6 @@ ShowRevisableNoteView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("ShowRevisableNoteView.render")
-
     var that = this;
 
     this.$el.html(this.showNoteView.render({ model: this.model }).$el);
@@ -26,8 +24,9 @@ ShowRevisableNoteView = Backbone.View.extend({
     var that = this;
 
     that.selection = rangy.getSelection();
-    if(that.selection.rangeCount == 0) {
-      console.log("No selection detected.");
+    if(that.selection.rangeCount == 0 ||
+       that.selection.nativeSelection.type == "Caret") {
+      $('#commentForm').html("Highlight the section of text you wish to comment on.");
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
       console.log("The selection must be within the text area");
     } else {
@@ -36,7 +35,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       $('#revisionForm').empty();
       var range = that.selection.getRangeAt(0);
       that.$commentTextBox = $('<input type="textArea" name="body" id="commentTextBox">');
-      that.$commentSaveButton = $('<input type="submit" value="Save">');
+      that.$commentSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#commentForm').append(that.$commentTextBox);
       $('#commentForm').append(that.$commentSaveButton);
       that.$commentSaveButton.on('click', that.storeComment.bind(that, range));
@@ -44,19 +43,20 @@ ShowRevisableNoteView = Backbone.View.extend({
   },
 
   storeComment: function(range) {
+    var that = this;
     this.comment = new LLC.Models.Comment({
       body: this.$commentTextBox.val(),
       range: rangy.serializeRange(range, true),
       reviewType: 'comment'
     });
     $('#commentForm').empty();
-    LLC.comments.add(this.comment);
-    this.comment.save();
-    // this.model.fetch();
-    this.showNoteView.render();
-    // this.showNoteView.showComments();
-    // this.showNoteView.showRevisions();
-    this.showNoteView.showReviews();
+    this.comment.save({}, {
+      success: function(savedComment) {
+        LLC.comments.add(savedComment);
+        that.showNoteView.render();
+        that.showNoteView.showReviews();
+      }
+    });
   },
 
   launchRevision: function() {
@@ -64,7 +64,7 @@ ShowRevisableNoteView = Backbone.View.extend({
 
     that.selection = rangy.getSelection();
     if(that.selection.rangeCount == 0) {
-      console.log("No selection detected.");
+      $('#commentForm').html("Highlight text from the note to revise it.");
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
       console.log("The selection must be within the text area");
     } else {
@@ -81,22 +81,19 @@ ShowRevisableNoteView = Backbone.View.extend({
   },
 
   storeRevision: function(range) {
+    var that = this;
     this.revision = new LLC.Models.Revision({
       body: this.$revisionTextBox.val(),
       range: rangy.serializeRange(range, true),
       reviewType: 'revision'
     });
     $('#revisionForm').empty();
-    LLC.revisions.add(this.revision);
-    this.revision.save();
-    // this.model.fetch();
-    this.showNoteView.render();
-    // this.showNoteView.showRevisions();
-    // this.showNoteView.showComments();
-    this.showNoteView.showReviews();
+    this.revision.save({}, {
+      success: function(savedRevision) {
+        LLC.revisions.add(savedRevision);
+        that.showNoteView.render();
+        that.showNoteView.showReviews();
+      }
+    });
   }
 })
-
-// this.revision.save({success: function(savedRevision) {
-//   LLC.revisions.add(savedRevision);
-// }});

@@ -30,16 +30,18 @@
     </div>
   <% end %>
   <div class="container llctext">
-    <% if notice || alert %>
-      <div class="row flash">
-        <div class="span12">
-          <%= notice if notice %>
-          <%= alert if alert %>
+    <div class="buffer">
+      <% if notice || alert %>
+        <div class="row flash">
+          <div class="span12">
+            <%= notice if notice %>
+            <%= alert if alert %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-      <%= yield %>
+        <%= yield %>
+    </div>
   </div>
 </body>
 </html>
