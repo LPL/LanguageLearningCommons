@@ -8,7 +8,7 @@
 </head>
 <body class="llcfill">
   <% if user_signed_in? %>
-    <div class="header">
+    <div class="header container">
         <div class="row">
           <div class="span4">
             <p class="text-center">
@@ -30,12 +30,20 @@
     </div>
   <% end %>
   <div class="container llctext">
-    <div class="buffer">
+    <div class="titularRebuffed">
       <% if notice || alert %>
         <div class="row flash">
           <div class="span12">
-            <%= notice if notice %>
-            <%= alert if alert %>
+            <% if notice %>
+              <span class="notice">
+                <%= notice%>
+              </span>
+            <% end %>
+            <% if alert %>
+              <span class="alert">
+                <%= alert if alert %>
+              </span>
+            <% end %>
           </div>
         </div>
       <% end %>

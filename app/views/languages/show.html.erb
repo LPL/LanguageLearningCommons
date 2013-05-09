@@ -1,6 +1,8 @@
 <div class="row">
   <div class="span12">
-    <h1><%= @language.name %></h1>
+    <span class="languageName">
+      <h1><%= @language.name %></h1>
+    </span>
   </div>
 </div>
 <div class="row">
@@ -23,7 +25,9 @@
     </div>
     <div class="row" style="text-align: center; vertical-align: middle;">
       <% @language.knowers.each do |knower| %>
+        <span class="userName">
         <%= link_to knower.name, user_url(knower) %>
+        </span>
         <br>
       <% end %>
     </div>
@@ -47,7 +51,9 @@
     </div>
     <div class="row" style="text-align: center; vertical-align: middle;">
       <% @language.learners.each do |learner| %>
-        <%= link_to learner.name, user_url(learner) %>
+        <span class="userName">
+          <%= link_to learner.name, user_url(learner) %>
+        </span>
         <br>
       <% end %>
     </div>

@@ -1,6 +1,10 @@
 <div class="row">
   <div class="span12">
-    <h1><%= link_to @user.name, user_url(@user) %>'s Buddies</h1>
+    <h1>
+      <span class="userName">
+        <%= link_to @user.name, user_url(@user) %>'s Buddies
+      </span>
+    </h1>
     <% if @buddies.none? %>
       <% if @self_page %>
         <h4>You don't have any buddies yet.</h4>
@@ -28,10 +32,11 @@
           :locals => {:buddyship_proposal => @buddyship_proposal} %>
       <% end %>
       <% @buddies.each do |buddy| %>
-        <%= link_to buddy.name, user_url(buddy) %>
+        <span class="userName">
+          <%= link_to buddy.name, user_url(buddy) %>
+        </span>
         <br>
       <% end %>
-
     <% end %>
   </div>
 </div>

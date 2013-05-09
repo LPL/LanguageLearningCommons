@@ -1,17 +1,32 @@
 <div class="row">
   <div class="span12">
-    <h1><%= link_to @author.name, user_url(@author) %>'s Notes</h1>
-    <% @notes_by_language.each_pair do |language, language_notes| %>
-        <% if language_notes.any? %>
-          <h3>In <%= language.name %></h3>
-          <% language_notes.each do |language_note| %>
-            <%= link_to language_note.title, user_note_url(@author, language_note) %>
-          <% end %>
-        <% else %>
-          <font color="gray"><%= @author.name %> hasn't written any notes in
-            <%= link_to language.name, language_url(language) %> yet.</font>
-        <% end %>
-        <br><br>
+    <h1 class="userName">
+      <%= link_to @author.name, user_url(@author) %>'s Notes
+    </h1>
+    <% @notes_by_language[:noted].each_pair do |language, language_notes| %>
+      <h3>
+        In
+        <span class="languageName">
+          <%= link_to language.name, language_url(language) %>
+        </span>
+      </h3>
+      <% language_notes.each do |language_note| %>
+        <span class="noteTitle">
+          <%= link_to language_note.title, user_note_url(@author,
+                                                         language_note) %>
+        </span>
+      <% end %>
+    <% end %>
+    <br><br>
+    <% @notes_by_language[:noteless].each do |language| %>
+      <font color="gray">
+        <%= @author.name %> hasn't written any notes in
+        <span class="languageName">
+          <%= link_to language.name, language_url(language) %>
+        </span>
+         yet.
+      </font>
+      <br>
     <% end %>
   </div>
 </div>

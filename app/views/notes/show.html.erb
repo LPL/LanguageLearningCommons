@@ -1,7 +1,13 @@
 <div class="row">
   <div class="span12">
-    By <%= link_to @note.author.name, user_url(@note.author) %>
-    in <%= link_to @note.language.name, language_url(@note.language) %>
+    <h3>
+      <span class="noteTitle">
+        <%= link_to (@author.name + "'s Notes"), user_notes_url(@author) %>
+      </span>
+    </h3>
+    <span class="languageName">
+      In <%= link_to @note.language.name, language_url(@note.language) %>
+    </span>
     <div class="noteShowView"></div>
 
     <script type="text/javascript">

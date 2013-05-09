@@ -4,6 +4,16 @@
 
 .llctext {
   background-color: #cba;
+  color: #333;
+}
+
+.llctext a {
+  color: #333;
+}
+
+.llctext a:hover {
+  color: #666;
+  text-decoration: none;
 }
 
 .noteBody {
@@ -12,12 +22,26 @@
 
 }
 
-.buffer {
+.rebuffed {
+  padding-left:    16px;
+  padding-right:   16px;
+  padding-top:     16px;
+  padding-bottom:  16px;
+}
+
+.titularRebuffed {
+  padding-left:    24px;
+  padding-right:   24px;
+  padding-top:      6px;
+  padding-bottom:  24px;
+}
+
+/*.buffer {
   margin-left:    16px;
   margin-right:   16px;
   margin-top:     16px;
   margin-bottom:  16px;
-}
+}*/
 
 .clearDiv {
   clear: both;
@@ -25,6 +49,11 @@
 
 .form-inline {
   float: left;
+}
+
+.header {
+  min-width: 900px;
+  padding-top: 10px;
 }
 
 .header a {
@@ -38,12 +67,35 @@
   text-decoration: none;
 }
 
+.noteShowView {
+}
+
+.noteBody {
+}
+
+.alert {
+  font-weight: bold;
+  font-size: medium;
+  color: #333;
+  background-color: #f66;
+}
+
+.notice {
+  font-weight: bold;
+  font-size: medium;
+  color: #44b;
+}
+
+.languageName {
+  color: #642;
+}
+
 .languageName a {
   color: #642;
 }
 
 .languageName a:hover {
-  color: #990;
+  color: #882;
   text-decoration: none;
 }
 
@@ -52,22 +104,22 @@
   text-decoration: none;
 }
 
-.noteList a {
-  color: #240;
+.noteTitle a {
+  color: #333;
   text-decoration: none;
 }
 
-.buddyList a {
-  color: #240;
+.noteTitle a:hover {
+  color: #686;
+}
+
+.userName a {
+  color: #333;
   text-decoration: none;
 }
 
-.noteList a:hover {
-  color: #480;
-}
-
-.buddyList a:hover {
-  color: #480;
+.userName a:hover {
+  color: #a66;
 }
 
 .comment {
@@ -102,4 +154,8 @@
   background-color: #9ab;
   color: #444;
   text-decoration:line-through;
+}
+
+.faint {
+  color: #888;
 }

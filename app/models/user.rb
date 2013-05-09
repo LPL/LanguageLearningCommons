@@ -61,10 +61,14 @@ class User < ActiveRecord::Base
   end
 
   def notes_by_language # worthwhile?
-    notes_by_language = {}
+    notes_by_language = {:noted => {}, :noteless => []}
     self.learning_languages.each do |learning_language|
-      notes_by_language[learning_language] =
-        notes.where(language_id: learning_language.id)
+      language_notes = notes.where(language_id: learning_language.id)
+      if language_notes.any?
+        notes_by_language[:noted][learning_language] = language_notes
+      else
+        notes_by_language[:noteless] << learning_language
+      end
     end
     notes_by_language
   end

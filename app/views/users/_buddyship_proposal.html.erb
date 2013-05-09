@@ -1,6 +1,8 @@
-<%= link_to buddyship_proposal.proposing_user.name,
+<span class="buddyName">
+  <%= link_to buddyship_proposal.proposing_user.name,
       user_url(buddyship_proposal.proposing_user) %>
       wants to be your buddy! <br>
+</span>
 <%= form_tag "/buddyships", :method => "post" do %>
   <%= hidden_field_tag :id, buddyship_proposal.proposing_user.id %>
   <%= submit_tag "Accept" %>

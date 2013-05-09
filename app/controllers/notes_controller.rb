@@ -19,6 +19,7 @@ class NotesController < ApplicationController
 
   def show
     @note = Note.find(params[:id])
+    @author = @note.author
     @self_page = @note.author == current_user
   end
 
