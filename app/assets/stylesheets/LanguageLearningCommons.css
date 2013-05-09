@@ -175,21 +175,18 @@
   padding-bottom: 16px;
 }
 
+.centerboxUnit {
+  font-size: 18px;
+}
+
 .centerboxVerb {
   font-size: 44px;
   padding-top: 12px;
-  padding-bottom: 16px;
-}
-
-.centerboxUnit {
-  font-size: 18px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding-bottom: 18px;
 }
 
 .centerboxLang {
   font-size: 18px;
-  padding-top: 0px;
   padding-bottom: 30px;
 }
 
