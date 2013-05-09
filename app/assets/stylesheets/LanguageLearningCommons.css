@@ -164,3 +164,36 @@
 .faint {
   color: #888;
 }
+
+.centerbox {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.centerboxCount {
+  font-size: 50px;
+  padding-bottom: 16px;
+}
+
+.centerboxVerb {
+  font-size: 44px;
+  padding-top: 12px;
+  padding-bottom: 16px;
+}
+
+.centerboxUnit {
+  font-size: 18px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.centerboxLang {
+  font-size: 18px;
+  padding-top: 0px;
+  padding-bottom: 30px;
+}
+
+.centerboxList {
+  padding-top: 0px;
+  font-size: 24px;
+}

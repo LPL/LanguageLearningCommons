@@ -1,59 +1,37 @@
 <div class="row">
-  <div class="span12">
-    <span class="languageName">
-      <h1><%= @language.name %></h1>
-    </span>
+  <div class="span10 languageName">
+    <h1><%= @language.name %></h1>
   </div>
 </div>
 <div class="row">
-  <div class="span6">
+  <div class="span5 centerbox">
+    <div class="centerboxCount"><%= @language.knowers.count %></div>
+    <div class="centerboxUnit">
+      <%= @language.knowers.count == 1 ? "person" : "people" %>
+    </div>
+    <div class="centerboxVerb">know</div>
+    <div class="centerboxLang"><%= @language.name %></div>
     <div class="row">
-      <div class="span3" style="text-align: right; vertical-align: bottom;">
-        <h2><%= @language.knowers.count %></h2>
-      </div>
-      <div class="span3" style="text-align: left; vertical-align: bottom;">
-        people
-      </div>
-    </div>
-    <div class="row" style="text-align: center; vertical-align: top;">
-      <div class="span3" style="text-align: right; vertical-align: bottom;">
-        <h2>know</h2>
-      </div>
-      <div class="span3" style="text-align: left; vertical-align: bottom;">
-        <%= @language.name %>
-      </div>
-    </div>
-    <div class="row" style="text-align: center; vertical-align: middle;">
       <% @language.knowers.each do |knower| %>
-        <span class="userName">
-        <%= link_to knower.name, user_url(knower) %>
-        </span>
+        <div class="userName centerboxList">
+          <%= link_to knower.name, user_url(knower) %>
+        </div>
         <br>
       <% end %>
     </div>
   </div>
-  <div class="span6">
+  <div class="span5 centerbox">
+    <div class="centerboxCount"><%= @language.learners.count %></div>
+    <div class="centerboxUnit">
+      <%= @language.learners.count == 1 ? "person is" : "people are" %>
+    </div>
+    <div class="centerboxVerb">learning</div>
+    <div class="centerboxLang"><%= @language.name %></div>
     <div class="row">
-      <div class="span3" style="text-align: right; vertical-align: bottom;">
-        <h2><%= @language.learners.count %></h2>
-      </div>
-      <div class="span3" style="text-align: left; vertical-align: bottom;">
-        people are
-      </div>
-    </div>
-    <div class="row" style="text-align: center; vertical-align: top;">
-      <div class="span3" style="text-align: right; vertical-align: bottom;">
-        <h2>learning</h2>
-      </div>
-      <div class="span3" style="text-align: left; vertical-align: bottom;">
-        <%= @language.name %>
-      </div>
-    </div>
-    <div class="row" style="text-align: center; vertical-align: middle;">
       <% @language.learners.each do |learner| %>
-        <span class="userName">
+        <div class="userName centerboxList">
           <%= link_to learner.name, user_url(learner) %>
-        </span>
+        </div>
         <br>
       <% end %>
     </div>
