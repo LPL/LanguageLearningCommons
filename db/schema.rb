@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20130502201955) do
   create_table "comments", :force => true do |t|
     t.string   "range"
     t.text     "body"
+    t.string   "markType"
     t.integer  "note_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130502201955) do
   create_table "revisions", :force => true do |t|
     t.string   "range"
     t.text     "body"
+    t.string   "markType"
     t.integer  "note_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
