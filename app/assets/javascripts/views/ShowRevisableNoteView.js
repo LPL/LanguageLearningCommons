@@ -73,7 +73,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       $('#commentForm').empty();
       var range = that.selection.getRangeAt(0);
       that.$revisionTextBox = $('<input type="textArea" name="body" id="revisionTextBox">');
-      that.$revisionSaveButton = $('<input type="submit" value="Save">');
+      that.$revisionSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#revisionForm').append(that.$revisionTextBox);
       $('#revisionForm').append(that.$revisionSaveButton);
       that.$revisionSaveButton.on('click', that.storeRevision.bind(that, range));

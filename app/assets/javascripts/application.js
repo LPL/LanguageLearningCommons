@@ -13,13 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //
-//= require ./backbone/underscore
-//= require ./backbone/backbone
-//= require ./backbone/backbone-relational
-//= require ./rangy/rangy-core
-//= require ./rangy/rangy-selectionsaverestore
-//= require ./rangy/rangy-serializer
-//= require ./rangy/rangy-cssclassapplier
+//= require ./../../../vendor/assets/javascripts/backbone/underscore
+//= require ./../../../vendor/assets/javascripts/backbone/backbone
+//
+//= require_tree ./../../../vendor/assets/javascripts/rangy
 //
 //= require LanguageLearningCommons
 //= require_tree ./models
