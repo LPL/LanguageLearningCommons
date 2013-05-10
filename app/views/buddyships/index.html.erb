@@ -1,42 +1,44 @@
 <div class="row">
   <div class="span12">
     <h1>
-      <span class="userName">
+      <span class="userName bigTitle">
         <%= link_to @user.name, user_url(@user) %>'s Buddies
       </span>
     </h1>
-    <% if @buddies.none? %>
-      <% if @self_page %>
-        <h4>You don't have any buddies yet.</h4>
-        <% if @known_languages.none? && @learning_languages.none? %>
-          <%= link_to "Try picking some languages first.", edit_user_registration_url %>
-        <% elsif @learning_languages.any? %>
-          Why not bebuddy <%= link_to "someone who knows " +
-            "#{@learning_languages.first.name}",
-            language_url(@learning_languages.first) %>?
+    <span class="languageList">
+      <% if @buddies.none? %>
+        <% if @self_page %>
+          <h4>You don't have any buddies yet.</h4>
+          <% if @known_languages.none? && @learning_languages.none? %>
+            <%= link_to "Try picking some languages first.", edit_user_registration_url %>
+          <% elsif @learning_languages.any? %>
+            Why not bebuddy <%= link_to "someone who knows " +
+              "#{@learning_languages.first.name}",
+              language_url(@learning_languages.first) %>?
+          <% else %>
+            Why not bebuddy <%= link_to "someone learning " +
+              "#{@known_languages.first.name}",
+              language_url(@known_languages.first) %>?
+          <% end %>
         <% else %>
-          Why not bebuddy <%= link_to "someone learning " +
-            "#{@known_languages.first.name}",
-            language_url(@known_languages.first) %>?
+          <%= @user.name %> doesn't have any buddies yet. <br>
+          <%= render 'layouts/bebuddy_button', :locals =>
+            { :user => @user,
+              :is_buddy => @is_buddy,
+              :buddyship_proposal => @buddyship_proposal } %>
         <% end %>
       <% else %>
-        <%= @user.name %> doesn't have any buddies yet. <br>
-        <%= render 'layouts/bebuddy_button', :locals =>
-          { :user => @user,
-            :is_buddy => @is_buddy,
-            :buddyship_proposal => @buddyship_proposal } %>
+        <% if @buddyship_proposal %>
+          <%= render :partial => 'layouts/buddyship_proposal',
+            :locals => {:buddyship_proposal => @buddyship_proposal} %>
+        <% end %>
+        <% @buddies.each do |buddy| %>
+          <span class="userName">
+            <%= link_to buddy.name, user_url(buddy) %>
+          </span>
+          <br>
+        <% end %>
       <% end %>
-    <% else %>
-      <% if @buddyship_proposal %>
-        <%= render :partial => 'layouts/buddyship_proposal',
-          :locals => {:buddyship_proposal => @buddyship_proposal} %>
-      <% end %>
-      <% @buddies.each do |buddy| %>
-        <span class="userName">
-          <%= link_to buddy.name, user_url(buddy) %>
-        </span>
-        <br>
-      <% end %>
-    <% end %>
+    </span>
   </div>
 </div>

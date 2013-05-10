@@ -1,6 +1,6 @@
 <div class="row">
-  <div class ="span12">
-    <h1><%= @user.name %></h1>
+  <div class ="span12 bigTitle">
+    <%= @user.name %>
   </div>
 </div>
 <div class="row">
@@ -14,8 +14,7 @@
   </div>
 </div>
 <div class="row">
-  <div class ="span12">
-    <h4>
+  <div class ="span12 languageList">
   	 <% if @knowings.any? %>
         Knows
         <span class="languageName">
@@ -26,24 +25,21 @@
   	<% else %>
   		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
   	<% end %>
-    </h4>
   </div>
 </div>
 <div class="row">
-  <div class ="span12">
-    <h4>
-    	<% if @learnings.any? %>
-    	  Learning
-        <span class="languageName">
-        <%= @learnings.map do |learning| %>
-      		  <% link_to learning.language.name, language_url(learning.language) %>
-    		<% end.join(", ").html_safe %>
-        </span>
-      <% else %>
-    		<%= link_to "What language(s) are you learning?",
-         edit_user_registration_path %>
-    	<% end %>
-    </h4>
+  <div class ="span12 languageList">
+  	<% if @learnings.any? %>
+  	  Learning
+      <span class="languageName">
+      <%= @learnings.map do |learning| %>
+    		  <% link_to learning.language.name, language_url(learning.language) %>
+  		<% end.join(", ").html_safe %>
+      </span>
+    <% else %>
+  		<%= link_to "What language(s) are you learning?",
+       edit_user_registration_path %>
+  	<% end %>
   </div>
 </div>
 <br>

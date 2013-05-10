@@ -1,24 +1,26 @@
 <div class="row">
   <div class="span12">
-    <h1 class="userName">
+    <div class="userName bigTitle">
       <%= link_to @author.name, user_url(@author) %>'s Notes
-    </h1>
+    </div>
     <% @notes_by_language[:noted].each_pair do |language, language_notes| %>
-      <h3>
+      <div class="languageList">
         In
         <span class="languageName">
           <%= link_to language.name, language_url(language) %>
         </span>
-      </h3>
-      <% language_notes.each do |language_note| %>
-        <span class="noteTitle">
-          <%= link_to language_note.title, user_note_url(@author,
-                                                         language_note) %>
-        </span>
-      <% end %>
+      </div>
+      <ul>
+        <% language_notes.each do |language_note| %>
+          <span class="noteTitle">
+            <%= link_to language_note.title, user_note_url(@author,
+                                                           language_note) %>
+          </span>
+        <% end %>
+      </ul>
     <% end %>
-    <br><br>
     <% @notes_by_language[:noteless].each do |language| %>
+      <br><br>
       <font color="gray">
         <%= @author.name %> hasn't written any notes in
         <span class="languageName">

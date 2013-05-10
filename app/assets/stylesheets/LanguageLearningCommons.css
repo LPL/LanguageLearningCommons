@@ -1,14 +1,17 @@
+/* fundamentals */
+
 .llcfill {
   background-color: #444;
 }
 
 .llctext {
   background-color: #cba;
-  color: #333;
+  color: #444;
+  font-size: 18px;
 }
 
 .llctext a {
-  color: #333;
+  color: #444;
 }
 
 .llctext a:hover {
@@ -34,13 +37,6 @@
   padding-bottom:  24px;
 }
 
-/*.buffer {
-  margin-left:    16px;
-  margin-right:   16px;
-  margin-top:     16px;
-  margin-bottom:  16px;
-}*/
-
 .clearDiv {
   clear: both;
 }
@@ -65,16 +61,12 @@
   text-decoration: none;
 }
 
-.noteShowView {
-}
-
-.noteBody {
-}
+/* common text classes */
 
 .alert {
   font-weight: bold;
   font-size: medium;
-  color: #333;
+  color: #444;
   background-color: #f66;
 }
 
@@ -82,6 +74,20 @@
   font-weight: bold;
   font-size: medium;
   color: #44b;
+}
+
+.bigTitle {
+  font-size: 58px;
+  font-weight: bold;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+.languageList {
+  font-size: 26px;
+  font-weight: bold;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .languageName {
@@ -103,7 +109,7 @@
 }
 
 .noteTitle a {
-  color: #333;
+  color: #444;
   text-decoration: none;
 }
 
@@ -112,13 +118,19 @@
 }
 
 .userName a {
-  color: #333;
+  color: #444;
   text-decoration: none;
 }
 
 .userName a:hover {
   color: #a66;
 }
+
+.faint {
+  color: #888;
+}
+
+/* Comments and revisions */
 
 .comment {
   color: #199;
@@ -150,7 +162,7 @@
   position: absolute;
   bottom: 16px;
   background-color: #9ee;
-  color: #333;
+  color: #444;
 }
 
 .revisionText {
@@ -161,12 +173,10 @@
   text-decoration:line-through;
 }
 
-.faint {
-  color: #888;
-}
+/* centerbox currently only found on langague#show */
 
 .centerbox {
-  padding-top: 30px;
+  padding-top: 50px;
   text-align: center;
 }
 
