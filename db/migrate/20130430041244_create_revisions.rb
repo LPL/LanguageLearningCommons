@@ -3,7 +3,6 @@ class CreateRevisions < ActiveRecord::Migration
     create_table :revisions do |t|
       t.string :range
       t.text :body
-      t.text :originalText
       t.string :markType
 
       t.references :note

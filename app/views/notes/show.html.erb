@@ -5,9 +5,11 @@
         <%= link_to (@author.name + "'s Notes"), user_notes_url(@author) %>
       </span>
     </h3>
+    In
     <span class="languageName">
-      In <%= link_to @note.language.name, language_url(@note.language) %>
+      <%= link_to @note.language.name, language_url(@note.language) %>
     </span>
+    <br><br>
     <div class="noteShowView"></div>
 
     <script type="text/javascript">

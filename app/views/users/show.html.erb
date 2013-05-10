@@ -17,11 +17,11 @@
   <div class ="span12 languageList">
   	 <% if @knowings.any? %>
         Knows
-        <span class="languageName">
-      	  <%= @knowings.map do |knowing| %>
-      			  <% link_to knowing.language.name, language_url(knowing.language) %>
-      	  <% end.join(", ").html_safe %>
-        </span>
+      	<%= @knowings.map do |knowing| %>
+          <% '<span class="languageName">' +
+            (link_to knowing.language.name, language_url(knowing.language)) +
+          '</span>' %>
+      	<% end.join(", ").html_safe %>
   	<% else %>
   		<%= link_to "What language(s) do you know?", edit_user_registration_path %>
   	<% end %>
@@ -31,11 +31,11 @@
   <div class ="span12 languageList">
   	<% if @learnings.any? %>
   	  Learning
-      <span class="languageName">
       <%= @learnings.map do |learning| %>
-    		  <% link_to learning.language.name, language_url(learning.language) %>
+        <% '<span class="languageName">' +
+          (link_to learning.language.name, language_url(learning.language)) +
+        '</span>' %>
   		<% end.join(", ").html_safe %>
-      </span>
     <% else %>
   		<%= link_to "What language(s) are you learning?",
        edit_user_registration_path %>
