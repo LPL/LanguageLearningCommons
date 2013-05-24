@@ -22,3 +22,5 @@ gem 'ejs'
 gem 'devise'
 
 gem 'debugger'
+
+gem 'newrelic_rpm'
