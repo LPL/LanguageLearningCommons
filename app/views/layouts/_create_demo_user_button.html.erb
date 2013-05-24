@@ -1,0 +1,11 @@
+<%= form_tag '/users/', :method => :post do %>
+	<% name = demo_user_name %>
+	<%= hidden_field_tag 'user[name]', name %>
+	<%= hidden_field_tag 'user[email]', (name + "@example.com") %>
+	<%= hidden_field_tag 'user[password]', '123123123' %>
+	<%= hidden_field_tag 'user[password_confirmation]', '123123123' %>
+	<%= hidden_field_tag 'commit', 'Create Account' %>
+	<%= submit_tag "Generate Demo User", :class  => "btn-large demoButton" %>
+<% end %>
+
+<!-- {"utf8"=>"✓", "authenticity_token"=>"gSLd1McPNfWn6NT74mZvQOT7jkSekxyjC6REMU2K+wc=", "user"=>{"name"=>"UsErNamE", "email"=>"eMaIl@dF.CkA", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create Account"} -->

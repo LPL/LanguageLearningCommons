@@ -1,3 +1,23 @@
+growFont = function(demoButton) {
+  $(demoButton).animate({ 'padding': '11px 19px' }, 1000, function() {
+    shrinkFont(demoButton)
+  });
+};
+
+shrinkFont = function(demoButton) {
+  $(demoButton).animate({ 'padding': '13px 23px' }, 1000, function() {
+    growFont(demoButton)
+  });
+};
+
+$(function() {
+  if($('.demoButton').length != 0) {
+    _($('.demoButton')).each(function(demoButton) {
+      growFont(demoButton);
+    })
+  }
+})
+
 LLC = {
   Models: {},
   Collections: {},
