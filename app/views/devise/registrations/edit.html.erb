@@ -11,28 +11,30 @@
         <div class="span3">
           <h3>Known</h3>
           <%= hidden_field_tag "user[known_language_ids][]", "" %>
-          <span class="languageName">
-            <% Language.all.each do |language| %>
+          <% Language.all.each do |language| %>
+            <label class="checkbox">
               <%= check_box_tag "user[known_language_ids][]", language.id,
                 current_user.known_languages.include?(language) %>
-              <%= label_tag "user[known_language_ids][]", language.name,
-                                  :style => "font-size: 18px;"  %>
-              <br>
-            <% end %>
-          </span>
+              <font size="4px" class="languageName">
+                <%= language.name %>
+              </font>
+            </label>
+            <br>
+          <% end %>
         </div>
         <div class="span3">
           <h3>Learning</h3>
           <%= hidden_field_tag "user[learning_language_ids][]", "" %>
-          <span class="languageName">
-            <% Language.all.each do |language| %>
+          <% Language.all.each do |language| %>
+            <label class="checkbox">
               <%= check_box_tag "user[learning_language_ids][]", language.id,
                 current_user.learning_languages.include?(language) %>
-                  <%= label_tag "user[learning_language_ids][]", language.name,
-                                :style => "font-size: 18px;" %>
-                <br>
-            <% end %>
-          </span>
+              <font size="4px" class="languageName">
+                <%= language.name %>
+              </font>
+            </label>
+              <br>
+          <% end %>
         </div>
       </div>
       <br>
