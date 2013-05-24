@@ -1,11 +1,11 @@
 growFont = function(demoButton) {
-  $(demoButton).animate({ 'padding': '11px 19px' }, 1000, function() {
+  $(demoButton).animate({ 'margin-left': '0px' }, 500, function() {
     shrinkFont(demoButton)
   });
 };
 
 shrinkFont = function(demoButton) {
-  $(demoButton).animate({ 'padding': '13px 23px' }, 1000, function() {
+  $(demoButton).animate({ 'margin-left': '15px' }, 500, function() {
     growFont(demoButton)
   });
 };

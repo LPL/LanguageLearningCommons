@@ -9,4 +9,8 @@ class RegistrationsController < Devise::RegistrationsController
       super
     end
   end
+  def new
+    flash[:alert] = "SDDJGsdf s GFg Reg ER Gre gerG"
+    super
+  end
 end
