@@ -1,0 +1,44 @@
+.noteBody {
+  background-color: #fed;
+}
+
+.comment {
+  color: #199;
+  font-weight: bold;
+}
+
+.revision {
+  color: #991;
+  font-weight: bold;
+}
+
+.comment:hover {
+  color: #0aa;
+}
+
+.revision:hover {
+  color: #aa0;
+}
+
+.commentPocket {
+  position: relative;
+}
+
+.revisionPocket {
+  position: relative;
+}
+
+.commentText {
+  position: absolute;
+  bottom: 20px;
+  background-color: #9ee;
+  color: #444;
+}
+
+.revisionText {
+  position: absolute;
+  bottom: 20px;
+  background-color: #ee9;
+  color: #d33;
+  text-decoration:line-through;
+}
