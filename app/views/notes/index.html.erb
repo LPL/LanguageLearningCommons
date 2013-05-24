@@ -10,14 +10,12 @@
       <% if @self_page %>
         <br><br>
         <span class="languageList">
-          <% if @suggestion_language[:type] == :learning %>
+          <% if @suggestion_language && @suggestion_language[:type] == :learning %>
             Why not
               <%= link_to ("write one in " + @suggestion_language[:language].name), new_user_note_url %>?
           <% else %>
-            You need to
-            <%= link_to "pick a learning language",
+            <%= link_to "Pick a learning language first.",
                         edit_user_registration_url %>
-            before you write any.
           <% end %>
         </span>
       <% end %>
