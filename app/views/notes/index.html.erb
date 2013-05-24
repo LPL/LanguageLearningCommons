@@ -3,32 +3,52 @@
     <div class="userName bigTitle">
       <%= link_to @author.name, user_url(@author) %>'s Notes
     </div>
-    <% @notes_by_language[:noted].each_pair do |language, language_notes| %>
-      <div class="languageList">
-        In
-        <span class="languageName">
-          <%= link_to language.name, language_url(language) %>
-        </span>
-      </div>
-      <ul>
-        <% language_notes.each do |language_note| %>
-          <span class="noteTitle">
-            <%= link_to language_note.title, user_note_url(@author,
-                                                           language_note) %>
-          </span>
-        <% end %>
-      </ul>
-    <% end %>
-    <% @notes_by_language[:noteless].each do |language| %>
-      <br><br>
-      <font color="gray">
-        <%= @author.name %> hasn't written any notes in
-        <span class="languageName">
-          <%= link_to language.name, language_url(language) %>
-        </span>
-         yet.
-      </font>
+    <% if @notes_by_language[:noted].none? %>
       <br>
+      <%= @self_page ? "You haven't" : (@author.name + "hasn't") %>
+        written any notes yet.
+      <% if @self_page %>
+        <br><br>
+        <span class="languageList">
+          <% if @suggestion_language[:type] == :learning %>
+            Why not
+              <%= link_to ("write one in " + @suggestion_language[:language].name), new_user_note_url %>?
+          <% else %>
+            You need to
+            <%= link_to "pick a learning language",
+                        edit_user_registration_url %>
+            before you write any.
+          <% end %>
+        </span>
+      <% end %>
+    <% else %>
+      <% @notes_by_language[:noted].each_pair do |language, language_notes| %>
+        <div class="languageList">
+          In
+          <span class="languageName">
+            <%= link_to language.name, language_url(language) %>
+          </span>
+        </div>
+        <ul>
+          <% language_notes.each do |language_note| %>
+            <span class="noteTitle">
+              <%= link_to language_note.title, user_note_url(@author, language_note) %>
+            </span>
+          <% end %>
+        </ul>
+      <% end %>
+      <% @notes_by_language[:noteless].each do |language| %>
+        <br><br>
+        <font color="gray">
+          <%= @self_page ? "You haven't" : (@author.name + "hasn't") %>
+          written any notes in
+          <span class="languageName">
+            <%= link_to language.name, language_url(language) %>
+          </span>
+          yet.
+        </font>
+        <br>
+      <% end %>
     <% end %>
   </div>
 </div>

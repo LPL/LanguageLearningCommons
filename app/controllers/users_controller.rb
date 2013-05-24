@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 	def show
     # default to current_user (root routes here)
-    debugger
     @user = params[:id].nil? ? current_user : User.find(params[:id])
 
     @self_page = @user == current_user

@@ -9,16 +9,19 @@
       <% if @buddies.none? %>
         <% if @self_page %>
           <h4>You don't have any buddies yet.</h4>
-          <% if @known_languages.none? && @learning_languages.none? %>
+          <% if @suggestion_language.nil? %>
             <%= link_to "Try picking some languages first.", edit_user_registration_url %>
-          <% elsif @learning_languages.any? %>
-            Why not bebuddy <%= link_to "someone who knows " +
-              "#{@learning_languages.first.name}",
-              language_url(@learning_languages.first) %>?
           <% else %>
-            Why not bebuddy <%= link_to "someone learning " +
-              "#{@known_languages.first.name}",
-              language_url(@known_languages.first) %>?
+            Why not bebuddy
+            <% if @suggestion_language[:type] == :learning %>
+               <%= link_to "someone who knows " +
+                "#{@suggestion_language[:language].name}",
+                language_url(@suggestion_language[:language]) %>?
+            <% else %>
+              <%= link_to "someone learning " +
+              "#{@suggestion_language[:language].name}",
+              language_url(@suggestion_language[:language]) %>?
+            <% end %>
           <% end %>
         <% else %>
           <%= @user.name %> doesn't have any buddies yet. <br>

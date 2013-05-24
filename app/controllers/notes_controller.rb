@@ -25,6 +25,8 @@ class NotesController < ApplicationController
 
   def index
     @author = User.find(params[:user_id])
+    @self_page = @author == current_user
     @notes_by_language = @author.notes_by_language
+    @suggestion_language = suggestion_language(@author)
   end
 end

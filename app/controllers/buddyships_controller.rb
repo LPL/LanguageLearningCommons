@@ -8,8 +8,7 @@ class BuddyshipsController < ApplicationController
       @buddyship_proposal = BuddyshipProposal.where(:proposing_user_id => @user.id,
         :target_user_id => current_user.id).first
     end
-    @known_languages = @user.known_languages
-    @learning_languages = @user.learning_languages
+    @suggestion_language = suggestion_language(@user)
   end
 
   def create
