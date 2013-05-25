@@ -73,10 +73,52 @@ ShowNoteView = Backbone.View.extend({
       that.showReviewText.bind(that, $reviewedRange, $reviewPocket, markId, isComment, originalText));
   },
 
+  maxWordLength: function(reviewText) {
+        maxWordLength = 0;
+    consecutiveNonWhitespaceChar = 0;
+    for(i = 0; i < reviewText.length; i++) {
+      if(reviewText.substring(i, i+1) == " ") {
+        if(consecutiveNonWhitespaceChar > maxWordLength) {
+          maxWordLength = consecutiveNonWhitespaceChar;
+        }
+        consecutiveNonWhitespaceChar = 0;
+      } else {
+        consecutiveNonWhitespaceChar++;
+      }
+    }
+    if(consecutiveNonWhitespaceChar > maxWordLength) {
+      maxWordLength = consecutiveNonWhitespaceChar;
+    }
+
+    // constant accounts for em not being average character length
+    return maxWordLength * 0.6;
+  },
+
+  widthGuess: function(reviewText) {
+    if(reviewText.length < 31) {
+      return (reviewText.length * 0.3);
+    } else {
+      return (reviewText.length * 0.3)/(Math.floor(reviewText.length/30));
+    }
+  },
+
+  reviewTextWidth: function(reviewText) {
+
+    maxWordLength = this.maxWordLength(reviewText);
+    widthGuess = this.widthGuess(reviewText);
+
+    if(widthGuess < maxWordLength) {
+      return ' style="width: ' + maxWordLength + 'em"';
+    } else {
+      return ' style="width: ' + widthGuess + 'em"';
+    }
+  },
+
   showReviewText: function($reviewedRange, $reviewPocket, markId, isComment, originalText) {
     // var reviewText = isComment ? LLC.comments.get(k).get('body') : LLC.revisions.get(k).get('body')
     var reviewText = isComment ? LLC.comments.get(markId).get('body') : originalText
-    $reviewPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') + '>' + reviewText + '</span>');
+    $reviewPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') +
+      this.reviewTextWidth(reviewText) + '>' + reviewText + '</span>');
     $reviewedRange.on('mouseout', function() {
       $reviewPocket.empty();
     })
