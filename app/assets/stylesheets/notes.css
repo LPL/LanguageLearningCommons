@@ -1,5 +1,8 @@
 .noteBody {
   background-color: #fed;
+  margin-left: 8px;
+  padding-bottom: 14px;
+  width: 876px;
 }
 
 .comment {
@@ -39,6 +42,7 @@
 }
 
 .revisionText {
+  display: inline;
   position: absolute;
   bottom: 25px;
   background-color: #ee9;

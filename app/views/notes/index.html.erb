@@ -5,7 +5,7 @@
     </div>
     <% if @notes_by_language[:noted].none? %>
       <br>
-      <%= @self_page ? "You haven't" : (@author.name + "hasn't") %>
+      <%= @self_page ? "You haven't" : (@author.name + " hasn't") %>
         written any notes yet.
       <% if @self_page %>
         <br><br>
@@ -38,7 +38,7 @@
       <% @notes_by_language[:noteless].each do |language| %>
         <br><br>
         <font color="gray">
-          <%= @self_page ? "You haven't" : (@author.name + "hasn't") %>
+          <%= @self_page ? "You haven't" : (@author.name + " hasn't") %>
           written any notes in
           <span class="languageName">
             <%= link_to language.name, language_url(language) %>
