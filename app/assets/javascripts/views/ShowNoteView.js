@@ -2,19 +2,9 @@ ShowNoteView = Backbone.View.extend({
   render: function() {
     var that = this;
 
-    // $renderedContent = $('<div class="row"></div>')
     this.$el.html(JST['ShowNote']({
       note: that.model.attributes
     }));
-
-
-    // $($el).find()
-    // rangy.init();
-    // this.lobnoxClasser = rangy.createCssClassApplier("lobnox", {normalize: true});
-    // _(that.model.attributes.comments).each(function(comment) {
-    //   var range = rangy.deserializeRange(comment.range)
-    //   this.lobnoxClasser.applyToRange(range);
-    // })
 
     return that;
   },
@@ -22,49 +12,55 @@ ShowNoteView = Backbone.View.extend({
   showReviews: function() {
     var that = this;
 
-    rangy.init();
-
-    // this.markQueue = [];
-    // LLC.comments.each(function(comment) {that.markQueue.push(comment)} )
-    // LLC.revisions.each(function(revision) {that.markQueue.push(revision)} )
-    //
-    // _(this.markQueue).each(function(mark) {
-    //   console.log("reviewType: " + mark.get('reviewType'));
-    //   var markType = mark.get('reviewType');
-    //   var mark_class = (markType.toString() + " " + markType + mark.id);
-    //   that[markType + 'Styler' + mark.id] = rangy.createCssClassApplier(mark_class);
-    //   var range = rangy.deserializeRange(mark.get('range'));
-    //   that[markType + 'Styler' + mark.id].applyToRange(range);
-    // })
-
     LLC.comments.each(function(comment) {
-      that['commentStyler' + comment.id] = rangy.createCssClassApplier("comment comment" + comment.id);
-      var range = rangy.deserializeRange(comment.attributes.range);
-      that['commentStyler' + comment.id].applyToRange(range);
-    })
+      var commentRange = document.createRange();
+      var noteBodyNode = document.getElementById('noteBodyParentNode').lastChild;
+      commentRange.setStart(noteBodyNode, comment.get('anchorOffset'));
+      commentRange.setEnd(noteBodyNode, comment.get('focusOffset'));
+      var commentDiv = document.createElement("span");
+      commentDiv.className = "comment comment" + comment.id;
+      commentRange.surroundContents(commentDiv);
 
-    LLC.revisions.each(function(revision) {
-      that['revisionStyler' + revision.id] = rangy.createCssClassApplier("revision revision" + revision.id);
-      var range = rangy.deserializeRange(revision.attributes.range);
-      that['revisionStyler' + revision.id].applyToRange(range);
-    })
-
-    LLC.comments.each(function(comment) {
-      var $commentedRange =  $('.comment' + comment.id);
+      var $commentedRange = $('.comment' + comment.id);
       var $commentPocket = $('<span class="commentPocket"></span>');
       $commentedRange.prepend($commentPocket);
       that.setReviewListener(that, $commentedRange, $commentPocket, comment.id, true);
-    })
+    });
 
-    LLC.revisions.each(function(revision) {
-      var $revisionedRange =  $('.revision' + revision.id);
-      var originalText = $revisionedRange.html();
-      $revisionedRange.html(revision.get('body'));
-      var $revisionPocket = $('<span class="revisionPocket"></span>');
-      $revisionedRange.prepend($revisionPocket);
-      that.setReviewListener(that, $revisionedRange, $revisionPocket, revision.id, false, originalText);
-    })
   },
+
+
+
+  //   LLC.comments.each(function(comment) {
+  //     that['commentStyler' + comment.id] = rangy.createCssClassApplier("comment comment" + comment.id);
+  //     var range = rangy.deserializeRange(comment.attributes.range);
+  //     that['commentStyler' + comment.id].applyToRange(range);
+  //   })
+
+  //   LLC.revisions.each(function(revision) {
+  //     that['revisionStyler' + revision.id] = rangy.createCssClassApplier("revision revision" + revision.id);
+  //     var range = rangy.deserializeRange(revision.attributes.range);
+  //     that['revisionStyler' + revision.id].applyToRange(range);
+  //   })
+
+  //   LLC.comments.each(function(comment) {
+  //     var $commentedRange =  $('.comment' + comment.id);
+  //     var $commentPocket = $('<span class="commentPocket"></span>');
+  //     $commentedRange.prepend($commentPocket);
+  //     that.setReviewListener(that, $commentedRange, $commentPocket, comment.id, true);
+  //   })
+
+  //   LLC.revisions.each(function(revision) {
+  //     var $revisionedRange =  $('.revision' + revision.id);
+  //     var originalText = $revisionedRange.html();
+  //     $revisionedRange.html(revision.get('body'));
+  //     var $revisionPocket = $('<span class="revisionPocket"></span>');
+  //     $revisionedRange.prepend($revisionPocket);
+  //     that.setReviewListener(that, $revisionedRange, $revisionPocket, revision.id, false, originalText);
+  //   })
+  // },
+
+
 
   setReviewListener: function(that, $reviewedRange, $reviewPocket, markId, isComment, originalText) {
     var that = this;

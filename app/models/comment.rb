@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  attr_accessible :user_id, :note_id, :body, :range
+  attr_accessible :user_id, :note_id, :body, :anchorOffset, :focusOffset
 
   belongs_to :commenter, :class_name => 'User', :foreign_key => 'user_id'
   belongs_to :note

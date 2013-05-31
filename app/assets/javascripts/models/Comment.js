@@ -11,7 +11,8 @@ LLC.Models.Comment = Backbone.Model.extend({
 
   toJSON: function() {
     return { comment: {
-      range: this.attributes.range,
+      anchorOffset: this.attributes.anchorOffset,
+      focusOffset: this.attributes.focusOffset,
       body: this.attributes.body
     }};
   }

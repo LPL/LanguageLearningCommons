@@ -23,30 +23,32 @@ ShowRevisableNoteView = Backbone.View.extend({
   launchComment: function() {
     var that = this;
 
-    that.selection = rangy.getSelection();
+    that.selection = window.getSelection();
     if(that.selection.rangeCount == 0 ||
-       that.selection.nativeSelection.type == "Caret") {
+       that.selection.type == "Caret") {
       $('#commentForm').html("Highlight the section of text you wish to comment on.");
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
-      console.log("The selection must be within the text area");
+      console.log("The selection must be within the text of the note.");
     } else {
-      console.log("comment lanuch");
+      console.log("comment launch");
       $('#commentForm').empty();
       $('#revisionForm').empty();
-      var range = that.selection.getRangeAt(0);
+      var anchorOffset = that.selection.anchorOffset;
+      var focusOffset = that.selection.focusOffset;
       that.$commentTextBox = $('<input type="textArea" name="body" id="commentTextBox">');
       that.$commentSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#commentForm').append(that.$commentTextBox);
       $('#commentForm').append(that.$commentSaveButton);
-      that.$commentSaveButton.on('click', that.storeComment.bind(that, range));
+      that.$commentSaveButton.on('click', that.storeComment.bind(that, anchorOffset, focusOffset));
     }
   },
 
-  storeComment: function(range) {
+  storeComment: function(anchorOffset, focusOffset) {
     var that = this;
     this.comment = new LLC.Models.Comment({
       body: this.$commentTextBox.val(),
-      range: rangy.serializeRange(range, true),
+      anchorOffset: anchorOffset,
+      focusOffset: focusOffset,
       reviewType: 'comment'
     });
     $('#commentForm').empty();
