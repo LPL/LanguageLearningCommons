@@ -30,7 +30,6 @@ ShowRevisableNoteView = Backbone.View.extend({
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
       console.log("The selection must be within the text of the note.");
     } else {
-      console.log("comment launch");
       $('#commentForm').empty();
       $('#revisionForm').empty();
       var anchorOffset = that.selection.anchorOffset;
@@ -49,7 +48,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       body: this.$commentTextBox.val(),
       anchorOffset: anchorOffset,
       focusOffset: focusOffset,
-      reviewType: 'comment'
+      markType: 'comment'
     });
     $('#commentForm').empty();
     this.comment.save({}, {
@@ -64,31 +63,33 @@ ShowRevisableNoteView = Backbone.View.extend({
   launchRevision: function() {
     var that = this;
 
-    that.selection = rangy.getSelection();
-    if(that.selection.rangeCount == 0) {
+    that.selection = window.getSelection();
+    if(that.selection.rangeCount == 0 ||
+       that.selection.type == "Caret") {
       $('#commentForm').html("Highlight text from the note to revise it.");
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
-      console.log("The selection must be within the text area");
+      console.log("The selection must be within the text of the note");
     } else {
-      console.log("revision lanuch");
       $('#revisionForm').empty();
       $('#commentForm').empty();
-      var range = that.selection.getRangeAt(0);
+      var anchorOffset = that.selection.anchorOffset;
+      var focusOffset = that.selection.focusOffset;
       that.$revisionTextBox = $('<input type="textArea" name="body" id="revisionTextBox">');
       that.$revisionSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#revisionForm').append(that.$revisionTextBox);
       $('#revisionForm').append(that.$revisionSaveButton);
-      that.$revisionSaveButton.on('click', that.storeRevision.bind(that, range));
+      that.$revisionSaveButton.on('click', that.storeRevision.bind(that, anchorOffset, focusOffset));
     }
   },
 
-  storeRevision: function(range) {
+  storeRevision: function(anchorOffset, focusOffset) {
     var that = this;
     this.revision = new LLC.Models.Revision({
       body: this.$revisionTextBox.val(),
-      originalText: range.toString(),
-      range: rangy.serializeRange(range, true),
-      reviewType: 'revision'
+      originalText: 'test original', // range.toString(),
+      anchorOffset: anchorOffset,
+      focusOffset: focusOffset,
+      markType: 'revision'
     });
     $('#revisionForm').empty();
     this.revision.save({}, {

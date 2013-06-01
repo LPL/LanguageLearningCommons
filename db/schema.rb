@@ -68,13 +68,14 @@ ActiveRecord::Schema.define(:version => 20130502201955) do
   end
 
   create_table "revisions", :force => true do |t|
-    t.string   "range"
+    t.string   "anchorOffset"
+    t.string   "focusOffset"
     t.text     "body"
     t.string   "markType"
     t.integer  "note_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|

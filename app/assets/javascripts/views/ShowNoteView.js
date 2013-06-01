@@ -12,55 +12,31 @@ ShowNoteView = Backbone.View.extend({
   showReviews: function() {
     var that = this;
 
+    var marks = [];
     LLC.comments.each(function(comment) {
-      var commentRange = document.createRange();
-      var noteBodyNode = document.getElementById('noteBodyParentNode').lastChild;
-      commentRange.setStart(noteBodyNode, comment.get('anchorOffset'));
-      commentRange.setEnd(noteBodyNode, comment.get('focusOffset'));
-      var commentDiv = document.createElement("span");
-      commentDiv.className = "comment comment" + comment.id;
-      commentRange.surroundContents(commentDiv);
+      marks.push(comment);
+    });
+    LLC.revisions.each(function(revision) {
+      marks.push(revision);
+    });
 
-      var $commentedRange = $('.comment' + comment.id);
-      var $commentPocket = $('<span class="commentPocket"></span>');
-      $commentedRange.prepend($commentPocket);
-      that.setReviewListener(that, $commentedRange, $commentPocket, comment.id, true);
+    _(marks).each(function(mark) {
+      var markRange = document.createRange();
+      var noteBodyNode = document.getElementById('noteBodyParentNode').lastChild;
+      markRange.setStart(noteBodyNode, mark.get('anchorOffset'));
+      markRange.setEnd(noteBodyNode, mark.get('focusOffset'));
+      var markSpan = document.createElement("span");
+      markSpan.className = mark.get('markType') + " " + mark.get('markType') + mark.id;
+      markRange.surroundContents(markSpan);
+
+      var $markedRange = $('.' + mark.get('markType') + mark.id);
+      var originalText = $markedRange.html();
+      var $markPocket = $('<span class="markPocket"></span>');
+      $markedRange.prepend($markPocket);
+      that.setReviewListener(that, $markedRange, $markPocket, mark.id, false, originalText);
     });
 
   },
-
-
-
-  //   LLC.comments.each(function(comment) {
-  //     that['commentStyler' + comment.id] = rangy.createCssClassApplier("comment comment" + comment.id);
-  //     var range = rangy.deserializeRange(comment.attributes.range);
-  //     that['commentStyler' + comment.id].applyToRange(range);
-  //   })
-
-  //   LLC.revisions.each(function(revision) {
-  //     that['revisionStyler' + revision.id] = rangy.createCssClassApplier("revision revision" + revision.id);
-  //     var range = rangy.deserializeRange(revision.attributes.range);
-  //     that['revisionStyler' + revision.id].applyToRange(range);
-  //   })
-
-  //   LLC.comments.each(function(comment) {
-  //     var $commentedRange =  $('.comment' + comment.id);
-  //     var $commentPocket = $('<span class="commentPocket"></span>');
-  //     $commentedRange.prepend($commentPocket);
-  //     that.setReviewListener(that, $commentedRange, $commentPocket, comment.id, true);
-  //   })
-
-  //   LLC.revisions.each(function(revision) {
-  //     var $revisionedRange =  $('.revision' + revision.id);
-  //     var originalText = $revisionedRange.html();
-  //     $revisionedRange.html(revision.get('body'));
-  //     var $revisionPocket = $('<span class="revisionPocket"></span>');
-  //     $revisionedRange.prepend($revisionPocket);
-  //     that.setReviewListener(that, $revisionedRange, $revisionPocket, revision.id, false, originalText);
-  //   })
-  // },
-
-
 
   setReviewListener: function(that, $reviewedRange, $reviewPocket, markId, isComment, originalText) {
     var that = this;
@@ -112,7 +88,7 @@ ShowNoteView = Backbone.View.extend({
 
   showReviewText: function($reviewedRange, $reviewPocket, markId, isComment, originalText) {
     // var reviewText = isComment ? LLC.comments.get(k).get('body') : LLC.revisions.get(k).get('body')
-    var reviewText = isComment ? LLC.comments.get(markId).get('body') : originalText
+    var reviewText = isComment ? LLC.comments.get(markId).get('body') : originalText;
     $reviewPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') +
       this.reviewTextWidth(reviewText) + '>' + reviewText + '</span>');
     $reviewedRange.on('mouseout', function() {

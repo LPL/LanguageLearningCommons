@@ -13,6 +13,7 @@ LLC.Models.Comment = Backbone.Model.extend({
     return { comment: {
       anchorOffset: this.attributes.anchorOffset,
       focusOffset: this.attributes.focusOffset,
+      markType: this.attributes.markType,
       body: this.attributes.body
     }};
   }
