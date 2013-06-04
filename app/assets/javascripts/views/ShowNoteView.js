@@ -34,6 +34,7 @@ ShowNoteView = Backbone.View.extend({
 
       var $markedText = $('.' + mark.get('markType') + mark.get('id'));
       var originalText = $markedText.html();
+      $markedText.attr('data-originalLength', originalText.length.toString());
       if(mark.get('markType') == "revision") {
         $markedText.html(mark.get('body'));
       }

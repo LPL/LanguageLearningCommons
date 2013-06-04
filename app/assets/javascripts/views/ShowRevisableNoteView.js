@@ -31,6 +31,8 @@ ShowRevisableNoteView = Backbone.View.extend({
       currentNode = currentNode.previousSibling;
       if(currentNode.nodeType == 3) {
         dynamicOffsetBase += currentNode.length;
+      } else if(currentNode.nodeType == 1 && $(currentNode).attr('data-originalLength')) {
+        dynamicOffsetBase += parseInt($(currentNode).attr('data-originalLength'));
       }
     }
 
