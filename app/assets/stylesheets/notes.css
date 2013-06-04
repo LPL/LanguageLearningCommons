@@ -9,6 +9,27 @@
   width: 840px;
 }
 
+#commentButton {
+  margin-top: 0px;
+}
+
+#revisionButton {
+  margin-top: 0px;
+}
+
+#commentTextBox {
+  margin: 14px;
+}
+
+#revisionTextBox {
+  margin: 14px;
+}
+
+#bspc {
+  width: 340px;
+  height: 1px;
+}
+
 .comment {
   color: #199;
   font-weight: bold;
@@ -49,5 +70,6 @@
   color: #d33;
   border: 3px solid #444;
   padding: 3px 6px;
+  text-align: center;
   text-decoration:line-through;
 }

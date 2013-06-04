@@ -60,7 +60,7 @@ ShowRevisableNoteView = Backbone.View.extend({
         var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
       }
       that.$commentTextBox = $('<input type="textArea" name="body" id="commentTextBox">');
-      that.$commentSaveButton = $('<button class="btn" type="button">Save</button>');
+      that.$commentSaveButton = $('<button class="btn" id="commentSaveButton" type="button">Save</button>');
       $('#commentForm').append(that.$commentTextBox);
       $('#commentForm').append(that.$commentSaveButton);
       that.$commentTextBox.focus();
@@ -109,7 +109,7 @@ ShowRevisableNoteView = Backbone.View.extend({
         var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
       }
       that.$revisionTextBox = $('<input type="textArea" name="body" id="revisionTextBox">');
-      that.$revisionSaveButton = $('<button class="btn" type="button">Save</button>');
+      that.$revisionSaveButton = $('<button class="btn" id="revisionSaveButton" type="button">Save</button>');
       $('#revisionForm').append(that.$revisionTextBox);
       $('#revisionForm').append(that.$revisionSaveButton);
       that.$revisionTextBox.focus();
