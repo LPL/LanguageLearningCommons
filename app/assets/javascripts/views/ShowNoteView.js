@@ -20,29 +20,36 @@ ShowNoteView = Backbone.View.extend({
       marks.push(revision);
     });
 
-    _(marks).each(function(mark) {
+    var reversedMarks = _(marks).sortBy(function(mark) {return -mark.get('startOffset')})
+
+    _(reversedMarks).each(function(mark) {
       var markRange = document.createRange();
-      var noteBodyNode = document.getElementById('noteBodyParentNode').lastChild;
-      markRange.setStart(noteBodyNode, mark.get('anchorOffset'));
-      markRange.setEnd(noteBodyNode, mark.get('focusOffset'));
+      var noteBodyNode = document.getElementById('noteBodyParentNode').firstChild;
+      markRange.setStart(noteBodyNode, mark.get('startOffset'));
+      markRange.setEnd(noteBodyNode, mark.get('endOffset'));
       var markSpan = document.createElement("span");
-      markSpan.className = mark.get('markType') + " " + mark.get('markType') + mark.id;
+      markSpan.className = mark.get('markType') + " " + mark.get('markType') + mark.get('id');
       markRange.surroundContents(markSpan);
 
-      var $markedRange = $('.' + mark.get('markType') + mark.id);
-      var originalText = $markedRange.html();
+
+      var $markedText = $('.' + mark.get('markType') + mark.get('id'));
+      var originalText = $markedText.html();
+      if(mark.get('markType') == "revision") {
+        $markedText.html(mark.get('body'));
+      }
       var $markPocket = $('<span class="markPocket"></span>');
-      $markedRange.prepend($markPocket);
-      that.setReviewListener(that, $markedRange, $markPocket, mark.id, false, originalText);
+      $markedText.prepend($markPocket);
+      var isComment = mark.get('markType') == "comment";
+      that.setReviewListener(that, $markedText, $markPocket, mark.get('id'), isComment, originalText);
     });
 
   },
 
-  setReviewListener: function(that, $reviewedRange, $reviewPocket, markId, isComment, originalText) {
+  setReviewListener: function(that, $markedText, $markPocket, markId, isComment, originalText) {
     var that = this;
 
-    $reviewedRange.on('mouseover',
-      that.showReviewText.bind(that, $reviewedRange, $reviewPocket, markId, isComment, originalText));
+    $markedText.on('mouseover',
+      that.showReviewText.bind(that, $markedText, $markPocket, markId, isComment, originalText));
   },
 
   maxWordLength: function(reviewText) {
@@ -86,13 +93,12 @@ ShowNoteView = Backbone.View.extend({
     }
   },
 
-  showReviewText: function($reviewedRange, $reviewPocket, markId, isComment, originalText) {
-    // var reviewText = isComment ? LLC.comments.get(k).get('body') : LLC.revisions.get(k).get('body')
+  showReviewText: function($markedText, $markPocket, markId, isComment, originalText) {
     var reviewText = isComment ? LLC.comments.get(markId).get('body') : originalText;
-    $reviewPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') +
+    $markPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') +
       this.reviewTextWidth(reviewText) + '>' + reviewText + '</span>');
-    $reviewedRange.on('mouseout', function() {
-      $reviewPocket.empty();
+    $markedText.on('mouseout', function() {
+      $markPocket.empty();
     })
   },
 })

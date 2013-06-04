@@ -11,8 +11,8 @@ LLC.Models.Revision = Backbone.Model.extend({
 
   toJSON: function() {
     return { revision: {
-      anchorOffset: this.attributes.anchorOffset,
-      focusOffset: this.attributes.focusOffset,
+      startOffset: this.attributes.startOffset,
+      endOffset: this.attributes.endOffset,
       markType: this.attributes.markType,
       body: this.attributes.body
     }};

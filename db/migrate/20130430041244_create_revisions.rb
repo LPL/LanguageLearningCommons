@@ -1,8 +1,8 @@
 class CreateRevisions < ActiveRecord::Migration
   def change
     create_table :revisions do |t|
-      t.string :anchorOffset
-      t.string :focusOffset
+      t.integer :startOffset
+      t.integer :endOffset
       t.text :body
       t.string :markType
 

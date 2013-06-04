@@ -1,8 +1,8 @@
 class CreateComments < ActiveRecord::Migration
   def change
     create_table :comments do |t|
-      t.integer :anchorOffset
-      t.integer :focusOffset
+      t.integer :startOffset
+      t.integer :endOffset
       t.text :body
       t.string :markType
 

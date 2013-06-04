@@ -20,6 +20,23 @@ ShowRevisableNoteView = Backbone.View.extend({
     return this;
   },
 
+  dynamicOffsetBase: function(selection) {
+    // native offsets may not include the entire note because existing marks slice the 
+    // noteBody node. This function finds all sibling text nodes previous to that of 
+    // the new node and sums their length
+    var dynamicOffsetBase = 0;
+    var currentNode = selection.anchorNode;
+
+    while(currentNode.previousSibling) {
+      currentNode = currentNode.previousSibling;
+      if(currentNode.nodeType == 3) {
+        dynamicOffsetBase += currentNode.length;
+      }
+    }
+
+    return dynamicOffsetBase;
+  },
+
   launchComment: function() {
     var that = this;
 
@@ -32,22 +49,28 @@ ShowRevisableNoteView = Backbone.View.extend({
     } else {
       $('#commentForm').empty();
       $('#revisionForm').empty();
-      var anchorOffset = that.selection.anchorOffset;
-      var focusOffset = that.selection.focusOffset;
+      var dynamicOffsetBase = that.dynamicOffsetBase(that.selection);
+      if(that.selection.anchorOffset < that.selection.focusOffset) {
+        var startOffset = that.selection.anchorOffset + dynamicOffsetBase;
+        var endOffset = that.selection.focusOffset + dynamicOffsetBase;
+      } else if(that.selection.anchorOffset > that.selection.focusOffset){
+        var startOffset = that.selection.focusOffset + dynamicOffsetBase;
+        var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
+      }
       that.$commentTextBox = $('<input type="textArea" name="body" id="commentTextBox">');
       that.$commentSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#commentForm').append(that.$commentTextBox);
       $('#commentForm').append(that.$commentSaveButton);
-      that.$commentSaveButton.on('click', that.storeComment.bind(that, anchorOffset, focusOffset));
+      that.$commentSaveButton.on('click', that.storeComment.bind(that, startOffset, endOffset));
     }
   },
 
-  storeComment: function(anchorOffset, focusOffset) {
+  storeComment: function(startOffset, endOffset) {
     var that = this;
     this.comment = new LLC.Models.Comment({
       body: this.$commentTextBox.val(),
-      anchorOffset: anchorOffset,
-      focusOffset: focusOffset,
+      startOffset: startOffset,
+      endOffset: endOffset,
       markType: 'comment'
     });
     $('#commentForm').empty();
@@ -59,6 +82,8 @@ ShowRevisableNoteView = Backbone.View.extend({
       }
     });
   },
+
+
 
   launchRevision: function() {
     var that = this;
@@ -72,23 +97,30 @@ ShowRevisableNoteView = Backbone.View.extend({
     } else {
       $('#revisionForm').empty();
       $('#commentForm').empty();
-      var anchorOffset = that.selection.anchorOffset;
-      var focusOffset = that.selection.focusOffset;
+      var dynamicOffsetBase = that.dynamicOffsetBase(that.selection);
+      if(that.selection.anchorOffset < that.selection.focusOffset) {
+        var startOffset = that.selection.anchorOffset + dynamicOffsetBase;
+        var endOffset = that.selection.focusOffset + dynamicOffsetBase;
+      } else if(that.selection.anchorOffset > that.selection.focusOffset){
+        var startOffset = that.selection.focusOffset + dynamicOffsetBase;
+        var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
+      }
       that.$revisionTextBox = $('<input type="textArea" name="body" id="revisionTextBox">');
       that.$revisionSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#revisionForm').append(that.$revisionTextBox);
       $('#revisionForm').append(that.$revisionSaveButton);
-      that.$revisionSaveButton.on('click', that.storeRevision.bind(that, anchorOffset, focusOffset));
+      that.$revisionSaveButton.on('click', that.storeRevision.bind(that,
+        startOffset, endOffset, that.selection.toString));
     }
   },
 
-  storeRevision: function(anchorOffset, focusOffset) {
+  storeRevision: function(startOffset, endOffset, originalText) {
     var that = this;
     this.revision = new LLC.Models.Revision({
       body: this.$revisionTextBox.val(),
-      originalText: 'test original', // range.toString(),
-      anchorOffset: anchorOffset,
-      focusOffset: focusOffset,
+      originalText: originalText,
+      startOffset: startOffset,
+      endOffset: endOffset,
       markType: 'revision'
     });
     $('#revisionForm').empty();
