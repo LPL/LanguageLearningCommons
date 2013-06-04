@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate_user!#, :except => :root # <- doesn't work--why?
+  before_filter :authenticate_user!, :except => [:welcome]
 
   def suggestion_language(user)
   	if user.known_languages.none? && user.learning_languages.none?
@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     	{:type => :known,
          :language => user.known_languages.first}
     end
+  end
+
+  def welcome
+    render 'layouts/welcome', :layout => nil
   end
 
   private

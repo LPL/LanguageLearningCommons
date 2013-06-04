@@ -1,0 +1,22 @@
+To Do
+
+1. Social feedback
+	A. Notes#show marksView
+	B. Language#show recent activity
+	C. (?) User#show recent activity (bebuddyings?)
+	D. Buddyships#index recent activity
+
+2. Clean-up
+	A. Major refactoring
+		i. Add superclasses (marks, user_languages)
+		ii. showRevisableNoteView
+		iii. showNoteView
+		iv. LLC.css + templates
+	B. Errors
+		i. Overlapping marks
+
+3. Language settings toggle between known/learning within language
+
+4. (?) Avatars
+
+5. (?) HTML5 video socket test

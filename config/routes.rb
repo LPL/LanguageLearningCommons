@@ -1,6 +1,6 @@
 LanguageLearningCommons::Application.routes.draw do
 
-	root to: 'users#show'
+	root to: 'application#welcome'
 
   devise_for :users , :controllers =>
     { :registrations => "registrations"}
