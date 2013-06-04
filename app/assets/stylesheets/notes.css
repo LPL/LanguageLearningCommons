@@ -1,8 +1,12 @@
-.noteBody {
+.noteBox {
   background-color: #fed;
   margin-left: 8px;
   padding-bottom: 14px;
   width: 876px;
+}
+
+#noteBodyParentNode {
+  width: 840px;
 }
 
 .comment {

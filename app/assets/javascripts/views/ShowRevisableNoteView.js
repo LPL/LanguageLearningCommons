@@ -63,6 +63,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       that.$commentSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#commentForm').append(that.$commentTextBox);
       $('#commentForm').append(that.$commentSaveButton);
+      that.$commentTextBox.focus();
       that.$commentSaveButton.on('click', that.storeComment.bind(that, startOffset, endOffset));
     }
   },
@@ -111,6 +112,12 @@ ShowRevisableNoteView = Backbone.View.extend({
       that.$revisionSaveButton = $('<button class="btn" type="button">Save</button>');
       $('#revisionForm').append(that.$revisionTextBox);
       $('#revisionForm').append(that.$revisionSaveButton);
+      that.$revisionTextBox.focus();
+      that.$revisionTextBox.keyup(function(ev) {
+        if(ev.which == 13) {
+          that.storeRevision(startOffset, endOffset, that.selection.toString);
+        }
+      });
       that.$revisionSaveButton.on('click', that.storeRevision.bind(that,
         startOffset, endOffset, that.selection.toString));
     }

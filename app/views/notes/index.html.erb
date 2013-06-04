@@ -32,11 +32,16 @@
             <span class="noteTitle">
               <%= link_to language_note.title, user_note_url(@author, language_note) %>
             </span>
+            <span class="faint">
+              - <%= time_ago_in_words (language_note.created_at) %> ago
+            </span>
+            <br />
           <% end %>
         </ul>
       <% end %>
       <% @notes_by_language[:noteless].each do |language| %>
-        <br><br>
+        <br> 
+        <!-- before adding line breaks check state: 1 noted langauge, 1 noteless -->
         <font color="gray">
           <%= @self_page ? "You haven't" : (@author.name + " hasn't") %>
           written any notes in
@@ -46,6 +51,12 @@
           yet.
         </font>
         <br>
+      <% end %>
+      <% if @self_page %>
+        <br>
+        <span class="noteTitle">
+          <%= link_to "Write a new note", new_user_note_url %>
+        </span>
       <% end %>
     <% end %>
   </div>

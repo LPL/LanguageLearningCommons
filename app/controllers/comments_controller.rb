@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
       render :json => @comment
     else
       render :json => "Note author identity crisis!".to_json
+      raise "Note author identity crisis!"
     end
   end
 end

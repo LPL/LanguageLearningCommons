@@ -9,7 +9,6 @@ class NotesController < ApplicationController
   def create
     @note = Note.create(params[:note])
     if @note.save
-      flash[:notice] = "Note published!"
       redirect_to user_note_url(@note.author_id, @note)
     else
       flash[:error] = "Note publication failed."
