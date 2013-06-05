@@ -1,12 +1,6 @@
 To Do
 
-1. Social feedback
-	A. Notes#show marksView
-	B. Language#show recent activity
-	C. (?) User#show recent activity (bebuddyings?)
-	D. Buddyships#index recent activity
-
-2. Clean-up
+1. Clean-up
 	A. Major refactoring
 		i. Add superclasses (marks, user_languages)
 		ii. showRevisableNoteView
@@ -14,13 +8,18 @@ To Do
 		iv. LLC.css + templates
 	B. Errors
 		i. Overlapping marks
+	C. Demo user generation: prepared material -> functional
 
-3. Language settings toggle between known/learning within language
+2. Interaction fluidity
+	A. Language settings toggle between known/learning within language
+	B. revisionBox autofills with selection.html()
+	C. Allow login with username (demo users!)
 
-4. (?) Avatars
-
-5. (?) HTML5 video socket test
-
-6. Demo user generation: prepared material -> functional
-
-7. Allow login with username (demo users!)
+3. New features
+	A. Social feedback
+		i. Notes#show marksView
+		ii. Language#show recent activity
+		iii. (?) User#show recent activity (bebuddyings?)
+		iv. Buddyships#index recent activity
+	B?. Avatars
+	C?. HTML5 socket-based videochat

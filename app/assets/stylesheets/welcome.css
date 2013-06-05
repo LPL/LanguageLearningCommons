@@ -1,36 +1,39 @@
+.welcome {
+  background-color: #444;
+  color: #ddd;
+  text-align: center;
+}
+
 .welcome a {
-  color: #eda080;
+  color: #d08070;
   text-decoration: none;
 }
 
 .welcome a:hover {
-  color: #ec7;
+  color: #ea7;
   text-decoration: none;
 }
 
 .welcome-title {
-  background-color: #444;
-  color: #ddd;
   height: 60;
   padding-top: 60;
   font-size: 70;
-  text-align: center;
 }
 
 .welcome-subtitle {
-  background-color: #444;
-  color: #ddd;
   height: 20;
   padding-top: 20;
   padding-bottom: 40;
   font-size: 30;
-  text-align: center;
 }
 
 .features {
-  background-color: #cba;
+  background-color: #a4a4bb;
   padding-top: 20;
   padding-bottom: 20;
+  text-align: center;
+  font-size: 30;
+  color: #444;
 }
 
 table {
@@ -39,22 +42,23 @@ table {
 
 .feature-text {
   font-size: 30;
+  text-align: center;
   padding: 20 20 20 100;
 }
 
 .feature-pic {
+  width: 400;
+  height: 250;
   padding: 20 100 20 20;
 }
 
-.test-pic {
-  width: 400;
-  height: 250;
-  background-color: #02d049;
+img {
   border: solid #444 5px;
 }
 
 .tools {
-  background-color: #cba;
+  background-color: #889;
+  color: #444;
   padding-top: 20;
   padding-bottom: 60;
 }
@@ -64,10 +68,6 @@ table {
   margin: auto;
   font-size: 30;
   line-height: 1;  
-}
-
-.tool-text-faint {
-  color: #a09890;
 }
 
 .welcome-prompts {
@@ -88,5 +88,5 @@ table {
 
 .welcome-prompts-buffer {
   width: 1;
-  height: 120;
+  height: 80;
 }
