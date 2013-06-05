@@ -83,9 +83,10 @@ table {
   margin: 28;
   font-size: 40;
   color: #444;
-  background-color: #eee;
+  background-color: #ccc;
 }
 
 .welcome-prompts-buffer {
   width: 1;
-  height: 120;}
+  height: 120;
+}

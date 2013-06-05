@@ -21,25 +21,26 @@ LLC = {
     this.showRevisableNoteView = new ShowRevisableNoteView({ model: this.note });
     $rootEl.html(this.showRevisableNoteView.render().$el);
     this.showRevisableNoteView.showNoteView.showReviews();
+  },
+
+  darkenText: function($demoButton) {
+    $demoButton.animate({ 'color': '#444',
+                          'background-color': '#ccc' }, 400, function() {
+      LLC.lightenText($demoButton);
+    });
+  },
+
+  lightenText: function($demoButton) {
+    $demoButton.animate({ 'color': '#777',
+                          'background-color': '#fff' }, 400, function() {
+      LLC.darkenText($demoButton);
+    });
   }
 }
 
-growFont = function(demoButton) {
-  $(demoButton).animate({ 'margin-left': '0px' }, 500, function() {
-    shrinkFont(demoButton)
-  });
-};
-
-shrinkFont = function(demoButton) {
-  $(demoButton).animate({ 'margin-left': '15px' }, 500, function() {
-    growFont(demoButton)
-  });
-};
-
 $(function() {
-  if($('.demoButton').length != 0) {
-    _($('.demoButton')).each(function(demoButton) {
-      growFont(demoButton);
-    })
+  if($('.demoButton')) {
+    var $demoButton = $('.demoButton');
+    LLC.darkenText($demoButton);
   }
 })

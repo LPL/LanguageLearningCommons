@@ -44,7 +44,6 @@
 </div>
 <br>
 <div class="row">
-  <!-- currently ALL notes -->
   <div class="span6">
     <span class="noteTitle listTitle">
       <%= link_to "Notes", user_notes_url(@user) %>
@@ -54,7 +53,8 @@
   	<% if @learnings.any? %>
   			<ul>
   				<% @notes.each do |note| %>
-  					<span class="noteTitle">
+  					<span class="noteTitle"
+              <%= note.language.name == 'Arabic' ? ' dir="rtl"' : ''%>>
               <%= link_to note.title, user_note_url(@user.id, note) %>
             </span>
             <span class="faint">

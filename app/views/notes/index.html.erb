@@ -29,7 +29,8 @@
         </div>
         <ul>
           <% language_notes.each do |language_note| %>
-            <span class="noteTitle">
+            <span class="noteTitle"
+            <%= language.name == 'Arabic' ? ' dir="rtl"' : ''%>>
               <%= link_to language_note.title, user_note_url(@author, language_note) %>
             </span>
             <span class="faint">

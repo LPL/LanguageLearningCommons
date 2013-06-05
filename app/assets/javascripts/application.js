@@ -12,11 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ./../../../vendor/assets/javascripts/jquery-color
 //
 //= require ./../../../vendor/assets/javascripts/backbone/underscore
 //= require ./../../../vendor/assets/javascripts/backbone/backbone
-//
-//= require_tree ./../../../vendor/assets/javascripts/rangy
 //
 //= require LanguageLearningCommons
 //= require_tree ./models
