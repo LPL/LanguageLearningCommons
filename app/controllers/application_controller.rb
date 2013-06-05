@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def welcome
-    render 'layouts/welcome', :layout => nil
+    if signed_in?
+      redirect_to user_url(current_user)
+    else
+      render 'layouts/welcome', :layout => nil
+    end
   end
 
   private

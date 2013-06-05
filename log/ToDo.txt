@@ -20,3 +20,7 @@ To Do
 4. (?) Avatars
 
 5. (?) HTML5 video socket test
+
+6. Demo user generation: prepared material -> functional
+
+7. Allow login with username (demo users!)

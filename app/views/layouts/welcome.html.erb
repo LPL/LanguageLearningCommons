@@ -6,14 +6,14 @@
 		Language Learning Commons
 	</div>
 	<div class="welcome-subtitle">
-		<%= link_to "Luke Persola's", "http://www.lukepl.com/"%> capstone project at
+		<%= link_to "Luke Persola", "http://www.lukepl.com/"%>'s capstone project at
 		<%= link_to "App Academy", "http://www.appacademy.io/" %>
 	</div>
 	<div class="features">
 		<table>
 			<tr>
 				<td class="feature-text">
-					<div>Language Learning Commons helps people learn languages</div>
+					<div>This is a decription of a feature of the site.</div>
 				</td>
 				<td class="feature-pic">
 					<div class="test-pic">
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td class="feature-text">
-					<div>Connect with native speakers, and help others learn languages you speak</div>
+					<div>Connect with native speakers of languages you want to learn, and help other people learn your language.</div>
 				</td>
 				<td class="feature-pic">
 					<div class="test-pic">
@@ -33,7 +33,7 @@
 			</tr>
 					<tr>
 				<td class="feature-text">
-					<div>Connect with native speakers, andseijf osidf sdf sdf sdfods fosdf sdof sdopf sdof sd fosdf sodfusdofusdofu help others learn languages you speak</div>
+					<div>Make corrections to notes other users have written in your native language.</div>
 				</td>
 				<td class="feature-pic">
 					<div class="test-pic">
@@ -43,7 +43,7 @@
 			</tr>
 			<tr>
 				<td class="feature-text">
-					<div>Connect with native speakers, and help others learn languages you speak</div>
+					<div>And see what corrections native speakers have made to your writing.</div>
 				</td>
 				<td class="feature-pic">
 					<div class="test-pic">
@@ -53,7 +53,34 @@
 			</tr>
 		</table>
 	</div>
+	<div class="tools">
+		<div class="tool-text">
+			<br />
+			This is a standard, RESTful Rails app, except for the system for revising users' notes, which was done with Backbone. I used Devise for authentication and Twitter Bootstrap; the rest is mine.
+		</div>
+	</div>
 	<div class="welcome-prompts-buffer"></div>
 	<div class="welcome-prompts">
+		<table>
+			<tr>
+				<td>
+					<%= render :partial => "layouts/create_demo_user_button" %>
+				</td>
+				<td>
+					<form>
+						<button class="btn-large" action="<%= new_user_registration_url %>">
+							Sign Up
+						</button>
+					</form>
+				</td>
+				<td>
+					<form>
+						<button class="btn-large" action="<%= new_user_session_url %>">
+							Sign In
+						</button>
+					</form>
+				</td>
+			</tr>
+		</table>
 	</div>
 </div>
