@@ -3,13 +3,13 @@
     <br>
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
       <div>
-        <label for="user_email" class="languageList">Email</label>
-        <%= f.email_field :email, :autofocus => true %>
+        <%= f.label :login, "Username or email", :class => "languageList" %>
+        <%= f.text_field :login, :autofocus => true %>
       </div>
 
       <div>
-        <label for="user_password" class="languageList">Password</label>
-        <%= f.password_field :password %>
+        <%= f.label :password, "Password", :class => "languageList" %>
+        <%= f.password_field :password, :placeholder => "Demo users: 123123123" %>
       </div>
 
       <% if devise_mapping.rememberable? -%>

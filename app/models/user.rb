@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable#, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password,
+  attr_accessible :name, :login, :email, :password,
                   :password_confirmation, :remember_me,
                   :known_language_ids, :learning_language_ids
 
@@ -73,19 +73,13 @@ class User < ActiveRecord::Base
     notes_by_language
   end
 
-  # incomplete non-redundant buddy join table solution:
-  #
-  # has_many :buddyships
-  # has_and_belongs_to_many :buddies,
-  #   :finder_sql =>
-  #   ('SELECT FROM buddyships WHERE ' +
-  #   '(proposing_buddy_id = #{id} AND receptive_buddy_id = #{'????'}) OR ' +
-  #   '(proposing_buddy_id = #{'___'} AND receptive_buddy_id = #{id})'),
-  #   :insert_sql =>
-  #   ('INSERT INTO buddyships (proposing_buddy_id, receptive_buddy_id)' +
-  #   ' VALUES ('___', '___')'),
-  #   :delete_sql =>
-  #   ('DELETE FROM buddyships WHERE proposing_buddy_id = #{id} AND ' +
-  #   'receptive_buddy_id = #{'___'}'),
-
+# below as per https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
 end
