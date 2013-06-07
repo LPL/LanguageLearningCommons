@@ -1,9 +1,5 @@
 Langauge Learning Commons
 
-created by Luke Persola
+language-learning-commons.herokuapp.com
 
-github.com/LPL/LanguageLearningCommons
-
-This demo social networking site allows users learning natural languages to connect to each other. Native speakers of a language teach those learning it by correcting writing samples ("notes").
-
-While largely a standard Rails app, the system for revising notes uses some features of Backbone.js. I used Divise for authentication and the JS library rangy. 
+See the project description on the landing page.
