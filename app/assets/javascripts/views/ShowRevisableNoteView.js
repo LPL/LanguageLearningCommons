@@ -20,10 +20,82 @@ ShowRevisableNoteView = Backbone.View.extend({
     return this;
   },
 
+  launchComment: function() {
+    this.launchMark(LLC.Models.Comment);
+  },
+
+  launchRevision: function() {
+    this.launchMark(LLC.Models.Revision);
+  },
+
+  launchMark: function(markType) {
+  var that = this;
+
+    that.selection = window.getSelection();
+    if(that.selection.rangeCount == 0 ||
+       that.selection.type == "Caret") {
+      var highlightReminder = "First highlight the section of text you wish to" +
+        (markType == LLC.Models.Comment ? "comment on." : "revise.")
+      $('#markForm').html(highlightReminder);
+    } else if(! that.selection.AnchorNode == that.selection.focusNode) {
+      console.log("The selection must be within the text of the note.");
+    } else {
+      $('#markForm').empty();
+      var dynamicOffsetBase = that.dynamicOffsetBase(that.selection);
+      if(that.selection.anchorOffset < that.selection.focusOffset) {
+        var startOffset = that.selection.anchorOffset + dynamicOffsetBase;
+        var endOffset = that.selection.focusOffset + dynamicOffsetBase;
+      } else if(that.selection.anchorOffset > that.selection.focusOffset){
+        var startOffset = that.selection.focusOffset + dynamicOffsetBase;
+        var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
+      }
+      that.$markTextBox = $('<input type="textArea" name="body" id="markTextBox">');
+      that.$markSaveButton = $('<button class="btn" id="markSaveButton" type="button">Save</button>');
+      $('#markForm').append(that.$markTextBox);
+      $('#markForm').append(that.$markSaveButton);
+      that.$markTextBox.focus();
+      that.$markTextBox.keyup(function(ev) {
+        if(ev.which == 13) {
+          that.storeMark(startOffset, endOffset, that.selection.toString);
+        }
+      });
+      that.$markSaveButton.on('click', that.storeMark.bind(that, startOffset, endOffset, 
+                                                           that.selection.toString, markType));
+    }
+  },
+
+  storeMark: function(startOffset, endOffset, originalText, markType) {
+    var that = this;
+    if(markType == LLC.Models.Comment) {
+      this.mark = new LLC.Models.Comment({
+        body: this.$markTextBox.val(),
+        startOffset: startOffset,
+        endOffset: endOffset,
+        markType: 'comment'
+      })
+    } else if(markType == LLC.Models.Revision) {
+      this.mark = new LLC.Models.Comment({
+        body: this.$markTextBox.val(),
+        startOffset: startOffset,
+        endOffset: endOffset,
+        markType: 'revision',
+        originalText: originalText
+      })
+    }
+    $('#markForm').empty();
+    this.mark.save({}, {
+      success: function(savedMark) {
+        (markType == LLC.Models.Comment ? LLC.comments : LLC.revisions).add(savedMark);
+        that.showNoteView.render();
+        that.showNoteView.showMarks();
+      }
+    });  
+  },
+
   dynamicOffsetBase: function(selection) {
-    // native offsets may not include the entire note because existing marks slice the 
-    // noteBody node. This function finds all sibling text nodes previous to that of 
-    // the new node and sums their length
+    // native offsets may not include the entire note because existing marks cut off 
+    // earlier parts of the noteBody node. This function finds all sibling text 
+    // nodes previous to that of the new node and sums their length.
     var dynamicOffsetBase = 0;
     var currentNode = selection.anchorNode;
 
@@ -39,108 +111,5 @@ ShowRevisableNoteView = Backbone.View.extend({
     }
 
     return dynamicOffsetBase;
-  },
-
-  launchComment: function() {
-    var that = this;
-
-    that.selection = window.getSelection();
-    if(that.selection.rangeCount == 0 ||
-       that.selection.type == "Caret") {
-      $('#commentForm').html("Highlight the section of text you wish to comment on.");
-    } else if(! that.selection.AnchorNode == that.selection.focusNode) {
-      console.log("The selection must be within the text of the note.");
-    } else {
-      $('#commentForm').empty();
-      $('#revisionForm').empty();
-      var dynamicOffsetBase = that.dynamicOffsetBase(that.selection);
-      if(that.selection.anchorOffset < that.selection.focusOffset) {
-        var startOffset = that.selection.anchorOffset + dynamicOffsetBase;
-        var endOffset = that.selection.focusOffset + dynamicOffsetBase;
-      } else if(that.selection.anchorOffset > that.selection.focusOffset){
-        var startOffset = that.selection.focusOffset + dynamicOffsetBase;
-        var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
-      }
-      that.$commentTextBox = $('<input type="textArea" name="body" id="commentTextBox">');
-      that.$commentSaveButton = $('<button class="btn" id="commentSaveButton" type="button">Save</button>');
-      $('#commentForm').append(that.$commentTextBox);
-      $('#commentForm').append(that.$commentSaveButton);
-      that.$commentTextBox.focus();
-      that.$commentSaveButton.on('click', that.storeComment.bind(that, startOffset, endOffset));
-    }
-  },
-
-  storeComment: function(startOffset, endOffset) {
-    var that = this;
-    this.comment = new LLC.Models.Comment({
-      body: this.$commentTextBox.val(),
-      startOffset: startOffset,
-      endOffset: endOffset,
-      markType: 'comment'
-    });
-    $('#commentForm').empty();
-    this.comment.save({}, {
-      success: function(savedComment) {
-        LLC.comments.add(savedComment);
-        that.showNoteView.render();
-        that.showNoteView.showMarks();
-      }
-    });
-  },
-
-
-
-  launchRevision: function() {
-    var that = this;
-
-    that.selection = window.getSelection();
-    if(that.selection.rangeCount == 0 ||
-       that.selection.type == "Caret") {
-      $('#commentForm').html("Highlight text from the note to revise it.");
-    } else if(! that.selection.AnchorNode == that.selection.focusNode) {
-      console.log("The selection must be within the text of the note");
-    } else {
-      $('#revisionForm').empty();
-      $('#commentForm').empty();
-      var dynamicOffsetBase = that.dynamicOffsetBase(that.selection);
-      if(that.selection.anchorOffset < that.selection.focusOffset) {
-        var startOffset = that.selection.anchorOffset + dynamicOffsetBase;
-        var endOffset = that.selection.focusOffset + dynamicOffsetBase;
-      } else if(that.selection.anchorOffset > that.selection.focusOffset){
-        var startOffset = that.selection.focusOffset + dynamicOffsetBase;
-        var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
-      }
-      that.$revisionTextBox = $('<input type="textArea" name="body" id="revisionTextBox">');
-      that.$revisionSaveButton = $('<button class="btn" id="revisionSaveButton" type="button">Save</button>');
-      $('#revisionForm').append(that.$revisionTextBox);
-      $('#revisionForm').append(that.$revisionSaveButton);
-      that.$revisionTextBox.focus();
-      that.$revisionTextBox.keyup(function(ev) {
-        if(ev.which == 13) {
-          that.storeRevision(startOffset, endOffset, that.selection.toString);
-        }
-      });
-      that.$revisionSaveButton.on('click', that.storeRevision.bind(that,
-        startOffset, endOffset, that.selection.toString));
-    }
-  },
-
-  storeRevision: function(startOffset, endOffset, originalText) {
-    var that = this;
-    this.revision = new LLC.Models.Revision({
-      body: this.$revisionTextBox.val(),
-      originalText: originalText,
-      startOffset: startOffset,
-      endOffset: endOffset,
-      markType: 'revision'
-    });
-    $('#revisionForm').empty();
-    this.revision.save({}, {
-      success: function(savedRevision) {
-        LLC.revisions.add(savedRevision);
-        that.showNoteView.render();
-        that.showNoteView.showMarks();
-      }
-    });
   }
 })
