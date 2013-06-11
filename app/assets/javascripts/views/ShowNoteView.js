@@ -66,62 +66,33 @@ ShowNoteView = Backbone.View.extend({
   prepareHoverText: function(mark) {
     var that = this;
     
-    mark.set('$markPocket', $('<span class="markPocket"></span>'));
-    mark.get('$markSpan').prepend(mark.get('$markPocket'));
     mark.get('$markSpan').on('mouseover',
       that.showHoverText.bind(that, mark));
   },
 
   showHoverText: function(mark) {
     var displayText = mark.get(mark.get('markType') == 'comment' ? 'body' : 'originalText');
-
-    mark.get('$markPocket').append('<span class=' + (mark.get('markType') == 'comment' ? 'commentText' : 'revisionText') +
-      this.reviewTextWidth(displayText) + '>' + displayText + '</span>');
+    var $displayTextSpan = $('<span class=' + mark.get('markType') + 'Text' +
+                            '>' + this.insertLineBreaks(displayText) + '</span>')
+    mark.get('$markSpan').prepend($displayTextSpan);
     mark.get('$markSpan').on('mouseout', function() {
-      mark.get('$markPocket').empty();
+      $displayTextSpan.remove();
     })
   },
 
-  // below: functions to determine width of hover text element.
-
-  maxWordLength: function(reviewText) {
-        maxWordLength = 0;
-    consecutiveNonWhitespaceChar = 0;
-    for(i = 0; i < reviewText.length; i++) {
-      if(reviewText.substring(i, i+1) == " ") {
-        if(consecutiveNonWhitespaceChar > maxWordLength) {
-          maxWordLength = consecutiveNonWhitespaceChar;
-        }
-        consecutiveNonWhitespaceChar = 0;
+  insertLineBreaks: function(displayText) {
+    var lineCharacters = 0
+    var brokenDisplayText = displayText;
+    for(i = 0; i < brokenDisplayText.length; i++) {
+      if(brokenDisplayText.substring(i, i+1) == " " && lineCharacters > 25) {
+        brokenDisplayText = brokenDisplayText.substring(0, i) + "\n" +
+                            brokenDisplayText.substring(i+1, brokenDisplayText.length);
+        i++;
+        lineCharacters = 0;
       } else {
-        consecutiveNonWhitespaceChar++;
+        lineCharacters += 1;
       }
     }
-    if(consecutiveNonWhitespaceChar > maxWordLength) {
-      maxWordLength = consecutiveNonWhitespaceChar;
-    }
-
-    // constant accounts for em not being average character length
-    return maxWordLength * 0.6;
-  },
-
-  widthGuess: function(reviewText) {
-    if(reviewText.length < 31) {
-      return (reviewText.length * 0.3);
-    } else {
-      return (reviewText.length * 0.3)/(Math.floor(reviewText.length/30));
-    }
-  },
-
-  reviewTextWidth: function(reviewText) {
-
-    maxWordLength = this.maxWordLength(reviewText);
-    widthGuess = this.widthGuess(reviewText);
-
-    if(widthGuess < maxWordLength) {
-      return ' style="width: ' + maxWordLength + 'em"';
-    } else {
-      return ' style="width: ' + widthGuess + 'em"';
-    }
+    return brokenDisplayText;
   }
 })
