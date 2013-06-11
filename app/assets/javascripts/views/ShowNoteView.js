@@ -6,10 +6,12 @@ ShowNoteView = Backbone.View.extend({
       note: that.model.attributes
     }));
 
+    //this.showMarks();
+
     return that;
   },
 
-  showReviews: function() {
+  showMarks: function() {
     var that = this;
 
     var marks = [];
@@ -20,38 +22,67 @@ ShowNoteView = Backbone.View.extend({
       marks.push(revision);
     });
 
-    var reversedMarks = _(marks).sortBy(function(mark) {return -mark.get('startOffset')})
+    // marks are placed in reverse order so that the DOM node they  
+    // are placed in remains the first child in its parent node
+    var reversedMarks = _(marks).sortBy(function(mark) {
+      return -mark.get('startOffset')
+    })
 
     _(reversedMarks).each(function(mark) {
-      var markRange = document.createRange();
-      var noteBodyNode = document.getElementById('noteBodyParentNode').firstChild;
-      markRange.setStart(noteBodyNode, mark.get('startOffset'));
-      markRange.setEnd(noteBodyNode, mark.get('endOffset'));
-      var markSpan = document.createElement("span");
-      markSpan.className = mark.get('markType') + " " + mark.get('markType') + mark.get('id');
-      markRange.surroundContents(markSpan);
-
-
-      var $markedText = $('.' + mark.get('markType') + mark.get('id'));
-      var originalText = $markedText.html();
-      $markedText.attr('data-originalLength', originalText.length.toString());
-      if(mark.get('markType') == "revision") {
-        $markedText.html(mark.get('body'));
-      }
-      var $markPocket = $('<span class="markPocket"></span>');
-      $markedText.prepend($markPocket);
-      var isComment = mark.get('markType') == "comment";
-      that.setReviewListener(that, $markedText, $markPocket, mark.get('id'), isComment, originalText);
+      that.injectMark(mark);
+      that.prepareHoverText(mark);
     });
 
   },
 
-  setReviewListener: function(that, $markedText, $markPocket, markId, isComment, originalText) {
-    var that = this;
+  injectMark: function(mark) {
+    var markRange = this.markRange(mark);
+    var markSpan = this.markSpan(mark);
+    markRange.surroundContents(markSpan);
 
-    $markedText.on('mouseover',
-      that.showReviewText.bind(that, $markedText, $markPocket, markId, isComment, originalText));
+    // jQuery starts here--haven't found a way to do the above in jQuery
+    mark.set('$markSpan', $(markSpan));
+    if(mark.get('markType') == "revision") {
+      mark.set('originalText', mark.get('$markSpan').html());
+      mark.get('$markSpan').html(mark.get('body'));
+      mark.get('$markSpan').attr('data-originalLength', mark.get('originalText').length.toString());
+    }
   },
+
+  markRange: function(mark) {
+    var noteBodyNode = document.getElementById('noteBodyParentNode').firstChild;
+    var markRange = document.createRange();
+    markRange.setStart(noteBodyNode, mark.get('startOffset'));
+    markRange.setEnd(noteBodyNode, mark.get('endOffset'));
+    return markRange;
+  },
+
+  markSpan: function(mark) {
+    var markSpan = document.createElement("span");
+    markSpan.className = mark.get('markType') + " " + mark.get('markType') + mark.get('id');
+    return markSpan;
+  },
+
+  prepareHoverText: function(mark) {
+    var that = this;
+    
+    mark.set('$markPocket', $('<span class="markPocket"></span>'));
+    mark.get('$markSpan').prepend(mark.get('$markPocket'));
+    mark.get('$markSpan').on('mouseover',
+      that.showHoverText.bind(that, mark));
+  },
+
+  showHoverText: function(mark) {
+    var displayText = mark.get(mark.get('markType') == 'comment' ? 'body' : 'originalText');
+
+    mark.get('$markPocket').append('<span class=' + (mark.get('markType') == 'comment' ? 'commentText' : 'revisionText') +
+      this.reviewTextWidth(displayText) + '>' + displayText + '</span>');
+    mark.get('$markSpan').on('mouseout', function() {
+      mark.get('$markPocket').empty();
+    })
+  },
+
+  // below: functions to determine width of hover text element.
 
   maxWordLength: function(reviewText) {
         maxWordLength = 0;
@@ -92,14 +123,5 @@ ShowNoteView = Backbone.View.extend({
     } else {
       return ' style="width: ' + widthGuess + 'em"';
     }
-  },
-
-  showReviewText: function($markedText, $markPocket, markId, isComment, originalText) {
-    var reviewText = isComment ? LLC.comments.get(markId).get('body') : originalText;
-    $markPocket.append('<span class=' + (isComment ? 'commentText' : 'revisionText') +
-      this.reviewTextWidth(reviewText) + '>' + reviewText + '</span>');
-    $markedText.on('mouseout', function() {
-      $markPocket.empty();
-    })
-  },
+  }
 })

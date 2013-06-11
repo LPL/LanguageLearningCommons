@@ -33,6 +33,8 @@ ShowRevisableNoteView = Backbone.View.extend({
         dynamicOffsetBase += currentNode.length;
       } else if(currentNode.nodeType == 1 && $(currentNode).attr('data-originalLength')) {
         dynamicOffsetBase += parseInt($(currentNode).attr('data-originalLength'));
+      } else if(currentNode.nodeType == 1) {
+        dynamicOffsetBase += $(currentNode).text().length;
       }
     }
 
@@ -81,7 +83,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       success: function(savedComment) {
         LLC.comments.add(savedComment);
         that.showNoteView.render();
-        that.showNoteView.showReviews();
+        that.showNoteView.showMarks();
       }
     });
   },
@@ -137,7 +139,7 @@ ShowRevisableNoteView = Backbone.View.extend({
       success: function(savedRevision) {
         LLC.revisions.add(savedRevision);
         that.showNoteView.render();
-        that.showNoteView.showReviews();
+        that.showNoteView.showMarks();
       }
     });
   }

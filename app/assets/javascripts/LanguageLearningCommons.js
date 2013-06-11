@@ -13,16 +13,17 @@ LLC = {
     this.initialize(unmodeledNote);
     this.showNoteView = new ShowNoteView({ model: this.note });
     $rootEl.html(this.showNoteView.render().$el);
-    this.showNoteView.showReviews();
+    this.showNoteView.showMarks();
   },
 
   showRevisableNote: function(unmodeledNote, $rootEl) {
     this.initialize(unmodeledNote);
     this.showRevisableNoteView = new ShowRevisableNoteView({ model: this.note });
     $rootEl.html(this.showRevisableNoteView.render().$el);
-    this.showRevisableNoteView.showNoteView.showReviews();
+    this.showRevisableNoteView.showNoteView.showMarks();
   },
 
+  // darkenText and lightenText allow a button to glow
   darkenText: function($demoButton) {
     $demoButton.animate({ 'color': '#444',
                           'background-color': '#ccc' }, 400, function() {
@@ -38,6 +39,7 @@ LLC = {
   }
 }
 
+// initiate button glowing
 $(function() {
   if($('.demoButton')) {
     var $demoButton = $('.demoButton');
