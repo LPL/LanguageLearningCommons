@@ -21,15 +21,15 @@ ShowRevisableNoteView = Backbone.View.extend({
   },
 
   launchComment: function() {
-    this.launchMark(LLC.Models.Comment);
+    this.validateSelection(LLC.Models.Comment);
   },
 
   launchRevision: function() {
-    this.launchMark(LLC.Models.Revision);
+    this.validateSelection(LLC.Models.Revision);
   },
 
-  launchMark: function(markType) {
-  var that = this;
+  validateSelection: function(markType) {
+    var that = this;
 
     that.selection = window.getSelection();
     if(that.selection.rangeCount == 0 ||
@@ -40,47 +40,57 @@ ShowRevisableNoteView = Backbone.View.extend({
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
       console.log("The selection must be within the text of the note.");
     } else {
-      $('#markForm').empty();
-      var dynamicOffsetBase = that.dynamicOffsetBase(that.selection);
-      if(that.selection.anchorOffset < that.selection.focusOffset) {
-        var startOffset = that.selection.anchorOffset + dynamicOffsetBase;
-        var endOffset = that.selection.focusOffset + dynamicOffsetBase;
-      } else if(that.selection.anchorOffset > that.selection.focusOffset){
-        var startOffset = that.selection.focusOffset + dynamicOffsetBase;
-        var endOffset = that.selection.anchorOffset + dynamicOffsetBase;
-      }
-      that.$markTextBox = $('<input type="textArea" name="body" id="markTextBox">');
-      that.$markSaveButton = $('<button class="btn" id="markSaveButton" type="button">Save</button>');
-      $('#markForm').append(that.$markTextBox);
-      $('#markForm').append(that.$markSaveButton);
-      that.$markTextBox.focus();
-      that.$markTextBox.keyup(function(ev) {
-        if(ev.which == 13) {
-          that.storeMark(startOffset, endOffset, that.selection.toString);
-        }
-      });
-      that.$markSaveButton.on('click', that.storeMark.bind(that, startOffset, endOffset, 
-                                                           that.selection.toString, markType));
+      that.launchMark(markType, that.selection);
     }
+  },
+
+  offsets: function(selection) {
+    var dynamicOffsetBase = this.dynamicOffsetBase(selection);
+    if(selection.anchorOffset < selection.focusOffset) {
+      return {
+        startOffset: selection.anchorOffset + dynamicOffsetBase,
+        endOffset: selection.focusOffset + dynamicOffsetBase
+      }
+    } else if(selection.anchorOffset > selection.focusOffset){
+      return {
+        startOffset: selection.focusOffset + dynamicOffsetBase,
+        endOffset: selection.anchorOffset + dynamicOffsetBase
+      }
+    }
+  },
+
+  launchMark: function(markType, selection) {
+    var that = this;
+
+    $('#markForm').empty();
+    var offsets = this.offsets(selection);
+    var startOffset = offsets.startOffset;
+    var endOffset = offsets.endOffset;
+    that.$markTextBox = $('<input type="textArea" name="body" id="markTextBox">');
+    that.$markSaveButton = $('<button class="btn" id="markSaveButton" type="button">Save</button>');
+    $('#markForm').append(that.$markTextBox);
+    $('#markForm').append(that.$markSaveButton);
+    that.$markTextBox.keyup(function(ev) {
+      if(ev.which == 13) {
+        that.storeMark(startOffset, endOffset, selection.toString(), markType);
+      }
+    });
+    that.$markSaveButton.on('click', that.storeMark.bind(that, startOffset, endOffset, 
+                                                         selection.toString(), markType));
+    that.$markTextBox.focus();
   },
 
   storeMark: function(startOffset, endOffset, originalText, markType) {
     var that = this;
-    if(markType == LLC.Models.Comment) {
-      this.mark = new LLC.Models.Comment({
-        body: this.$markTextBox.val(),
-        startOffset: startOffset,
-        endOffset: endOffset,
-        markType: 'comment'
-      })
-    } else if(markType == LLC.Models.Revision) {
-      this.mark = new LLC.Models.Comment({
-        body: this.$markTextBox.val(),
-        startOffset: startOffset,
-        endOffset: endOffset,
-        markType: 'revision',
-        originalText: originalText
-      })
+    this.mark = new (markType == LLC.Models.Comment ?
+                     LLC.Models.Comment : LLC.Models.Revision)({
+      body: this.$markTextBox.val(),
+      startOffset: startOffset,
+      endOffset: endOffset,
+      markType: markType == LLC.Models.Comment ? "comment" : "revision"
+    });
+    if(markType == LLC.Models.Revision) {
+      this.mark.originalText = originalText;
     }
     $('#markForm').empty();
     this.mark.save({}, {
