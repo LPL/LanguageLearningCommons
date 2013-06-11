@@ -50,11 +50,11 @@ ShowRevisableNoteView = Backbone.View.extend({
   setOffsets: function(selection) {
     var dynamicOffsetBase = this.dynamicOffsetBase(selection);
     if(selection.anchorOffset < selection.focusOffset) {
-      this.mark.startOffset = selection.anchorOffset + dynamicOffsetBase;
-      this.mark.endOffset = selection.focusOffset + dynamicOffsetBase;
+      this.mark.set('startOffset', (selection.anchorOffset + dynamicOffsetBase));
+      this.mark.set('endOffset', (selection.focusOffset + dynamicOffsetBase));
     } else if(selection.anchorOffset > selection.focusOffset) {
-      this.mark.startOffset = selection.focusOffset + dynamicOffsetBase;
-      this.mark.endOffset = selection.anchorOffset + dynamicOffsetBase;
+      this.mark.set('startOffset', (selection.focusOffset + dynamicOffsetBase));
+      this.mark.set('endOffset', (selection.anchorOffset + dynamicOffsetBase));
     }
   },
 
@@ -96,9 +96,9 @@ ShowRevisableNoteView = Backbone.View.extend({
   },
 
   createMark: function(originalText) {
-    this.mark.body = this.$markTextBox.val();
+    this.mark.set('body', this.$markTextBox.val());
     if(this.mark.markType == "revision") {
-      this.mark.originalText = originalText;
+      this.mark.set('originalText', originalText);
     }
     $('#markForm').empty();
     this.storeMark();
