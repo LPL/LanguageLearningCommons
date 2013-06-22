@@ -2,22 +2,35 @@ require 'spec_helper'
 
 describe User do
 
-	before do
-		@required_user_attrs = {:name => "David", :email => "david@gmail.com", :password => "puppetz901^"}
-	end
+  	REQUIRED_ATTRS = {:name => "Fja5kd2l6s", :email => "Fja5kd2l6s@gmail.com", :password => "Fja5kd2l6s"}
 
-  it "does not create users missing a required attribute" do
-  	@required_user_attrs.each_key do |key|
-  		debugger
-  		@required_user_attrs.delete(key)
-	  	User.create(@required_user_attrs).should raise_error
-	  	# this next line would be better handled by the "before" block, but I can't move my
-	  	# each_key loop outside of the it block. Hm.
-	  	@required_user_attrs = {:name => "David", :email => "david@gmail.com", :password => "puppetz901^"} 
-  	end
-  end
+    REQUIRED_ATTRS.each_key do |key|
+      it "is invalid without a #{key.to_s}" do
+  	  	User.new(REQUIRED_ATTRS.except(key)).should_not be_valid
+    	end
+    end
 
-  it "creates a valid user" do
-  	User.create(@required_user_attrs)
-  end
+    describe "uniqueness validations" do
+
+      before :all do        
+        User.create(REQUIRED_ATTRS)
+      end
+
+      before do
+        @nonunique_user = User.new(:name => "E663f357f", :email => "E663f357f@gmail.com", :password => "E663f357f")
+      end
+
+      [:name, :email].each do |attribute|
+        it "is invalid without a unique #{attribute}" do
+          @nonunique_user[attribute] = REQUIRED_ATTRS[attribute]
+          @nonunique_user.should_not be_valid
+        end
+      end
+    end
+
+    it "creates a valid user" do
+    	User.create(REQUIRED_ATTRS)
+    end
+
+    it "capitalizes"
 end
