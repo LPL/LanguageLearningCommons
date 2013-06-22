@@ -36,9 +36,8 @@ class User < ActiveRecord::Base
 
   before_save :capitalize_name
 
-  validates :name, :email, :presence => true
-  validates :password,     :presence => true, :on => :create
-  validates :name, :email, :uniqueness => true
+  # validates :name, :email, :presence => true, :uniqueness => true
+  # validates :password,     :presence => true, :on => :create
 
   # adds both unidirectional buddy relationships with another user
   def capitalize_name

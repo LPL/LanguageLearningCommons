@@ -6,7 +6,8 @@ group :production do
   gem 'pg'
 end
 
-group :development do
+group :development, :test do
+	gem 'rspec-rails', '~> 2.0'
   gem 'sqlite3'
 end
 
