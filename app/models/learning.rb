@@ -10,7 +10,7 @@ class Learning < ActiveRecord::Base
   def user_language_uniqueness
     unless (Knowing.find_by_user_id_and_language_id(user_id, language_id) == nil) &&
            (Learning.find_by_user_id_and_language_id(user_id, language_id) == nil)
-      errors.add "You may not know and be learning a language at the same time."
+      errors.add(:user, "User already has a relationship with this language.")
     end
   end
 end
