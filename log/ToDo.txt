@@ -1,11 +1,9 @@
 To Do
 
 1. Clean-up
-	A. Major refactoring
+	A. Refactoring
 		i. Add superclasses (marks, user_languages)
-		ii. showRevisableNoteView
-		iii. showNoteView
-		iv. LLC.css + templates
+		ii. LLC.css + templates
 	B. Errors
 		i. Overlapping marks
 	C. Demo user generation: prepared material -> functional
@@ -13,7 +11,6 @@ To Do
 2. Interaction fluidity
 	A. Language settings toggle between known/learning within language
 	B. revisionBox autofills with selection.html()
-	C. Allow login with username (demo users!)
 
 3. New features
 	A. Social feedback
@@ -21,5 +18,17 @@ To Do
 		ii. Language#show recent activity
 		iii. (?) User#show recent activity (bebuddyings?)
 		iv. Buddyships#index recent activity
-	B?. Avatars
-	C?. HTML5 socket-based videochat
+	B. Avatars
+	C. Security
+		i. Validate mark authorship
+	D. Deleting marks
+	E. Mark subset viewing
+		i. Origianl note
+		ii. All non-conflicting marks
+		iii. Toggle users
+		iv?. Toggle revisions/comments
+
+4. Testing
+	A. Controllers
+	B. Views
+	C?. Javascript suite

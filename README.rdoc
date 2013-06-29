@@ -2,4 +2,7 @@ Langauge Learning Commons
 
 language-learning-commons.herokuapp.com
 
-See the project description on the landing page.
+Some of the more interesting parts of this app are these two backbone.js views,
+which store and render the comments and revisions made to users' notes:
+	app/assets/javascripts/views/ShowNoteView.js
+	app/assets/javascripts/views/ShowRevisableNoteView.js
