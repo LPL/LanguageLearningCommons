@@ -23,18 +23,18 @@ LLC = {
     this.showRevisableNoteView.showNoteView.showMarks();
   },
 
-  // darkenText and lightenText allow a button to glow
-  darkenText: function($demoButton) {
+// darken and brighten allow a button to glow
+  darken: function($demoButton) {
     $demoButton.animate({ 'color': '#444',
                           'background-color': '#ccc' }, 400, function() {
-      LLC.lightenText($demoButton);
+      LLC.brighten($demoButton);
     });
   },
 
-  lightenText: function($demoButton) {
+  brighten: function($demoButton) {
     $demoButton.animate({ 'color': '#777',
                           'background-color': '#fff' }, 400, function() {
-      LLC.darkenText($demoButton);
+      LLC.darken($demoButton);
     });
   }
 }
@@ -43,6 +43,6 @@ LLC = {
 $(function() {
   if($('.demoButton')) {
     var $demoButton = $('.demoButton');
-    LLC.darkenText($demoButton);
+    LLC.darken($demoButton);
   }
 })
