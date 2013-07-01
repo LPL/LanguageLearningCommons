@@ -11,9 +11,11 @@ ShowNoteView = Backbone.View.extend({
     return that;
   },
 
+  // Find and show all marks.
   showMarks: function() {
     var that = this;
 
+    // Both comments and revisions are marks.
     var marks = [];
     LLC.comments.each(function(comment) {
       marks.push(comment);
@@ -22,8 +24,9 @@ ShowNoteView = Backbone.View.extend({
       marks.push(revision);
     });
 
-    // marks are placed in reverse order so that the DOM node they  
-    // are placed in remains the first child in its parent node
+    // Marks are placed in reverse order so that the DOM node they  
+    // are placed in remains the first child in its parent node.
+    // (Otherwise their location in the DOM would change.)
     var reversedMarks = _(marks).sortBy(function(mark) {
       return -mark.get('startOffset')
     })
@@ -35,6 +38,7 @@ ShowNoteView = Backbone.View.extend({
 
   },
 
+  // Insert a mark into the DOM
   injectMark: function(mark) {
     var markRange = this.markRange(mark);
     var markSpan = this.markSpan(mark);
@@ -49,6 +53,7 @@ ShowNoteView = Backbone.View.extend({
     }
   },
 
+  // Define the Javascript range in the text which contains the mark.
   markRange: function(mark) {
     var noteBodyNode = document.getElementById('noteBodyParentNode').firstChild;
     var markRange = document.createRange();
@@ -57,12 +62,14 @@ ShowNoteView = Backbone.View.extend({
     return markRange;
   },
 
+  // Create a span with which to surround the range.
   markSpan: function(mark) {
     var markSpan = document.createElement("span");
     markSpan.className = mark.get('markType') + " " + mark.get('markType') + mark.get('id');
     return markSpan;
   },
 
+  // Listener
   prepareHoverText: function(mark) {
     var that = this;
     
@@ -70,6 +77,7 @@ ShowNoteView = Backbone.View.extend({
       that.showHoverText.bind(that, mark));
   },
 
+  // On hover, show $displayTextSpan
   showHoverText: function(mark) {
     var displayText = mark.get(mark.get('markType') == 'comment' ? 'body' : 'originalText');
     var $displayTextSpan = $('<span class=' + mark.get('markType') + 'Text' +
@@ -80,6 +88,8 @@ ShowNoteView = Backbone.View.extend({
     })
   },
 
+  // In $displayTextSpan, every 25 characters, insert a line break at the next space.
+  // (So long comments don't go off the page.)
   insertLineBreaks: function(displayText) {
     var lineCharacters = 0
     var brokenDisplayText = displayText;

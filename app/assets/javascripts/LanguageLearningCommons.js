@@ -23,15 +23,15 @@ LLC = {
     this.showRevisableNoteView.showNoteView.showMarks();
   },
 
-// darken and brighten allow a button to glow
+  // darken and lighten allow a button to glow
   darken: function($demoButton) {
     $demoButton.animate({ 'color': '#444',
                           'background-color': '#ccc' }, 400, function() {
-      LLC.brighten($demoButton);
+      LLC.lighten($demoButton);
     });
   },
 
-  brighten: function($demoButton) {
+  lighten: function($demoButton) {
     $demoButton.animate({ 'color': '#777',
                           'background-color': '#fff' }, 400, function() {
       LLC.darken($demoButton);
