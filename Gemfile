@@ -4,11 +4,13 @@ gem 'rails', '3.2.13'
 
 group :production do
   gem 'pg'
+
 end
 
 group :development, :test do
 	gem 'rspec-rails', '~> 2.0'
   gem 'sqlite3'
+  gem 'jasmine'
 end
 
 group :assets do
