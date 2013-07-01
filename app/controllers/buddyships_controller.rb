@@ -8,13 +8,13 @@ class BuddyshipsController < ApplicationController
       @buddyship_proposal = BuddyshipProposal.where(:proposing_user_id => @user.id,
         :target_user_id => current_user.id).first
     end
-    @suggestion_language = suggestion_language(@user)
+    @suggestion_language = @user.suggestion_language
   end
 
   def create
     @other_user = User.find(params[:id])
     current_user.bebuddy(@other_user)
-    # assumes @other_user proposed to current_user
+    # assuming @other_user proposed to current_user
     @buddyship_proposal =
       BuddyshipProposal.where(proposing_user_id: @other_user.id,
                               target_user_id: current_user.id).first

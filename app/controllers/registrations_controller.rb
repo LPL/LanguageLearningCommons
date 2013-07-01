@@ -1,4 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
+  # This devise controller is amended so that a user's languages
+  # can be updated.
   def update
     if params[:commit] == "Update Languages"
       current_user.update_attributes!(
