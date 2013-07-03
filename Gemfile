@@ -7,9 +7,10 @@ group :production do
 end
 
 group :development, :test do
-	gem 'rspec-rails', '~> 2.0'
   gem 'sqlite3'
+	gem 'rspec-rails', '~> 2.0'
   gem 'jasmine'
+  gem "capybara"
 end
 
 group :assets do
