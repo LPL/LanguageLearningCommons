@@ -11,6 +11,7 @@ group :development, :test do
 	gem 'rspec-rails', '~> 2.0'
   gem 'jasmine'
   gem "capybara"
+  gem 'launchy' # for capybara
 end
 
 group :assets do

@@ -15,6 +15,13 @@ ShowNoteView = Backbone.View.extend({
   showMarks: function() {
     var that = this;
 
+    _(that.reversedMarks()).each(function(mark) {
+      that.injectMark(mark);
+      that.prepareHoverText(mark);
+    });
+  },
+
+  reversedMarks: function() {
     // Both comments and revisions are marks.
     var marks = [];
     LLC.comments.each(function(comment) {
@@ -27,15 +34,9 @@ ShowNoteView = Backbone.View.extend({
     // Marks are placed in reverse order so that the DOM node they  
     // are placed in remains the first child in its parent node.
     // (Otherwise their location in the DOM would change.)
-    var reversedMarks = _(marks).sortBy(function(mark) {
+    return _(marks).sortBy(function(mark) {
       return -mark.get('startOffset')
     })
-
-    _(reversedMarks).each(function(mark) {
-      that.injectMark(mark);
-      that.prepareHoverText(mark);
-    });
-
   },
 
   // Insert a mark into the DOM
@@ -89,7 +90,7 @@ ShowNoteView = Backbone.View.extend({
   },
 
   // In $displayTextSpan, every 25 characters, insert a line break at the next space.
-  // (So long comments don't go off the page.)
+  // (So long comments won't go off the page.)
   insertLineBreaks: function(displayText) {
     var lineCharacters = 0
     var brokenDisplayText = displayText;

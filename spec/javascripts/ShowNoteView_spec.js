@@ -21,5 +21,18 @@ describe("ShowNoteView", function() {
 		it("splits displayText longer then 25 characters", function(){
 			expect(showNoteView.insertLineBreaks(longDisplayText)).toMatch(/\n/);
 		});
+
+		it("only converts spaces into line breaks", function() {
+			var brokenLongDisplayText = showNoteView.insertLineBreaks(longDisplayText);
+			var unallowedDifferences = 0;
+			_(longDisplayText).each(function(chr, index) {
+				if(chr == brokenLongDisplayText[index]) {
+				} else if(chr == " " && brokenLongDisplayText[index] == "\n") {
+				} else {
+					unallowedDifferences++;
+				}
+			});
+			expect(unallowedDifferences).toBe(0);
+		});
 	});
 });
