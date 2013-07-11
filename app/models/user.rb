@@ -67,6 +67,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  # I replaced validations in the knowing and learning models with this method
+  # which guarentees the uniqueness of user-language relationships but checks
+  # a set of changes as a whole, so they won't be invalid based on old values
+  # I intend to only update languages through this method, but how to enforce that?
+  def update_langauges(language_ids)
+    transaction do
+      language_ids[:known_language_ids].each do |known_lang|
+        if language_ids[:learning_language_ids].include?(known_lang)
+          raise "Users cannot both know and be learning a language."
+        end
+      end
+      self.learning_language_ids = language_ids[:known_language_ids]
+      self.learning_language_ids = language_ids[:learning_language_ids]
+    end
+  end
+
   # Used to suggest user actions for a new account.
   def suggestion_language
     if self.known_languages.none? && self.learning_languages.none?

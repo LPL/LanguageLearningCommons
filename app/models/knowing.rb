@@ -5,13 +5,12 @@ class Knowing < ActiveRecord::Base
 	belongs_to :language
 
   validates :user, :language, :presence => true
-  validate :user_language_uniqueness
+  # validate :user_language_uniqueness
 
-  def user_language_uniqueness
-    # Users can't know and be learning one language simultaneously.
-    unless Learning.where(user_id: user_id, language_id: language_id).empty? &&
-           Knowing.where(user_id: user_id, language_id: language_id).empty?
-      errors.add(:user, "User already has a relationship with this language.")
-    end
-  end
+  # def user_language_uniqueness
+  #   unless Learning.where(user_id: user_id, language_id: language_id).empty? &&
+  #          Knowing.where(user_id: user_id, language_id: language_id).empty?
+  #     errors.add(:user, "User already has a relationship with this language.")
+  #   end
+  # end
 end

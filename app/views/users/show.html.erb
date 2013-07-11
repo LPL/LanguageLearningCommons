@@ -14,7 +14,7 @@
   </div>
 </div>
 <div class="row">
-  <div class ="span12 languageList">
+  <div class ="span12 languageList" id="knownLanguageList">
   	 <% if @knowings.any? %>
         Knows
       	<%= @knowings.map do |knowing| %>
@@ -28,7 +28,7 @@
   </div>
 </div>
 <div class="row">
-  <div class ="span12 languageList">
+  <div class ="span12 languageList" id="learningLanguageList">
   	<% if @learnings.any? %>
   	  Learning
       <%= @learnings.map do |learning| %>

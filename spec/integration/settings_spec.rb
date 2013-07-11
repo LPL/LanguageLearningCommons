@@ -6,22 +6,15 @@ include Capybara::DSL
 
 describe "devise/registrations#edit" do
   before do
-    visit "/users/sign_in"
-    fill_in("Username or email", :with => User.find(1).name)
-    fill_in("Password", :with => "123123123")
-    click_on("Sign in")
-  end
-
-  it "sets languages" do
+    sign_in_as_first_user
     visit '/users/edit'
 
-    debugger
-    find(:xpath, "//input[@id='user_learning_language_ids_'][@value='1']").set(true)
-    find(:xpath, "//input[@id='user_learning_language_ids_'][@value='2']").set(false)
-    find(:xpath, "//input[@id='user_learning_language_ids_'][@value='3']").set(false)
-    find(:xpath, "//input[@id='user_learning_language_ids_'][@value='4']").set(false)
-    find(:xpath, "//input[@id='user_learning_language_ids_'][@value='5']").set(false)
-    find(:xpath, "//input[@id='user_learning_language_ids_'][@value='6']").set(false)
+    find(:xpath, "//input[@id='user_known_language_ids_'][@value='1']").set(true)
+    find(:xpath, "//input[@id='user_known_language_ids_'][@value='2']").set(false)
+    find(:xpath, "//input[@id='user_known_language_ids_'][@value='3']").set(false)
+    find(:xpath, "//input[@id='user_known_language_ids_'][@value='4']").set(false)
+    find(:xpath, "//input[@id='user_known_language_ids_'][@value='5']").set(false)
+    find(:xpath, "//input[@id='user_known_language_ids_'][@value='6']").set(false)
 
     find(:xpath, "//input[@id='user_learning_language_ids_'][@value='1']").set(false)
     find(:xpath, "//input[@id='user_learning_language_ids_'][@value='2']").set(true)
@@ -31,7 +24,15 @@ describe "devise/registrations#edit" do
     find(:xpath, "//input[@id='user_learning_language_ids_'][@value='6']").set(false)
 
     click_on("Update Languages")
+  end
 
-    save_and_open_page
+  it "redirects to the user's profile" do
+    current_path.should == "/users/1" # because we sign_in_as_first_user'd
+  end
+
+  it "should correctly change languages" do
+    # debugger
+    find('#knownLanguageList').text.should =~ /Mandarin/
+    find('#learningLanguageList').text.should =~ /Spanish/
   end
 end
