@@ -6,8 +6,6 @@ LLC = {
   initialize: function(unmodeledNote) {
     LLC.note = new LLC.Models.Note(unmodeledNote[0]);
     LLC.marks =  new LLC.Collections.Marks(unmodeledNote[0].marks);
-    // LLC.comments = new LLC.Collections.Comments(unmodeledNote[0].comments);
-    // LLC.revisions = new LLC.Collections.Revisions(unmodeledNote[0].revisions);
   },
 
   showNote: function(unmodeledNote, $rootEl) {

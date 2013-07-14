@@ -35,11 +35,7 @@ class User < ActiveRecord::Base
 
   # Users may make revisions to and may comment on notes other users have written
   # in languages they know.
-  has_many :comments, :foreign_key => :commenter_id
-  has_many :note_comments, :through => :notes, :source => :comments
-
-  has_many :revisions, :foreign_key => :revisor_id
-  has_many :note_revisions, :through => :notes, :source => :revisions
+  has_many :marks, :foreign_key => :marker_id
 
   before_save :capitalize_name
 
