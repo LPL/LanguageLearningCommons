@@ -10,8 +10,9 @@ LanguageLearningCommons::Application.routes.draw do
     resources :learnings, :only => [:show]
     resources :buddyships, :only => [:index]
     resources :notes, :only => [:new, :create, :show, :index] do
-      resources :comments, :only => [:create]
-      resources :revisions, :only => [:create]
+      resources :marks, :only => [:create]
+      # resources :comments, :only => [:create]
+      # resources :revisions, :only => [:create]
     end
   end
 

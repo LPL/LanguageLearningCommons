@@ -21,12 +21,12 @@ ShowRevisableNoteView = Backbone.View.extend({
   },
 
   launchComment: function() {
-    this.mark = new LLC.Models.Comment({markType: "comment"});
+    this.mark = new LLC.Models.Mark({markType: "comment"});
     this.validateSelection();
   },
 
   launchRevision: function() {
-    this.mark = new LLC.Models.Revision({markType: "revision"});
+    this.mark = new LLC.Models.Mark({markType: "revision"});
     this.validateSelection();
   },
 
@@ -109,7 +109,7 @@ ShowRevisableNoteView = Backbone.View.extend({
 
     this.mark.save({}, {
       success: function(savedMark) {
-        (that.mark.markType == LLC.Models.Comment ? LLC.comments : LLC.revisions).add(savedMark);
+        LLC.marks.add(savedMark);
         that.showNoteView.render();
         that.showNoteView.showMarks();
       }

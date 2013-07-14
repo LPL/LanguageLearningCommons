@@ -7,7 +7,7 @@ class CreateRevisions < ActiveRecord::Migration
       t.string :markType
 
       t.references :note
-      t.integer :user_id
+      t.references :user
 
       t.timestamps
     end

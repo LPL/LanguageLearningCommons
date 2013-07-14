@@ -15,13 +15,13 @@
     <script type="text/javascript">
       <% if ! @self_page && current_user.known_languages.include?(@note.language) %>
         $(LLC.showRevisableNote(<%= Note.where(:id => @note.id)
-          .includes(:comments, :revisions)
-          .to_json(:include => [:comments, :revisions])
+          .includes(:marks)
+          .to_json(:include => :marks)
           .html_safe %>, $('.noteShowView')));
       <% else %>
         $(LLC.showNote(<%= Note.where(:id => @note.id)
-          .includes(:comments, :revisions)
-          .to_json(:include => [:comments, :revisions])
+          .includes(:marks)
+          .to_json(:include => :marks)
           .html_safe %>, $('.noteShowView')));
       <% end %>
     </script>

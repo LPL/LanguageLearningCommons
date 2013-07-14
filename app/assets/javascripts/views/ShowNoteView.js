@@ -23,18 +23,18 @@ ShowNoteView = Backbone.View.extend({
 
   reversedMarks: function() {
     // Both comments and revisions are marks.
-    var marks = [];
-    LLC.comments.each(function(comment) {
-      marks.push(comment);
-    });
-    LLC.revisions.each(function(revision) {
-      marks.push(revision);
-    });
+    // var marks = [];
+    // LLC.comments.each(function(comment) {
+    //   marks.push(comment);
+    // });
+    // LLC.revisions.each(function(revision) {
+    //   marks.push(revision);
+    // });
 
     // Marks are placed in reverse order so that the DOM node they  
     // are placed in remains the first child in its parent node.
     // (Otherwise their location in the DOM would change.)
-    return _(marks).sortBy(function(mark) {
+    return LLC.marks.sortBy(function(mark) {
       return -mark.get('startOffset')
     })
   },

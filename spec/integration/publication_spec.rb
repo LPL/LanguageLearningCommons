@@ -22,17 +22,17 @@ end
 
 # Having trouble saving a comment in a test.
 # How to select/highlight text in Capybara/Selenium?
-# Capybara doesn't see HTML created by Backbone, only my Rails views
+# Capybara doesn't see HTML created by Backbone, only my Rails views?
 
 # describe "marking" do
-  # it "saves and displays a comment" do
-  #   sign_in_as_first_user
-  #   commentText = SecureRandom.base64(8)
-  #   visit '/users/7/notes/9/'
-  #   debugger
+#   it "saves and displays a comment" do :js => true
+#     sign_in_as_first_user
+#     commentText = SecureRandom.base64(8)
+#     visit '/users/7/notes/9/'
+#     debugger
 
-  #   click_on '#commentButton'
-  #   fill_in 'markTextBox', :with => commentText
-  #   click_on '#markSaveButton'
-  # end
+#     click_on '#commentButton'
+#     fill_in 'markTextBox', :with => commentText
+#     click_on '#markSaveButton'
+#   end
 # end
