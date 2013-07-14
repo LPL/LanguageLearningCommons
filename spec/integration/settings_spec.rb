@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'debugger'
-require 'launchy'
 # This should not be necessary. Apparentely a load order problem?
 include Capybara::DSL
 
@@ -30,9 +29,10 @@ describe "devise/registrations#edit" do
     current_path.should == "/users/1" # because we sign_in_as_first_user'd
   end
 
-  it "should correctly change languages" do
+  it "correctly changes languages" do
     # debugger
     find('#knownLanguageList').text.should =~ /Mandarin/
     find('#learningLanguageList').text.should =~ /Spanish/
+    # test for not having other language names?
   end
 end
