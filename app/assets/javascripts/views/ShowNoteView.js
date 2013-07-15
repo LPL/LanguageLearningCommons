@@ -6,12 +6,14 @@ ShowNoteView = Backbone.View.extend({
       note: that.model.attributes
     }));
 
-    //this.showMarks();
+    // Make sure the template rendering finishes, then call showMarks
+    setTimeout(function() {
+        that.showMarks();
+    }, 0);
 
     return that;
   },
 
-  // Find and show all marks.
   showMarks: function() {
     var that = this;
 
@@ -22,9 +24,7 @@ ShowNoteView = Backbone.View.extend({
   },
 
   reversedMarks: function() {
-    // Marks are placed in reverse order so that the DOM node they  
-    // are placed in remains the first child in its parent node.
-    // (Otherwise their location in the DOM would change.)
+    // Marks are placed in reverse order so that the DOM node they are placed in remains the first child in its parent node. (Otherwise their location in the DOM would change.)
     return LLC.marks.sortBy(function(mark) {
       return -mark.get('startOffset')
     })
@@ -41,13 +41,15 @@ ShowNoteView = Backbone.View.extend({
     if(mark.get('markType') == "revision") {
       mark.set('originalText', mark.get('$markSpan').html());
       mark.get('$markSpan').html(mark.get('body'));
-      mark.get('$markSpan').attr('data-originalLength', mark.get('originalText').length.toString());
+      mark.get('$markSpan').attr('data-originalLength',
+        mark.get('originalText').length.toString());
     }
   },
 
   // Define the Javascript range in the text which contains the mark.
   markRange: function(mark) {
-    var noteBodyNode = document.getElementById('noteBodyParentNode').firstChild;
+    var noteBodyNode = document.getElementById('noteBodyParentNode')
+      .firstChild;
     var markRange = document.createRange();
     markRange.setStart(noteBodyNode, mark.get('startOffset'));
     markRange.setEnd(noteBodyNode, mark.get('endOffset'));
@@ -71,25 +73,28 @@ ShowNoteView = Backbone.View.extend({
 
   // On hover, show $displayTextSpan
   showHoverText: function(mark) {
-    var displayText = mark.get(mark.get('markType') == 'comment' ? 'body' : 'originalText');
-    var $displayTextSpan = $('<span class=' + mark.get('markType') + 'Text' +
-                            '>' + this.insertLineBreaks(displayText) + '</span>')
+    var displayText = mark.get(mark.get('markType') == 'comment' ?
+      'body' : 'originalText');
+    var $displayTextSpan = $('<span class=' + mark.get('markType') + 'Text>' +
+                             this.insertLineBreaks(displayText) + '</span>')
     mark.get('$markSpan').prepend($displayTextSpan);
     mark.get('$markSpan').on('mouseout', function() {
       $displayTextSpan.remove();
     })
   },
 
-  // In $displayTextSpan, every 25 characters, insert a line break at the next space.
-  // (So long comments won't go off the page.)
+  // In $displayTextSpan, every 25 characters, insert a line break at the next space. (So long comments won't go off the page.)
   insertLineBreaks: function(displayText) {
     var lineCharacters = 0
     var brokenDisplayText = displayText;
     for(i = 0; i < brokenDisplayText.length; i++) {
-      if(brokenDisplayText.substring(i, i+1) == " " && lineCharacters > 25) {
+      // if it's been 25 chars and the current char is a space
+      if(lineCharacters > 25 && brokenDisplayText.substring(i, i+1) == " ") {
+        // replace the space with a new line
         brokenDisplayText = brokenDisplayText.substring(0, i) + "\n" +
                             brokenDisplayText.substring(i+1, brokenDisplayText.length);
         i++;
+        // and reset
         lineCharacters = 0;
       } else {
         lineCharacters += 1;

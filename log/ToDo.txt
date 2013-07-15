@@ -7,6 +7,8 @@ To Do
 	B. Errors
 		i. Overlapping marks
 	C. Demo user generation: prepared material -> functional
+	D. Language Compatibility
+		i. When to break text--there are no spaces in Mandarin
 
 2. Interaction fluidity
 	A. Language settings toggle between known/learning within language
