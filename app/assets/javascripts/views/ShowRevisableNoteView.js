@@ -1,6 +1,6 @@
 ShowRevisableNoteView = Backbone.View.extend({
 
-  // Each ShowRevisableNoteView contains a ShowNoteView, adding only a couple DOM elements to it (#revisionButton and #commentButton). They are separated to distinguish rendering functionality from note editing functionality (i.e., creating marks).
+  // Each ShowRevisableNoteView contains a ShowNoteView, to which it appends a couple DOM elements (#revisionButton and #commentButton). The views are separated to distinguish rendering functionality from note editing functionality (i.e., creating marks).
 
   initialize: function(note) {
     this.showNoteView = new ShowNoteView({ model: this.model });
@@ -49,25 +49,23 @@ ShowRevisableNoteView = Backbone.View.extend({
 
   // Unlike native ranges, the ranges our marks occupy should never be backwards.
   setOffsets: function(selection) {
-    var dynamicOffsetBase = this.dynamicOffsetBase(selection);
+    var offsetBase = this.offsetBase(selection);
+    var anchorWithBase = selection.anchorOffset + offsetBase
+    var focusWithBase = selection.focusOffset + offsetBase
 
     if(selection.anchorOffset < selection.focusOffset) {
-      this.mark.set('startOffset',
-                    (selection.anchorOffset + dynamicOffsetBase));
-      this.mark.set('endOffset',
-                    (selection.focusOffset + dynamicOffsetBase));
+      this.mark.set({'startOffset': anchorWithBase,
+                     'endOffset':   focusWithBase   });
     } else if(selection.anchorOffset > selection.focusOffset) {
-      this.mark.set('startOffset',
-                    (selection.focusOffset + dynamicOffsetBase));
-      this.mark.set('endOffset',
-                    (selection.anchorOffset + dynamicOffsetBase));
+      this.mark.set({'startOffset': focusWithBase,
+                     'endOffset':   anchorWithBase  });
     }
   },
 
-  dynamicOffsetBase: function(selection) {
-    // Marks' offsets (beginning and end points in the text) need to count all preceeding characters in the note body. When other marks inject their spans into the text, they slice up the DOM node the text is in, altering native offsets. To determine offsets based on the original text (thus not depandant on the presence of preceeding marks) we iterate through all sibling nodes preceeding the selection and sum their characters. Still looking for a worthwhile way to refactor this process.
+  offsetBase: function(selection) {
+    // Marks' offsets (beginning and end points in the text) are based on preceeding characters in the note body. When other marks inject their spans into the text, they slice up the DOM node the text is in, altering native offsets. To determine offsets based on the original text, we iterate through all sibling nodes preceeding the selection and sum their characters. (Looking for a worthwhile way to refactor this process.)
 
-    var dynamicOffsetBase = 0;
+    var offsetBase = 0;
     var currentNode = selection.anchorNode;
 
     // While there is a preceeding node
@@ -75,17 +73,17 @@ ShowRevisableNoteView = Backbone.View.extend({
       currentNode = currentNode.previousSibling;
       // if the node is just text, add the characters
       if(currentNode.nodeType == 3) {
-        dynamicOffsetBase += currentNode.length;
-      // if a revision, add the characters of the original text
+        offsetBase += currentNode.length;
+      // if a revision, add the characters of the ORIGINAL text
       } else if(currentNode.nodeType == 1 && $(currentNode).attr('data-originalLength')) {
-        dynamicOffsetBase += parseInt($(currentNode).attr('data-originalLength'));
+        offsetBase += parseInt($(currentNode).attr('data-originalLength'));
       // if a comment, add characters as normal
       } else if(currentNode.nodeType == 1) {
-        dynamicOffsetBase += $(currentNode).text().length;
+        offsetBase += $(currentNode).text().length;
       }
     }
 
-    return dynamicOffsetBase;
+    return offsetBase;
   },
 
   showMarkInput: function(markType, selection) {
@@ -114,10 +112,11 @@ ShowRevisableNoteView = Backbone.View.extend({
     this.mark.set('body', this.$markTextBox.val());
     $('#markForm').empty();
 
-    // save
+    // save the mark
     this.mark.save({}, {
       success: function(savedMark) {
         LLC.marks.add(savedMark);
+        // show the new mark
         that.showNoteView.render();
       }
     });  
