@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable
 
-  attr_accessible :name, :login, :email, :password,
+  attr_accessible :name, :login, :email, :password, :demo,
                   :password_confirmation, :remember_me,
                   :known_language_ids, :learning_language_ids
 

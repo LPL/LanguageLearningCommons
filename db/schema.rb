@@ -14,69 +14,70 @@
 ActiveRecord::Schema.define(:version => 20130714202104) do
 
   create_table "buddyship_proposals", :force => true do |t|
-    t.integer  "proposing_user_id"
-    t.integer  "target_user_id"
+    t.integer  "proposing_user_id", :null => false
+    t.integer  "target_user_id",    :null => false
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
 
   create_table "buddyships", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "buddy_id"
+    t.integer  "user_id",    :null => false
+    t.integer  "buddy_id",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "knowings", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "language_id"
+    t.integer  "user_id",     :null => false
+    t.integer  "language_id", :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "languages", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "learnings", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "language_id"
+    t.integer  "user_id",     :null => false
+    t.integer  "language_id", :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "marks", :force => true do |t|
-    t.string   "markType"
-    t.integer  "startOffset"
-    t.integer  "endOffset"
+    t.string   "markType",    :null => false
+    t.integer  "startOffset", :null => false
+    t.integer  "endOffset",   :null => false
     t.text     "body"
-    t.integer  "note_id"
-    t.integer  "user_id"
+    t.integer  "note_id",     :null => false
+    t.integer  "user_id",     :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "notes", :force => true do |t|
-    t.string   "title"
+    t.string   "title",       :null => false
     t.text     "body"
-    t.integer  "language_id"
-    t.integer  "author_id"
+    t.integer  "language_id", :null => false
+    t.integer  "author_id",   :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                                      :null => false
     t.string   "login"
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.boolean  "demo",                   :default => false, :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
