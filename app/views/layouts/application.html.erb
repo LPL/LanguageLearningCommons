@@ -50,5 +50,12 @@
         <%= yield %>
     </div>
   </div>
+  <%= link_to note_demos_path, method: "POST" do %>
+    <div class="note-demo-button demoButton">
+      <b>
+        Edit a Note
+      </b>
+    </div>
+  <% end %>
 </body>
 </html>

@@ -11,12 +11,11 @@ LanguageLearningCommons::Application.routes.draw do
     resources :buddyships, :only => [:index]
     resources :notes, :only => [:new, :create, :show, :index] do
       resources :marks, :only => [:create]
-      # resources :comments, :only => [:create]
-      # resources :revisions, :only => [:create]
     end
   end
 
   resources :languages, :only => [:show, :index]
   resources :buddyships, :only => [:create, :destroy]
   resources :buddyship_proposals, :only => [:create, :destroy]
+  resources :note_demos, :only => [:create]
 end
