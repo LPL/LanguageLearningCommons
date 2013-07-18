@@ -20,6 +20,15 @@ LLC = {
     $rootEl.html(this.showRevisableNoteView.render().$el);
   },
 
+  popUp: function(alert, notice) {
+    if(alert) {
+      this.popUpView = new PopUpView({message: alert, type: "alert"});
+    } else {
+      this.popUpView = new PopUpView({message: notice, type: "notice"});
+    };
+    $('body').append(this.popUpView.render().el$);
+  },
+
   // darken and lighten enable a button to glow
   darken: function($demoButton) {
     $demoButton.animate({ 'color': '#444',

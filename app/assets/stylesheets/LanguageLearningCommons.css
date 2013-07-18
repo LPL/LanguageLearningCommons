@@ -59,7 +59,7 @@
    visibility:hidden;
 }
 
-.alert {
+/*.alert {
   font-weight: bold;
   font-size: medium;
   color: #000;
@@ -70,6 +70,23 @@
   font-weight: bold;
   font-size: medium;
   color: #448;
+}
+*/
+
+.notice {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  height: 1%;
+  width: 1%;
+  min-height: 40px;
+  min-width: 200px;
+  padding: 20px 0px 0px 0px;
+  text-align: center;
+  font-size: 28px;
+  border: solid #181818 4px;
+  color: #f00;
+  background-color: #0f0;
 }
 
 .bigTitle {

@@ -50,6 +50,7 @@
         <%= yield %>
     </div>
   </div>
+
   <%= link_to note_demos_path, method: "POST" do %>
     <div class="note-demo-button demoButton">
       <b>
@@ -57,5 +58,12 @@
       </b>
     </div>
   <% end %>
+
+  <% if notice || alert %>
+    <%= javascript_tag do %>
+      $(LLC.popUp(<%= notice.to_json.html_safe %>, <%= alert.to_json.html_safe %>));
+    <% end %>
+  <% end %>
+
 </body>
 </html>
