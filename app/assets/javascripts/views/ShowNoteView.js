@@ -6,7 +6,7 @@ ShowNoteView = Backbone.View.extend({
       note: that.model.attributes
     }));
 
-    // Make sure the template rendering finishes, then call showMarks
+    // Make sure the template rendering finishes before calling showMarks (because showMarks manipulates the rendered elements)
     setTimeout(function() {
         that.showMarks();
     }, 0);
@@ -36,8 +36,8 @@ ShowNoteView = Backbone.View.extend({
     var markSpan = this.markSpan(mark);
     markRange.surroundContents(markSpan);
 
-    // jQuery starts here--haven't found a way to do the above in jQuery
     mark.set('$markSpan', $(markSpan));
+    // Revisions replace text with the revision body attribute, and reveal the original on hover.
     if(mark.get('markType') == "revision") {
       mark.set('originalText', mark.get('$markSpan').html());
       mark.get('$markSpan').html(mark.get('body'));
@@ -46,10 +46,10 @@ ShowNoteView = Backbone.View.extend({
     }
   },
 
-  // Define the Javascript range in the text which contains the mark.
+  // Recreate the Javascript range containing the marked text.
   markRange: function(mark) {
     var noteBodyNode = document.getElementById('noteBodyParentNode')
-      .firstChild;
+                               .firstChild;
     var markRange = document.createRange();
     markRange.setStart(noteBodyNode, mark.get('startOffset'));
     markRange.setEnd(noteBodyNode, mark.get('endOffset'));
@@ -78,6 +78,7 @@ ShowNoteView = Backbone.View.extend({
     var $displayTextSpan = $('<span class=' + mark.get('markType') + 'Text>' +
                              this.insertLineBreaks(displayText) + '</span>')
     mark.get('$markSpan').prepend($displayTextSpan);
+    // and get ready to remove it
     mark.get('$markSpan').on('mouseout', function() {
       $displayTextSpan.remove();
     })
