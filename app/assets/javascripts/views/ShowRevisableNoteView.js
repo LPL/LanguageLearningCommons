@@ -34,7 +34,7 @@ ShowRevisableNoteView = Backbone.View.extend({
     that.selection = window.getSelection();
     // if no text selected
     if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
-      var highlightReminder = "First highlight the section of text you wish to" +
+      var highlightReminder = "First highlight the section of text you wish to " +
         (markType == LLC.Models.Comment ? "comment on." : "revise.")
       $('#markForm').html(highlightReminder);
     // if selection outside note body

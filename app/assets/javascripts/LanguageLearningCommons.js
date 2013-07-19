@@ -20,13 +20,13 @@ LLC = {
     $rootEl.html(this.showRevisableNoteView.render().$el);
   },
 
-  popUp: function(alert, notice) {
-    if(alert) {
-      this.popUpView = new PopUpView({message: alert, type: "alert"});
-    } else {
-      this.popUpView = new PopUpView({message: notice, type: "notice"});
-    };
-    $('body').append(this.popUpView.render().el$);
+  popUp: function(message) {
+    if(message.alert) {
+      this.popUpView = new PopUpView({text: message.alert, type: "alert"});
+    } else if(message.notice) {
+      this.popUpView = new PopUpView({text: message.notice, type: "notice"});
+    }
+    $('body').append(this.popUpView.render().$el);
   },
 
   // darken and lighten enable a button to glow

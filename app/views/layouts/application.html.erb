@@ -31,23 +31,23 @@
   <% end %>
   <div class="container llctext">
     <div class="titularRebuffed">
-      <% if notice || alert %>
+<!--       <#% if notice || alert %>
         <div class="row flash">
           <div class="span12">
-            <% if notice %>
+            <#% if notice %>
               <span class="notice">
-                <%= notice%>
+                <#%= notice%>
               </span>
-            <% end %>
-            <% if alert %>
+            <#% end %>
+            <#% if alert %>
               <span class="alert">
-                <%= alert if alert %>
+                <#%= alert if alert %>
               </span>
-            <% end %>
+            <#% end %>
           </div>
         </div>
-      <% end %>
-        <%= yield %>
+      <#% end %>
+ -->        <%= yield %>
     </div>
   </div>
 
@@ -61,7 +61,7 @@
 
   <% if notice || alert %>
     <%= javascript_tag do %>
-      $(LLC.popUp(<%= notice.to_json.html_safe %>, <%= alert.to_json.html_safe %>));
+      $(LLC.popUp(<%= {"notice" => notice, "alert" => alert}.to_json.html_safe %>));
     <% end %>
   <% end %>
 
