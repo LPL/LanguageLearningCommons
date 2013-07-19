@@ -33,6 +33,26 @@ LLC = {
                           'background-color': '#fff' }, 400, function() {
       LLC.darken($demoButton);
     });
+  },
+
+  // toggleCheckboxes makes a series of checkboxes behave like checkbox/radio button hybrids in a situation where neither checkboxes or radiobutton were appropriate. This is not good design, and I plan on creating something new (probably pure JS) to replace it in the future--it's a quick fix necessary to avoid an error.
+  toggleCheckboxes: function() {
+
+    // for each checkbox in one column
+    _($('.known_cb')).each(function(checkbox) {
+      // when it gets checked
+      $(checkbox).on("change", function() {
+        // uncheck to corrosponding checbox in alother column
+        $('.learning_cb[value=' + $(checkbox).attr("value") + ']').prop("checked", false);
+      });
+    });
+
+    // and vice versa
+    _($('.learning_cb')).each(function(checkbox) {
+      $(checkbox).on("change", function() {
+        $('.known_cb[value=' + $(checkbox).attr("value") + ']').prop("checked", false);
+      });
+    });
   }
 }
 

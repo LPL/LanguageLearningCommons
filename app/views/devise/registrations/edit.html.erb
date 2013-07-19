@@ -14,7 +14,7 @@
           <% Language.all.each do |language| %>
             <label class="checkbox">
               <%= check_box_tag "user[known_language_ids][]", language.id,
-                current_user.known_languages.include?(language) %>
+                current_user.known_languages.include?(language), :class => "known_cb" %>
               <font size="4px" class="languageName">
                 <%= language.name %>
               </font>
@@ -28,7 +28,7 @@
           <% Language.all.each do |language| %>
             <label class="checkbox">
               <%= check_box_tag "user[learning_language_ids][]", language.id,
-                current_user.learning_languages.include?(language) %>
+                current_user.learning_languages.include?(language), :class => "learning_cb" %>
               <font size="4px" class="languageName">
                 <%= language.name %>
               </font>
@@ -75,5 +75,9 @@
 
     <p>Some people just aren't interested in exploring the diversity of the human experience. <%= button_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
   </div>
+
+  <script type="text/javascript">
+    $(LLC.toggleCheckboxes());
+  </script>
 </div>
 
