@@ -1,9 +1,4 @@
 PopUpView = Backbone.View.extend({
-	// initialize: function(message, type) {
-	// 	this.message = message;
-	// 	this.type = type;
-	// },
-
 	render: function() {
 	var that = this;
 	
@@ -11,6 +6,10 @@ PopUpView = Backbone.View.extend({
 	    message: that.options.text,
 	    type: that.options.type
 	  }));
+
+		$(this.$el.children()[0]).on("click", function () {
+			that.$el.html("");
+		});
 
 	  return that;
 	}
