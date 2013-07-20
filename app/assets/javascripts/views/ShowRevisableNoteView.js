@@ -32,8 +32,23 @@ ShowRevisableNoteView = Backbone.View.extend({
     var that = this;
 
     that.selection = window.getSelection();
+
+    // does the selection intersect any existing marks?
+    // var intersecting = false;
+    // LLC.marks.each(function (piz) {
+    //   _([that.selection.anchorOffset, that.selection.focusOffset]).each(function (selectionOffset) {
+    //     if(selectionOffset > piz.get('startOffset') &&
+    //        selectionOffset < piz.get('endOffset')) {
+    //       intersecting = true;
+    //     }
+    //   });
+    // });
+
+    // if it does intersect
+    if(intersecting) {
+      LLC.popUp({notice: "Your selection must not intersect with other marks."});
     // if no text selected
-    if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
+    } else if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
       var highlightReminder = "First highlight the text you wish to " +
         (that.mark.get('markType') == "comment" ? "comment on." : "revise.")
       LLC.popUp({notice: highlightReminder});
