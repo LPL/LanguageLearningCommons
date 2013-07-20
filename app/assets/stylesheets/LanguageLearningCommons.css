@@ -59,27 +59,13 @@
    visibility:hidden;
 }
 
-/*.alert {
-  font-weight: bold;
-  font-size: medium;
-  color: #000;
-  background-color: #b66;
-}
-
-.notice {
-  font-weight: bold;
-  font-size: medium;
-  color: #448;
-}
-*/
-
 .notice {
   z-index: 20;
   position: absolute;
   left: 50%;
   top: 50%;
   height: 20px;
-  width: 400px;
+  width: 500px;
   margin-top: -40px;
   margin-left: -200px;
   padding: 10px;
@@ -97,7 +83,7 @@
   left: 50%;
   top: 50%;
   height: 20px;
-  width: 400px;
+  width: 500px;
   margin-top: -40px;
   margin-left: -200px;
   padding: 10px;
@@ -105,8 +91,8 @@
   border: solid #181818 4px;
   text-align: center;
   vertical-align: middle;
-  color: #222;
-  background-color: #ddd;
+  color: #411;
+  background-color: #fcc;
 }
 
 .modalLayer {

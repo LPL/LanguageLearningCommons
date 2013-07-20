@@ -34,9 +34,9 @@ ShowRevisableNoteView = Backbone.View.extend({
     that.selection = window.getSelection();
     // if no text selected
     if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
-      var highlightReminder = "First highlight the section of text you wish to " +
-        (markType == LLC.Models.Comment ? "comment on." : "revise.")
-      $('#markForm').html(highlightReminder);
+      var highlightReminder = "First highlight the text you wish to " +
+        (that.mark.get('markType') == "comment" ? "comment on." : "revise.")
+      LLC.popUp({notice: highlightReminder});
     // if selection outside note body
     } else if(! that.selection.AnchorNode == that.selection.focusNode) {
       console.log("The selection must be within the text of the note.");
