@@ -33,28 +33,23 @@ ShowRevisableNoteView = Backbone.View.extend({
 
     that.selection = window.getSelection();
 
-    // does the selection intersect any existing marks?
-    // var intersecting = false;
-    // LLC.marks.each(function (piz) {
-    //   _([that.selection.anchorOffset, that.selection.focusOffset]).each(function (selectionOffset) {
-    //     if(selectionOffset > piz.get('startOffset') &&
-    //        selectionOffset < piz.get('endOffset')) {
-    //       intersecting = true;
-    //     }
-    //   });
-    // });
+    // Find all nodes containing text from the note (child nodes of the noteBodyParentNode for unmarked text, or the first child of a $markSpan for marked text)
+    var noteNodes = document.getElementById('noteBodyParentNode').childNodes;
+    var noteTextNodes = _(noteNodes).map(function(n) { 
+      return (n.childNodes[0] || n)
+    });
 
-    // if it does intersect
-    if(intersecting) {
-      LLC.popUp({notice: "Your selection must not intersect with other marks."});
-    // if no text selected
-    } else if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
+    if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
       var highlightReminder = "First highlight the text you wish to " +
         (that.mark.get('markType') == "comment" ? "comment on." : "revise.")
       LLC.popUp({notice: highlightReminder});
     // if selection outside note body
-    } else if(! that.selection.AnchorNode == that.selection.focusNode) {
-      console.log("The selection must be within the text of the note.");
+    } else if( (! _(noteTextNodes).include(that.selection.anchorNode)) ||
+               (! _(noteTextNodes).include(that.selection.focusNode))     ) {
+      LLC.popUp({notice: "You may only select text in the body of the note."});
+    // if selection intersects other marks
+    }else if(that.selection.anchorNode != that.selection.focusNode) {
+      LLC.popUp({notice: "Your selection may not overlap with existing marks."});
     // otherwise, proceed
     } else {
       that.setOffsets(that.selection);

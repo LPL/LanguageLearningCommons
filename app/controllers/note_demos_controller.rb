@@ -7,7 +7,7 @@ class NoteDemosController < ApplicationController
 			english_learning.destroy if english_learning
 			Knowing.create(user_id: current_user.id, language_id: 3)
 			note_language = Language.find(3)
-			flash[:notice] = 'So that you can edit this note, your user now knows English.'
+			flash[:notice] = 'For demo purposes, this user now knows English.'
 		end
 
 		note = Note.where(language_id: note_language.id).first
