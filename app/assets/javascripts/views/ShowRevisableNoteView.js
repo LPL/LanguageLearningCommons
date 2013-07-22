@@ -101,7 +101,13 @@ ShowRevisableNoteView = Backbone.View.extend({
 
     // render text box and save button
     $('#markForm').empty();
-    that.$markTextBox = $('<input type="textArea" name="body" id="markTextBox">');
+    // (for revisons, insert selected text into text input)
+    that.$markTextBox = $('<input type="textArea" name="body" id="markTextBox"' +
+      (that.mark.get('markType') == 'revision' ?
+        (' value="' + that.selection.toString() + '"') : '')
+      + '>' 
+    );
+    
     that.$markSaveButton = $('<button class="btn" id="markSaveButton" type="button">Save</button>');
     $('#markForm').append(that.$markTextBox, that.$markSaveButton);
 
