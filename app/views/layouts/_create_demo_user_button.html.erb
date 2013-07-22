@@ -4,6 +4,7 @@
 	<%= hidden_field_tag 'user[email]', (name + "@example.com") %>
 	<%= hidden_field_tag 'user[password]', '123123123' %>
 	<%= hidden_field_tag 'user[password_confirmation]', '123123123' %>
+	<%= hidden_field_tag 'user[demo]', true %>
 	<%= hidden_field_tag 'commit', 'Create Account' %>
 	<%= submit_tag "Generate Demo User", :class  => "btn-large demoButton" %>
 <% end %>

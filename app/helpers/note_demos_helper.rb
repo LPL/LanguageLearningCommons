@@ -1,0 +1,2 @@
+module NoteDemosHelper
+end

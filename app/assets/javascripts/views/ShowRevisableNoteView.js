@@ -32,14 +32,24 @@ ShowRevisableNoteView = Backbone.View.extend({
     var that = this;
 
     that.selection = window.getSelection();
-    // if no text selected
+
+    // Find all nodes containing text from the note (child nodes of the noteBodyParentNode for unmarked text, or the first child of a $markSpan for marked text)
+    var noteNodes = document.getElementById('noteBodyParentNode').childNodes;
+    var noteTextNodes = _(noteNodes).map(function(n) { 
+      return (n.childNodes[0] || n)
+    });
+
     if(that.selection.rangeCount == 0 || that.selection.type == "Caret") { 
-      var highlightReminder = "First highlight the section of text you wish to" +
-        (markType == LLC.Models.Comment ? "comment on." : "revise.")
-      $('#markForm').html(highlightReminder);
+      var highlightReminder = "First highlight the text you wish to " +
+        (that.mark.get('markType') == "comment" ? "comment on." : "revise.")
+      LLC.popUp({notice: highlightReminder});
     // if selection outside note body
-    } else if(! that.selection.AnchorNode == that.selection.focusNode) {
-      console.log("The selection must be within the text of the note.");
+    } else if( (! _(noteTextNodes).include(that.selection.anchorNode)) ||
+               (! _(noteTextNodes).include(that.selection.focusNode))     ) {
+      LLC.popUp({notice: "You may only select text in the body of the note."});
+    // if selection intersects other marks
+    }else if(that.selection.anchorNode != that.selection.focusNode) {
+      LLC.popUp({notice: "Your selection may not overlap with existing marks."});
     // otherwise, proceed
     } else {
       that.setOffsets(that.selection);

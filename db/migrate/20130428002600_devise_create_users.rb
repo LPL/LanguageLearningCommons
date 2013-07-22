@@ -1,8 +1,10 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
-			t.string :name
+			t.string :name, :null => false
       t.string :login
+      # the demo attr is just used to decide whether to display a button that jumps the user to a note they can edit
+      t.boolean :demo, :null => false, :default => false
 
 			# BEGIN DEVISE
       ## Database authenticatable

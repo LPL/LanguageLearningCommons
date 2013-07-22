@@ -103,4 +103,4 @@ ShowNoteView = Backbone.View.extend({
     }
     return brokenDisplayText;
   }
-})
+});
