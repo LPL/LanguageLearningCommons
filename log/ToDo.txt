@@ -2,16 +2,18 @@ To Do
 
 1. Clean-up
 	A. Refactoring
-		i. Add superclasses (marks, user_languages)
+		i. (?) Add superclasse user_languages
 		ii. LLC.css + templates
 	B. Errors
-		i. Overlapping marks
-	C. Demo user generation: prepared material -> functional
+		i. Mark creation from selection inside another mark -> mark intersection error
+	C. Demo user generation -> functional (not preset in browser)
 	D. Language Compatibility
 		i. When to break text--there are no spaces in Mandarin
+	E. Bugs
+		i. Note#Show extra $markText when selecting + hovering on mark
 
 2. Interaction fluidity
-	A. Language settings toggle between known/learning within language
+	A. Language settings have unintuitive toggling checkboxes--color changing rectangles instead?
 	B. revisionBox autofills with selection.html()
 
 3. New features
@@ -20,17 +22,17 @@ To Do
 		ii. Language#show recent activity
 		iii. (?) User#show recent activity (bebuddyings?)
 		iv. Buddyships#index recent activity
-	B. Avatars
+	B. (?) Avatars
 	C. Security
 		i. Validate mark authorship
+		ii. lots of other stuff...
 	D. Deleting marks
 	E. Mark subset viewing
-		i. Origianl note
+		i. Original note
 		ii. All non-conflicting marks
 		iii. Toggle users
 		iv?. Toggle revisions/comments
 
 4. Testing
-	A. Controllers
-	B. Views
-	C?. Javascript suite
+	A. End-to-end
+		i. How to highlight text/create native selection with Capybara/Selenium?
