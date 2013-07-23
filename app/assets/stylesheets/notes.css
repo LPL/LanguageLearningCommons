@@ -31,11 +31,13 @@
 }
 
 .comment {
+  position: relative;
   color: #199;
   font-weight: bold;
 }
 
 .revision {
+  position: relative;
   color: #991;
   font-weight: bold;
 }

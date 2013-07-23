@@ -10,7 +10,6 @@ To Do
 	D. Language Compatibility
 		i. When to break text--there are no spaces in Mandarin
 	E. Bugs
-		i. Note#Show extra $markText when selecting + hovering on mark
 
 2. Interaction fluidity
 	A. Language settings have unintuitive toggling checkboxes--color changing rectangles instead?
