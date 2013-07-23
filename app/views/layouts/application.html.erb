@@ -31,39 +31,22 @@
   <% end %>
   <div class="container llctext">
     <div class="titularRebuffed">
-<!--       <#% if notice || alert %>
-        <div class="row flash">
-          <div class="span12">
-            <#% if notice %>
-              <span class="notice">
-                <#%= notice%>
-              </span>
-            <#% end %>
-            <#% if alert %>
-              <span class="alert">
-                <#%= alert if alert %>
-              </span>
-            <#% end %>
-          </div>
-        </div>
-      <#% end %>
- -->        <%= yield %>
+      <%= yield %>
     </div>
   </div>
-
-  <%= link_to note_demos_path, method: "POST" do %>
-    <div class="note-demo-button demoButton">
-      <b>
-        Edit a Note
-      </b>
-    </div>
+  <% if current_user && current_user.demo %>
+    <%= link_to note_demos_path, method: "POST" do %>
+      <div class="note-demo-button demoButton">
+        <b>
+          Edit a Note
+        </b>
+      </div>
+    <% end %>
   <% end %>
-
   <% if notice || alert %>
     <%= javascript_tag do %>
       $(LLC.popUp(<%= {"notice" => notice, "alert" => alert}.to_json.html_safe %>));
     <% end %>
   <% end %>
-
 </body>
 </html>
