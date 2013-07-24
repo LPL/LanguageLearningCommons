@@ -1,0 +1,93 @@
+$charcoal: #444;
+
+.welcome {
+  background-color: $charcoal;
+  color: #ddd;
+  text-align: center;
+}
+
+.welcome a {
+  color: #d08070;
+  text-decoration: none;
+  &:hover {
+    color: #ea7;
+    text-decoration: none;
+  }
+}
+
+.welcome-title {
+  height: 60;
+  padding-top: 60;
+  font-size: 70;
+}
+
+.welcome-subtitle {
+  height: 20;
+  padding-top: 20;
+  padding-bottom: 40;
+  font-size: 30;
+}
+
+.features {
+  background-color: #b0b0bb;
+  padding-top: 20;
+  padding-bottom: 20;
+  text-align: center;
+  font-size: 30;
+  color: $charcoal;
+}
+
+table {
+  margin: auto;
+}
+
+.feature-text {
+  font-size: 30;
+  text-align: center;
+  padding: 20 20 20 100;
+}
+
+.feature-pic {
+  width: 400;
+  height: 250;
+  padding: 20 100 20 20;
+}
+
+img {
+  border: solid $charcoal 5px;
+}
+
+.tools {
+  background-color: #90909b;
+  color: #444;
+  padding-top: 20;
+  padding-bottom: 60;
+}
+
+.tool-text {
+  width: 800;
+  margin: auto;
+  font-size: 30;
+  line-height: 1;  
+}
+
+.welcome-prompts {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 120;
+  background-color: $charcoal;
+}
+
+.btn-large {
+  padding: 20 25;
+  margin: 28;
+  font-size: 40;
+  color: $charcoal;
+  background-color: #ccc;
+}
+
+.welcome-prompts-buffer {
+  width: 1;
+  height: 80;
+}

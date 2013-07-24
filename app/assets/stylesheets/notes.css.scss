@@ -1,0 +1,75 @@
+$charcoal: #444;
+
+.noteBox {
+  background-color: #fed;
+  margin-left: 8px;
+  padding-bottom: 14px;
+  width: 876px;
+}
+
+#noteBodyParentNode {
+  width: 840px;
+}
+
+#commentButton {
+  margin-top: 0px;
+}
+
+#revisionButton {
+  margin-top: 0px;
+}
+
+#commentTextBox {
+  margin: 14px;
+}
+
+#revisionTextBox {
+  margin: 14px;
+}
+
+#bspc {
+  width: 340px;
+  height: 1px;
+}
+
+@mixin mark {
+  position: relative;
+  font-weight: bold;
+  &:hover {
+    position: relative;
+    color: #aa0;
+  }
+}
+
+.comment {
+  @include mark;
+  color: #199;
+}
+
+.revision {
+  @include mark;
+  color: #991;
+}
+
+@mixin markText {
+  position: absolute;
+  bottom: 25px;
+  border: 3px solid $charcoal;
+  padding: 3px 6px;
+  text-align: center;
+  white-space: pre;
+}
+
+.commentText {
+  @include markText;
+  background-color: #add;
+  color: $charcoal;
+}
+
+.revisionText {
+  @include markText;
+  background-color: #ee9;
+  color: #d33;
+  display: inline;
+  text-decoration:line-through;
+}

@@ -1,0 +1,178 @@
+$charcoal: #444;
+
+.llcfill {
+  background-color: $charcoal;
+}
+
+.llctext {
+  background-color: #cba;
+  color: $charcoal;
+  font-size: 18px;
+}
+
+.llctext a {
+  color: $charcoal;
+  &:hover {
+    color: #666;
+    text-decoration: none;
+  }
+}
+
+.rebuffed {
+  padding-left:    16px;
+  padding-right:   16px;
+  padding-top:     16px;
+  padding-bottom:  16px;
+}
+
+.titularRebuffed {
+  padding-left:    24px;
+  padding-right:   24px;
+  padding-top:      6px;
+  padding-bottom:  32px;
+}
+
+.clearDiv {
+  clear: both;
+}
+
+.form-inline {
+  float: left;
+}
+
+.header {
+  min-width: 900px;
+  padding-top: 10px;
+}
+
+.header a {
+  font-weight: bold;
+  font-size: 20px;
+  color: #aaa;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.hidden{
+   visibility:hidden;
+}
+
+@mixin popUp {
+  z-index: 20;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 20px;
+  width: 500px;
+  margin-top: -10px;
+  margin-left: -250px;
+  padding: 10px;
+  font-size: 20px;
+  border: solid #181818 4px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.notice {
+  @include popUp;
+  color: #222;
+  background-color: #ddd;
+}
+
+.alert {
+  @include popUp;
+  color: #411;
+  background-color: #fcc;
+}
+
+.modalLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #444;
+  opacity: 0.7;
+}
+
+.bigTitle {
+  font-size: 58px;
+  font-weight: bold;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+.languageList {
+  font-size: 26px;
+  font-weight: bold;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.languageName {
+  color: #642;
+}
+
+.languageName a {
+  color: #642;
+  &:hover {
+    color: #882;
+    text-decoration: none;
+  }
+}
+
+.listTitle a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.noteTitle a {
+  color: $charcoal;
+  text-decoration: none;
+  &:hover {
+    color: #686;
+  }
+}
+
+.userName a {
+  color: $charcoal;
+  text-decoration: none;
+  &:hover {
+    color: #a66;
+  }
+}
+
+.faint {
+  color: #888;
+}
+
+.btn-large {
+  font-size: 28px;
+  color: #333;
+  border-color: #000;
+  background-color: #ddd;
+}
+
+.demoButton {
+  color: #eee;
+  border-color: #000;
+  background-color: #526;
+}
+
+.note-demo-button {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  height: 1%;
+  width: 1%;
+  min-height: 40px;
+  min-width: 200px;
+  padding: 20px 0px 0px 0px;
+  text-align: center;
+  font-size: 28px;
+  border: solid #181818 4px;
+  color: $charcoal;
+  background-color: #ccc;
+}
